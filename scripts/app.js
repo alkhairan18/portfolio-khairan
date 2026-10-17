@@ -269,9 +269,38 @@ function openModal(driveId, type, title, category, desc, fallbackImg, tags) {
 }
 
 function closeModal() {
+  currentModalIdx = -1;
   const modalEl = document.getElementById('projectModal');
   if (modalEl) modalEl.classList.remove('open');
   document.getElementById('modalMediaContainer').innerHTML = '';
+}
+
+function hydrateProfile() {
+  const data = window.PORTFOLIO_DATA;
+  if (!data || !data.profile) return;
+
+  const p = data.profile;
+  const kickerEl = document.querySelector('.kicker');
+  const heroNameEl = document.querySelector('.hero-name');
+  const navBrandSpan = document.querySelector('.nav-brand span');
+  const navAvatarEl = document.querySelector('.nav-avatar');
+  const heroAvatarEl = document.querySelector('#tiltCard img');
+  const bioEl = document.getElementById('personaBio');
+  const metricValues = document.querySelectorAll('.metric-value');
+
+  if (kickerEl && p.kicker) kickerEl.textContent = p.kicker;
+  if (heroNameEl && p.name) heroNameEl.textContent = p.name;
+  if (navBrandSpan && p.name) navBrandSpan.textContent = p.name;
+  if (navAvatarEl && p.avatarUrl) navAvatarEl.src = p.avatarUrl;
+  if (heroAvatarEl && p.avatarUrl) heroAvatarEl.src = p.avatarUrl;
+  if (bioEl && data.personas && data.personas.hybrid) {
+    bioEl.innerHTML = data.personas.hybrid;
+  }
+  if (metricValues.length >= 3) {
+    if (p.institution) metricValues[0].textContent = p.institution;
+    if (p.gpa) metricValues[1].textContent = p.gpa;
+    if (p.roleSummary) metricValues[2].textContent = p.roleSummary;
+  }
 }
 
 function applyStoredTheme() {
@@ -329,6 +358,7 @@ function initTiltCard() {
 
 function initPortfolio() {
   applyStoredTheme();
+  hydrateProfile();
   renderFilterBars();
   renderDriveList('all');
   renderDevList('all');

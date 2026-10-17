@@ -59,3 +59,10 @@ test('Task 3: HTML structure, Software Development terminology, and interactive 
 
   assert.match(readme, /portfolio-data\.js/);
 });
+
+test('Final Review Fixes: closeModal resets currentModalIdx and hydrateProfile syncs PORTFOLIO_DATA.profile on init', () => {
+  const js = fs.readFileSync(path.join(ROOT, 'scripts/app.js'), 'utf8');
+  assert.match(js, /function closeModal\(\)\s*\{[^}]*currentModalIdx\s*=\s*-1;/s);
+  assert.match(js, /function hydrateProfile\(\)/);
+  assert.match(js, /hydrateProfile\(\);/);
+});
