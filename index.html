@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portofolio Muhammad Al Khairan Asaad — Lulusan Politeknik Negeri Ujung Pandang (IPK 3.74). Graphic Designer &amp; Software Development." />
+  <title>Portofolio — Muhammad Al Khairan Asaad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+
+  <!-- MODAL DETAIL KARYA / LIGHTBOX -->
+  <div id="projectModal" class="modal-backdrop" onclick="closeModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-head">
+        <span id="modalCategory">DETAIL PROYEK</span>
+        <div class="modal-nav-group">
+          <button id="prevModalBtn" class="modal-btn" type="button" onclick="stepModal(-1)">&larr; Sebelumnya</button>
+          <button id="nextModalBtn" class="modal-btn" type="button" onclick="stepModal(1)">Selanjutnya &rarr;</button>
+          <button class="modal-close" type="button" onclick="closeModal()">TUTUP [ESC]</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div id="modalMediaContainer" class="modal-media-wrap"></div>
+        <h3 id="modalTitle" class="modal-title"></h3>
+        <p id="modalDesc" class="modal-desc"></p>
+        <div id="modalRepoWrap" class="stage-repo-actions" style="display:none;"></div>
+        <div id="modalTags" class="tech-stack-row"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell">
+    <!-- HEADER NAVIGASI -->
+    <header class="nav">
+      <a href="#perkenalan" class="nav-brand">
+        <img class="nav-avatar" src="assets/profile_khairan.jpg" alt="Muhammad Al Khairan Asaad" />
+        <span>Muhammad Al Khairan Asaad</span>
+      </a>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Navigasi Utama">
+          <a href="#perkenalan">Profil Diri</a>
+          <a href="#bagian-desain">Graphic Designer (39 Karya)</a>
+          <a href="#bagian-development">Software Development</a>
+        </nav>
+        <button id="themeToggleBtn" class="theme-toggle-btn" type="button" onclick="toggleTheme()">
+          Mode Terang / Gelap
+        </button>
+      </div>
+    </header>
+
+    <!-- 1. HERO PERKENALAN DIRI -->
+    <section id="perkenalan" class="hero">
+      <div class="hero-left">
+        <div>
+          <div class="kicker">PORTOFOLIO DISIPLIN GANDA &middot; MAKASSAR</div>
+          <h1 class="hero-name">Muhammad Al Khairan Asaad</h1>
+
+          <div class="persona-switcher" role="tablist" aria-label="Pilih sudut pandang profil">
+            <button class="persona-btn active" type="button" onclick="setPersona('hybrid', this)">Profil Utuh (Seimbang)</button>
+            <button class="persona-btn" type="button" onclick="setPersona('designer', this)">Sudut Pandang HRD Desain</button>
+            <button class="persona-btn" type="button" onclick="setPersona('developer', this)">Sudut Pandang HRD IT/Tech</button>
+          </div>
+
+          <p id="personaBio" class="hero-bio">
+            Lulusan <strong>Politeknik Negeri Ujung Pandang</strong> dengan <strong>IPK 3.74</strong>. Menekuni dua bidang secara seimbang: merancang infografis publikasi instansi (KPU Kota Makassar), identitas visual, kemasan, 3D, dan motion graphics sebagai <strong>Graphic Designer</strong>, serta membangun aplikasi dan sistem web fungsional pada bidang <strong>Software Development</strong>.
+          </p>
+        </div>
+
+        <div class="metrics-grid">
+          <div>
+            <div class="metric-label">Almamater</div>
+            <div class="metric-value">Politeknik Negeri Ujung Pandang</div>
+          </div>
+          <div>
+            <div class="metric-label">Capaian Akademik</div>
+            <div class="metric-value">IPK 3.74 / 4.00</div>
+          </div>
+          <div>
+            <div class="metric-label">Bidang Utama</div>
+            <div class="metric-value">Graphic Designer &amp; Software Dev.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="tilt-stage">
+          <div id="tiltCard" class="tilt-card">
+            <img src="assets/profile_khairan.jpg" alt="Foto Profil Muhammad Al Khairan Asaad" />
+            <div class="tilt-overlay">
+              <div>
+                <div style="font-weight:700;">Muhammad Al Khairan Asaad</div>
+                <div style="color:#E5E2D9; font-size:11px;">Politeknik Negeri Ujung Pandang</div>
+              </div>
+              <div style="font-family:var(--font-mono); font-weight:600;">IPK 3.74</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <a href="#bagian-desain" class="magnetic-btn magnetic-primary">1. Karya Graphic Design (39)</a>
+          <a href="#bagian-development" class="magnetic-btn magnetic-secondary">2. Proyek Software Development</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         BAGIAN ATAS (FULL-WIDTH): GRAPHIC DESIGNER (39 KARYA GOOGLE DRIVE)
+         ======================================================================= -->
+    <section id="bagian-desain" class="discipline-section">
+      <div class="discipline-header">
+        <div class="discipline-title-wrap">
+          <span class="discipline-tag">BIDANG UTAMA PERTAMA &middot; 39 KARYA VISUAL &amp; MULTIMEDIA</span>
+          <h2 class="discipline-title">Graphic Designer</h2>
+        </div>
+
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label">Filter berdasarkan perangkat keahlian &amp; seri karya Google Drive:</div>
+          <div id="driveFilterBar" class="skill-workbench"></div>
+        </div>
+      </div>
+
+      <div class="discipline-body">
+        <div class="live-stage">
+          <div class="stage-frame">
+            <span id="designStageBadge" class="stage-badge">ADOBE PHOTOSHOP &middot; INFOGRAFIS KPU</span>
+            <img id="designStageImg" src="https://drive.google.com/thumbnail?id=1IpyHiFwfvmVWj_9VbptkDOkDRi1BT3NH&sz=w1000" alt="Pratinjau Karya Desain" />
+          </div>
+          <div>
+            <h3 id="designStageTitle" class="stage-info-title">Infografis Data Pemilih (PDPB Triwulan III 2025) - KPU Kota Makassar</h3>
+            <p id="designStageDesc" class="stage-info-desc">
+              Visualisasi data dan diagram statistik Pemutakhiran Data Pemilih Berkelanjutan (PDPB) Triwulan 3 Tahun 2025 (1.070.078 pemilih) untuk KPU Kota Makassar. Arahkan kursor ke daftar di kanan untuk mengganti pratinjau, atau klik untuk memperbesar.
+            </p>
+          </div>
+        </div>
+
+        <div class="work-column">
+          <div class="work-list-heading">
+            <span id="workCountLabel">MENAMPILKAN SELURUH 39 KARYA DARI GOOGLE DRIVE (GULIR KE BAWAH)</span>
+            <span>KLIK UNTUK BUKA / PUTAR</span>
+          </div>
+          <div id="driveWorkList" class="work-scroll-area"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         BAGIAN BAWAH (FULL-WIDTH): SOFTWARE DEVELOPMENT
+         ======================================================================= -->
+    <section id="bagian-development" class="discipline-section">
+      <div class="discipline-header">
+        <div class="discipline-title-wrap">
+          <span class="discipline-tag">BIDANG UTAMA KEDUA &middot; APLIKASI &amp; WEB</span>
+          <h2 class="discipline-title">Software Development</h2>
+        </div>
+
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label">Filter berdasarkan kategori pengembangan:</div>
+          <div id="devFilterBar" class="skill-workbench"></div>
+        </div>
+      </div>
+
+      <div class="discipline-body">
+        <div class="live-stage">
+          <div class="stage-frame">
+            <span id="devStageBadge" class="stage-badge">PEMBUATAN APLIKASI &middot; ANDROID KOTLIN</span>
+            <img id="devStageImg" src="assets/rubooth_banner.jpg" alt="RUBOOTH Smart Photobooth" />
+          </div>
+          <div>
+            <h3 id="devStageTitle" class="stage-info-title">RUBOOTH - Smart Android Photobooth Kiosk System</h3>
+            <p id="devStageDesc" class="stage-info-desc">
+              Aplikasi kios photobooth interaktif mandiri berbasis Android (Kotlin) yang mengintegrasikan Dual-Camera (USB UVC Live Preview + kamera DSLR Canon EOS via USB PTP), Generative AI foto bersama idola (Google Gemini API), pembayaran otomatis QRIS Midtrans Snap, sinkronisasi lampu studio IoT via Firebase, dan pencetakan instan format 3R ke printer Epson L8050.
+            </p>
+            <div class="stage-repo-actions">
+              <a id="devStageRepoLink" href="https://github.com/alkhairan18/rubooth" target="_blank" rel="noopener noreferrer" class="repo-link-btn">
+                Buka Proyek di GitHub (github.com/alkhairan18/rubooth) &nearr;
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-column">
+          <div class="work-list-heading">
+            <span>DAFTAR KARYA SOFTWARE DEVELOPMENT</span>
+            <span>KLIK DETAIL / BUKA GITHUB</span>
+          </div>
+          <div id="devWorkList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div>
+        <strong>Muhammad Al Khairan Asaad</strong> &middot; Lulusan Politeknik Negeri Ujung Pandang (IPK 3.74)
+      </div>
+      <div class="footer-links">
+        <a href="https://drive.google.com/drive/folders/1_1u2Mi_RnFdh7tYA8i8AzM7Rwwlu4RPe" target="_blank" rel="noopener noreferrer">
+          Folder Google Drive Desain &nearr;
+        </a>
+        <a href="https://github.com/alkhairan18/rubooth" target="_blank" rel="noopener noreferrer">
+          GitHub RUBOOTH &nearr;
+        </a>
+        <a href="https://github.com/alkhairan18" target="_blank" rel="noopener noreferrer">
+          Profil GitHub (@alkhairan18) &nearr;
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="data/portfolio-data.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>
