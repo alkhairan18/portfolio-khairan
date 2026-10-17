@@ -21,3 +21,13 @@ test('Task 1: Local assets and PORTFOLIO_DATA structure', () => {
   assert.equal(data.devItems[0].repoUrl, 'https://github.com/alkhairan18/rubooth');
   assert.equal(data.devItems[0].img, 'assets/rubooth_banner.jpg');
 });
+
+test('Task 2: CSS typography, theme variables, and zero-black-bars rules', () => {
+  const css = fs.readFileSync(path.join(ROOT, 'styles/main.css'), 'utf8');
+  assert.match(css, /Plus Jakarta Sans/);
+  assert.match(css, /JetBrains Mono/);
+  assert.doesNotMatch(css, /Syne/i);
+  assert.match(css, /\[data-theme="dark"\]/);
+  assert.match(css, /\.stage-frame\s*\{[^}]*background:\s*transparent/s);
+  assert.match(css, /\.modal-media-wrap\s*\{[^}]*width:\s*fit-content/s);
+});
