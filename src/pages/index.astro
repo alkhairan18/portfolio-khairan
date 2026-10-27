@@ -6,7 +6,10 @@ import Hero from '../components/Hero.astro';
 import GraphicDesignSection from '../components/GraphicDesignSection.astro';
 import SoftwareDevSection from '../components/SoftwareDevSection.astro';
 import ContactFooter from '../components/ContactFooter.astro';
-import PORTFOLIO_DATA from '../../data/portfolio-data.js';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const PORTFOLIO_DATA = require('../../data/portfolio-data.js');
 
 const { profile, personas, driveFilters, driveItems, devFilters, devItems } = PORTFOLIO_DATA;
 ---
