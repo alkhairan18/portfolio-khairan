@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * APPLE-STYLE BENTO & FROSTED LIQUID GLASS DESIGN SYSTEM
+ * FULL-WIDTH STUDIO SHOWCASE & FROSTED BENTO ARCHITECTURE
  * Note (per taste-skill Appendix C): Web approximation of frosted liquid glass
  * using backdrop-filter, layered specular borders, and radial light refraction,
  * with solid-fill fallback under prefers-reduced-transparency.
@@ -8,23 +8,23 @@
  */
 
 :root {
-  /* Cold Luxury Palette (Light Mode) */
-  --bg: #EEF2F7;
-  --bg-elevated: rgba(255, 255, 255, 0.66);
-  --bg-card: rgba(255, 255, 255, 0.78);
+  /* Light Mode: Crisp Alabaster + Deep Emerald Accent */
+  --bg: #F3F5F8;
+  --bg-elevated: rgba(255, 255, 255, 0.78);
+  --bg-card: rgba(255, 255, 255, 0.86);
   --bg-card-solid: #FFFFFF;
-  --bg-invert: #0B0F17;
-  --text: #0B0F17;
-  --text-muted: #526077;
+  --bg-invert: #090D16;
+  --text: #090D16;
+  --text-muted: #526075;
   --border: rgba(15, 23, 42, 0.10);
-  --border-soft: rgba(15, 23, 42, 0.07);
-  --glass-border: rgba(255, 255, 255, 0.82);
+  --border-soft: rgba(15, 23, 42, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.88);
   --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(15, 23, 42, 0.04);
-  --accent: #2563EB;
-  --accent-soft: rgba(37, 99, 235, 0.10);
-  --accent-glow: rgba(37, 99, 235, 0.22);
-  --shadow-tint: 0 20px 50px -12px rgba(15, 23, 42, 0.08), 0 4px 16px -4px rgba(15, 23, 42, 0.04);
-  --shadow-hover: 0 26px 60px -12px rgba(37, 99, 235, 0.15), 0 8px 24px -6px rgba(15, 23, 42, 0.06);
+  --accent: #059669;
+  --accent-soft: rgba(5, 150, 105, 0.10);
+  --accent-glow: rgba(5, 150, 105, 0.24);
+  --shadow-tint: 0 20px 50px -12px rgba(15, 23, 42, 0.07), 0 4px 16px -4px rgba(15, 23, 42, 0.04);
+  --shadow-hover: 0 24px 55px -12px rgba(5, 150, 105, 0.18), 0 8px 24px -6px rgba(15, 23, 42, 0.06);
 
   --radius-card: 24px;
   --radius-inner: 16px;
@@ -33,35 +33,35 @@
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --fs-hero: clamp(32px, 3.6vw, 48px);
-  --fs-section: clamp(24px, 2.6vw, 34px);
-  --fs-stage-title: 19px;
-  --fs-work-title: 14.5px;
-  --fs-body: 15px;
-  --fs-btn: 13px;
+  --fs-hero: clamp(34px, 4vw, 54px);
+  --fs-section: clamp(26px, 2.8vw, 36px);
+  --fs-stage-title: 22px;
+  --fs-work-title: 15px;
+  --fs-body: 15.5px;
+  --fs-btn: 13.5px;
   --fs-meta: 11px;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 [data-theme="dark"] {
-  /* Cold Luxury Obsidian Palette (Dark Mode) */
-  --bg: #070A10;
-  --bg-elevated: rgba(17, 23, 36, 0.65);
-  --bg-card: rgba(20, 27, 43, 0.72);
-  --bg-card-solid: #111726;
+  /* Dark Mode (Default): Deep Studio Obsidian + Cyber Emerald Accent */
+  --bg: #06080D;
+  --bg-elevated: rgba(16, 22, 33, 0.72);
+  --bg-card: rgba(13, 18, 28, 0.78);
+  --bg-card-solid: #0E131F;
   --bg-invert: #F8FAFC;
   --text: #F8FAFC;
   --text-muted: #94A3B8;
-  --border: rgba(255, 255, 255, 0.11);
-  --border-soft: rgba(255, 255, 255, 0.07);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.20), inset 0 -1px 0 rgba(255, 255, 255, 0.04);
-  --accent: #38BDF8;
-  --accent-soft: rgba(56, 189, 248, 0.12);
-  --accent-glow: rgba(56, 189, 248, 0.25);
-  --shadow-tint: 0 24px 60px -12px rgba(0, 0, 0, 0.55), 0 4px 20px -4px rgba(0, 0, 0, 0.35);
-  --shadow-hover: 0 28px 65px -12px rgba(56, 189, 248, 0.18), 0 8px 28px -6px rgba(0, 0, 0, 0.5);
+  --border: rgba(255, 255, 255, 0.10);
+  --border-soft: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 0 rgba(255, 255, 255, 0.03);
+  --accent: #34D399;
+  --accent-soft: rgba(52, 211, 153, 0.12);
+  --accent-glow: rgba(52, 211, 153, 0.26);
+  --shadow-tint: 0 24px 60px -12px rgba(0, 0, 0, 0.65), 0 4px 20px -4px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 28px 65px -12px rgba(52, 211, 153, 0.20), 0 8px 28px -6px rgba(0, 0, 0, 0.55);
 }
 
 * {
@@ -77,9 +77,9 @@ html {
 body {
   background-color: var(--bg);
   background-image:
-    radial-gradient(circle at 12% 8%, var(--accent-soft), transparent 38%),
-    radial-gradient(circle at 88% 22%, rgba(99, 102, 241, 0.07), transparent 42%),
-    radial-gradient(circle at 50% 85%, var(--accent-soft), transparent 45%);
+    radial-gradient(circle at 15% 5%, var(--accent-soft), transparent 36%),
+    radial-gradient(circle at 85% 25%, rgba(56, 189, 248, 0.07), transparent 40%),
+    radial-gradient(circle at 50% 90%, var(--accent-soft), transparent 45%);
   background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-sans);
@@ -95,7 +95,7 @@ body {
   isolation: isolate;
   border: 1px solid var(--glass-border);
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.04)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.03)),
     var(--bg-card);
   backdrop-filter: blur(24px) saturate(180%) contrast(1.04);
   -webkit-backdrop-filter: blur(24px) saturate(180%) contrast(1.04);
@@ -130,12 +130,12 @@ body {
 }
 
 .shell {
-  max-width: 1320px;
+  max-width: 1360px;
   margin: 0 auto;
-  padding: 20px 24px 48px;
+  padding: 18px 28px 56px;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 36px;
 }
 
 /* ============================================================================
@@ -150,7 +150,7 @@ body {
   border-radius: var(--radius-pill);
   border: 1px solid var(--glass-border);
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.06)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.03)),
     var(--bg-card);
   backdrop-filter: blur(28px) saturate(190%);
   -webkit-backdrop-filter: blur(28px) saturate(190%);
@@ -178,7 +178,7 @@ body {
   width: 36px;
   height: 36px;
   border-radius: var(--radius-pill);
-  border: 1.5px solid var(--accent);
+  border: 2px solid var(--accent);
   object-fit: cover;
   object-position: top center;
   display: block;
@@ -187,7 +187,7 @@ body {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
 }
 
 .nav-links {
@@ -213,27 +213,26 @@ body {
 }
 
 .theme-toggle-btn {
-  background: var(--bg-invert);
-  color: var(--bg);
+  background: var(--accent);
+  color: #FFFFFF;
   border: 1px solid transparent;
   padding: 8px 16px;
   border-radius: var(--radius-pill);
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.22s var(--ease-out-expo);
 }
 
-.theme-toggle-btn:hover {
-  background: var(--accent);
-  color: #FFFFFF;
-  transform: translateY(-1px);
+[data-theme="dark"] .theme-toggle-btn {
+  color: #06080D;
 }
 
-[data-theme="dark"] .theme-toggle-btn:hover {
-  color: #070A10;
+.theme-toggle-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
 }
 
 .theme-toggle-btn:active {
@@ -241,29 +240,35 @@ body {
 }
 
 /* ============================================================================
-   1. BENTO HERO SECTION (APPLE-STYLE ASYMMETRIC GLASS BENTO)
+   1. HERO SHOWCASE + SEPARATE 3-PILLAR METRICS BAR
    ============================================================================ */
 .hero {
-  display: grid;
-  grid-template-columns: 1.45fr 0.95fr;
-  gap: 20px;
-  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
-.hero-left {
-  padding: 44px 42px;
+.hero-main-grid {
+  display: grid;
+  grid-template-columns: 1.38fr 0.82fr;
+  gap: 24px;
+  padding: 48px;
   border-radius: var(--radius-card);
   border: 1px solid var(--glass-border);
   background:
-    radial-gradient(circle at 0% 0%, var(--accent-soft), transparent 45%),
+    radial-gradient(circle at 0% 0%, var(--accent-soft), transparent 48%),
+    radial-gradient(circle at 95% 85%, rgba(56, 189, 248, 0.09), transparent 45%),
     var(--bg-card);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
   box-shadow: var(--glass-highlight), var(--shadow-tint);
+  align-items: center;
+}
+
+.hero-left {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 32px;
+  align-items: flex-start;
 }
 
 .kicker {
@@ -275,7 +280,7 @@ body {
   text-transform: uppercase;
   color: var(--accent);
   letter-spacing: 0.08em;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   padding: 6px 14px;
   border-radius: var(--radius-pill);
   background: var(--accent-soft);
@@ -285,9 +290,9 @@ body {
 .hero-name {
   font-size: var(--fs-hero);
   font-weight: 800;
-  line-height: 1.08;
+  line-height: 1.06;
   letter-spacing: -0.035em;
-  margin-bottom: 22px;
+  margin-bottom: 24px;
   color: var(--text);
 }
 
@@ -327,7 +332,7 @@ body {
 }
 
 [data-theme="dark"] .persona-btn.active {
-  color: #070A10;
+  color: #06080D;
 }
 
 .hero-bio {
@@ -335,6 +340,7 @@ body {
   line-height: 1.72;
   color: var(--text-muted);
   max-width: 60ch;
+  margin-bottom: 28px;
 }
 
 .hero-bio strong {
@@ -342,56 +348,11 @@ body {
   font-weight: 700;
 }
 
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-
-.metric-cell {
-  padding: 16px 18px;
-  border-radius: var(--radius-inner);
-  border: 1px solid var(--border);
-  background: var(--bg-elevated);
-  transition: transform 0.25s var(--ease-out-expo), border-color 0.25s var(--ease-out-expo);
-}
-
-.metric-cell:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent);
-}
-
-.metric-label {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 6px;
-}
-
-.metric-value {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  color: var(--text);
-}
-
 .hero-right {
-  padding: 36px 32px;
-  border-radius: var(--radius-card);
-  border: 1px solid var(--glass-border);
-  background:
-    radial-gradient(circle at 80% 15%, var(--accent-soft), transparent 55%),
-    var(--bg-card);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  box-shadow: var(--glass-highlight), var(--shadow-tint);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  justify-content: center;
 }
 
 .tilt-stage {
@@ -405,10 +366,10 @@ body {
 .tilt-card {
   position: relative;
   width: 100%;
-  max-width: 268px;
+  max-width: 285px;
   aspect-ratio: 3 / 4;
-  border-radius: var(--radius-inner);
-  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  border: 1.5px solid var(--glass-border);
   overflow: hidden;
   background: transparent;
   box-shadow: var(--shadow-tint);
@@ -431,11 +392,11 @@ body {
 
 .tilt-overlay {
   position: absolute;
-  inset: auto 10px 10px 10px;
+  inset: auto 12px 12px 12px;
   padding: 12px 14px;
-  border-radius: 12px;
+  border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(11, 15, 23, 0.72);
+  background: rgba(6, 8, 13, 0.78);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   color: #F8FAFC;
@@ -448,7 +409,7 @@ body {
 
 .tilt-name {
   font-weight: 700;
-  font-size: 12.5px;
+  font-size: 13px;
   letter-spacing: -0.01em;
 }
 
@@ -459,26 +420,66 @@ body {
 
 .tilt-gpa {
   font-family: var(--font-mono);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 11px;
-  background: rgba(255, 255, 255, 0.16);
-  padding: 4px 9px;
+  color: #34D399;
+  background: rgba(52, 211, 153, 0.16);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  padding: 4px 10px;
   border-radius: var(--radius-pill);
+}
+
+/* SEPARATE 3-COLUMN METRICS ROW BELOW HERO */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.metric-cell {
+  padding: 22px 26px;
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--glass-highlight), var(--shadow-tint);
+  transition: transform 0.25s var(--ease-out-expo), border-color 0.25s var(--ease-out-expo);
+}
+
+.metric-cell:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.metric-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.metric-value {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
 }
 
 .cta-row {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
+  align-items: center;
 }
 
 .magnetic-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 11px 20px;
+  padding: 12px 22px;
   border-radius: var(--radius-pill);
   font-family: var(--font-sans);
   font-size: var(--fs-btn);
@@ -503,16 +504,16 @@ body {
   background: var(--accent);
   color: #FFFFFF;
   border-color: var(--accent);
-  box-shadow: 0 8px 22px -4px var(--accent-glow);
+  box-shadow: 0 8px 24px -4px var(--accent-glow);
 }
 
 .magnetic-primary:hover {
   filter: brightness(1.08);
-  box-shadow: 0 12px 28px -4px var(--accent-glow);
+  box-shadow: 0 12px 30px -4px var(--accent-glow);
 }
 
 [data-theme="dark"] .magnetic-primary {
-  color: #070A10;
+  color: #06080D;
 }
 
 .magnetic-secondary {
@@ -527,7 +528,7 @@ body {
 }
 
 /* ============================================================================
-   DISCIPLINE SECTIONS (FROSTED GLASS BENTO CONTAINERS)
+   DISCIPLINE SECTIONS (OPEN SHOWCASE ARCHITECTURE)
    ============================================================================ */
 .discipline-section {
   border-radius: var(--radius-card);
@@ -536,16 +537,26 @@ body {
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   box-shadow: var(--glass-highlight), var(--shadow-tint);
-  overflow: hidden;
+  padding: 42px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
 .discipline-header {
-  padding: 36px 40px 28px;
-  border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 20px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.discipline-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .discipline-title-stack {
@@ -582,7 +593,7 @@ body {
 }
 
 .discipline-lead {
-  font-size: 14.5px;
+  font-size: 15px;
   line-height: 1.65;
   color: var(--text-muted);
 }
@@ -602,7 +613,7 @@ body {
   color: var(--text-muted);
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
-  padding: 8px 16px;
+  padding: 9px 16px;
   font-family: var(--font-sans);
   font-size: 12.5px;
   font-weight: 600;
@@ -630,27 +641,30 @@ body {
 }
 
 [data-theme="dark"] .tool-chip.active {
-  color: #070A10;
+  color: #06080D;
 }
 
 /* ============================================================================
-   2. GRAPHIC DESIGNER BENTO WORKBENCH
+   2. GRAPHIC DESIGNER: WIDESCREEN CINEMA SPOTLIGHT + 3-COLUMN GALLERY
    ============================================================================ */
 .discipline-body {
-  display: grid;
-  grid-template-columns: 0.95fr 1.35fr;
-  align-items: start;
-}
-
-.live-stage {
-  position: sticky;
-  top: 90px;
-  padding: 32px 36px;
-  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  gap: 16px;
+  gap: 32px;
+}
+
+/* TOP FEATURED CINEMA SPOTLIGHT BANNER */
+.live-stage {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 32px;
+  align-items: center;
+  padding: 28px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background:
+    radial-gradient(circle at 0% 50%, var(--accent-soft), transparent 60%),
+    var(--bg-elevated);
 }
 
 .stage-topbar {
@@ -659,6 +673,15 @@ body {
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.spotlight-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
 }
 
 .stage-badge {
@@ -677,26 +700,25 @@ body {
 }
 
 .stage-expand-btn {
-  background: var(--bg-elevated);
-  color: var(--text);
-  border: 1px solid var(--border);
-  padding: 6px 14px;
+  background: var(--accent);
+  color: #FFFFFF;
+  border: 1px solid var(--accent);
+  padding: 10px 18px;
   border-radius: var(--radius-pill);
   font-family: var(--font-mono);
-  font-size: 10.5px;
-  font-weight: 600;
+  font-size: 11.5px;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.22s var(--ease-out-expo);
 }
 
-.stage-expand-btn:hover {
-  background: var(--accent);
-  color: #FFFFFF;
-  border-color: var(--accent);
+[data-theme="dark"] .stage-expand-btn {
+  color: #06080D;
 }
 
-[data-theme="dark"] .stage-expand-btn:hover {
-  color: #070A10;
+.stage-expand-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
 }
 
 /* TANPA BACKGROUND HITAM DI PINGGIR GAMBAR - FRAME MENGIKUTI PROPORSIONAL GAMBAR */
@@ -719,36 +741,38 @@ body {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 480px;
+  max-height: 400px;
   object-fit: contain;
   transition: transform 0.4s var(--ease-out-expo);
 }
 
 .stage-clickable:hover img {
-  transform: scale(1.018);
+  transform: scale(1.02);
 }
 
 .stage-meta-box {
-  padding-top: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .stage-info-title {
   font-size: var(--fs-stage-title);
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.02em;
-  line-height: 1.32;
-  margin-bottom: 8px;
+  line-height: 1.3;
+  margin-bottom: 10px;
   color: var(--text);
 }
 
 .stage-info-desc {
-  font-size: 14px;
-  line-height: 1.65;
+  font-size: 15px;
+  line-height: 1.68;
   color: var(--text-muted);
 }
 
 .stage-repo-actions {
-  margin-top: 16px;
+  margin-top: 20px;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
@@ -758,15 +782,15 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 20px;
+  padding: 12px 22px;
   border-radius: var(--radius-pill);
   background: var(--accent);
   color: #FFFFFF;
   border: 1px solid var(--accent);
-  box-shadow: 0 8px 22px -4px var(--accent-glow);
+  box-shadow: 0 8px 24px -4px var(--accent-glow);
   font-family: var(--font-mono);
   font-size: 11.5px;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
   transition: all 0.22s var(--ease-out-expo);
@@ -782,15 +806,15 @@ body {
 }
 
 [data-theme="dark"] .repo-link-btn {
-  color: #070A10;
+  color: #06080D;
 }
 
-/* WORK LIST / BENTO GALLERY COLUMN */
+/* FULL-WIDTH 3-COLUMN GALLERY (NO INTERNAL SCROLLBOX TRAP!) */
 .work-column {
-  padding: 32px 36px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  gap: 18px;
+  width: 100%;
 }
 
 .work-list-heading {
@@ -801,9 +825,9 @@ body {
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   color: var(--text-muted);
-  padding-bottom: 14px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
   gap: 12px;
   flex-wrap: wrap;
@@ -811,11 +835,11 @@ body {
 
 .view-mode-switch {
   display: inline-flex;
-  padding: 3px;
+  padding: 4px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--border);
   background: var(--bg-elevated);
-  gap: 3px;
+  gap: 4px;
 }
 
 .view-mode-btn {
@@ -823,9 +847,9 @@ body {
   color: var(--text-muted);
   border: none;
   border-radius: var(--radius-pill);
-  padding: 5px 12px;
+  padding: 6px 14px;
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s var(--ease-out-expo);
@@ -837,34 +861,14 @@ body {
 }
 
 [data-theme="dark"] .view-mode-btn.active {
-  color: #070A10;
+  color: #06080D;
 }
 
-.work-scroll-area {
-  max-height: 680px;
-  overflow-y: auto;
-  padding-top: 18px;
-  padding-right: 6px;
-}
-
-.work-scroll-area::-webkit-scrollbar {
-  width: 6px;
-}
-
-.work-scroll-area::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.work-scroll-area::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: var(--radius-pill);
-}
-
-/* MODE 1: APPLE BENTO GALLERY GRID (2 COLUMNS) */
+/* MODE 1: FULL-WIDTH 3-COLUMN VISUAL EXHIBITION GRID */
 .work-scroll-area.grid-mode {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .work-scroll-area.grid-mode .work-row {
@@ -872,28 +876,28 @@ body {
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
-  gap: 12px;
-  padding: 14px;
-  border-radius: var(--radius-inner);
+  gap: 14px;
+  padding: 16px;
+  border-radius: 20px;
   border: 1px solid var(--border);
   background: var(--bg-elevated);
   cursor: pointer;
-  transition: transform 0.25s var(--ease-out-expo), border-color 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo);
+  transition: transform 0.28s var(--ease-out-expo), border-color 0.28s var(--ease-out-expo), box-shadow 0.28s var(--ease-out-expo);
 }
 
 .work-scroll-area.grid-mode .work-row:hover,
 .work-scroll-area.grid-mode .work-row.is-selected {
   border-color: var(--accent);
-  transform: translateY(-3px);
+  transform: translateY(-5px);
   box-shadow: var(--shadow-hover);
 }
 
 .work-scroll-area.grid-mode .work-thumb-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 14px;
   border: 1px solid var(--border-soft);
   background: var(--bg-card-solid);
 }
@@ -903,27 +907,27 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s var(--ease-out-expo);
+  transition: transform 0.45s var(--ease-out-expo);
 }
 
 .work-scroll-area.grid-mode .work-row:hover .work-thumb {
-  transform: scale(1.045);
+  transform: scale(1.05);
 }
 
 .media-type-pill {
   position: absolute;
-  bottom: 8px;
-  right: 8px;
-  background: rgba(11, 15, 23, 0.78);
+  top: 10px;
+  right: 10px;
+  background: rgba(6, 8, 13, 0.78);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: #F8FAFC;
   font-family: var(--font-mono);
   font-size: 9.5px;
-  font-weight: 600;
-  padding: 3px 8px;
+  font-weight: 700;
+  padding: 4px 10px;
   border-radius: var(--radius-pill);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
 .media-type-pill.video-pill {
@@ -932,7 +936,7 @@ body {
 }
 
 [data-theme="dark"] .media-type-pill.video-pill {
-  color: #070A10;
+  color: #06080D;
 }
 
 .work-scroll-area.grid-mode .work-row-cta {
@@ -942,14 +946,19 @@ body {
 }
 
 /* MODE 2: COMPACT INDEX LIST */
+.work-scroll-area.list-mode {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
 .work-scroll-area.list-mode .work-row,
 #devWorkList .work-row {
   display: grid;
-  grid-template-columns: 76px 1fr auto;
+  grid-template-columns: 80px 1fr auto;
   gap: 16px;
   align-items: center;
-  padding: 14px;
-  margin-bottom: 10px;
+  padding: 14px 16px;
   border-radius: var(--radius-inner);
   border: 1px solid var(--border);
   background: var(--bg-elevated);
@@ -960,14 +969,14 @@ body {
 .work-scroll-area.list-mode .work-row:hover,
 .work-scroll-area.list-mode .work-row.is-selected,
 #devWorkList .work-row:hover {
-  transform: translateX(4px);
+  transform: translateY(-2px);
   border-color: var(--accent);
 }
 
 .work-scroll-area.list-mode .work-thumb-wrap {
   position: relative;
-  width: 76px;
-  height: 54px;
+  width: 80px;
+  height: 56px;
 }
 
 .work-scroll-area.list-mode .media-type-pill {
@@ -975,8 +984,8 @@ body {
 }
 
 .work-thumb {
-  width: 76px;
-  height: 54px;
+  width: 80px;
+  height: 56px;
   border-radius: 10px;
   border: 1px solid var(--border);
   object-fit: cover;
@@ -988,8 +997,8 @@ body {
   font-size: var(--fs-work-title);
   font-weight: 700;
   letter-spacing: -0.015em;
-  line-height: 1.35;
-  margin-bottom: 4px;
+  line-height: 1.38;
+  margin-bottom: 5px;
   color: var(--text);
 }
 
@@ -1006,15 +1015,15 @@ body {
   color: #FFFFFF;
   font-family: var(--font-mono);
   font-size: 9.5px;
-  font-weight: 600;
-  padding: 2px 7px;
+  font-weight: 700;
+  padding: 2px 8px;
   border-radius: var(--radius-pill);
   margin-left: 6px;
   vertical-align: middle;
 }
 
 [data-theme="dark"] .new-badge {
-  color: #070A10;
+  color: #06080D;
 }
 
 .work-row-actions {
@@ -1025,9 +1034,9 @@ body {
 
 .work-row-cta {
   font-family: var(--font-sans);
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 700;
-  padding: 7px 14px;
+  padding: 8px 16px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--border);
   background: var(--bg-card);
@@ -1044,14 +1053,14 @@ body {
 }
 
 [data-theme="dark"] .work-row:hover .work-row-cta {
-  color: #070A10;
+  color: #06080D;
 }
 
 .work-row-github {
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 600;
-  padding: 7px 14px;
+  padding: 8px 14px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--border);
   background: var(--bg-invert);
@@ -1068,53 +1077,57 @@ body {
 }
 
 [data-theme="dark"] .work-row-github:hover {
-  color: #070A10;
+  color: #06080D;
 }
 
 /* ============================================================================
-   3. SOFTWARE DEVELOPMENT (APPLE CONTROL-CENTER BENTO GRID)
+   3. SOFTWARE DEVELOPMENT (WIDESCREEN PRODUCT LAUNCH BENTO)
    ============================================================================ */
 .rubooth-bento-grid {
-  display: grid;
-  grid-template-columns: 1.05fr 1.25fr;
-  align-items: stretch;
-}
-
-.bento-hero-stage {
-  padding: 32px 36px;
-  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-
-.bento-spec-column {
-  padding: 32px 36px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   gap: 24px;
 }
 
+.bento-hero-stage {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 32px;
+  align-items: center;
+  padding: 28px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background:
+    radial-gradient(circle at 100% 0%, var(--accent-soft), transparent 60%),
+    var(--bg-elevated);
+}
+
+.bento-spec-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 4-COLUMN FULL-WIDTH ARCHITECTURAL PILLARS */
 .bento-subgrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
 }
 
 .arch-tile {
-  padding: 20px;
-  border-radius: var(--radius-inner);
+  padding: 22px;
+  border-radius: 20px;
   border: 1px solid var(--border);
   background: var(--bg-elevated);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   transition: transform 0.25s var(--ease-out-expo), border-color 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo);
 }
 
 .arch-tile:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   border-color: var(--accent);
   box-shadow: var(--shadow-hover);
 }
@@ -1136,21 +1149,21 @@ body {
 .arch-tile-meta {
   font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--accent);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .arch-tile-title {
-  font-size: 15.5px;
+  font-size: 16px;
   font-weight: 800;
   letter-spacing: -0.015em;
   color: var(--text);
 }
 
 .arch-tile-desc {
-  font-size: 13px;
+  font-size: 13.5px;
   line-height: 1.6;
   color: var(--text-muted);
 }
@@ -1164,9 +1177,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border);
+  margin-top: 16px;
 }
 
 .tech-tag {
@@ -1175,14 +1186,15 @@ body {
   padding: 5px 12px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--border);
-  background: var(--bg-elevated);
+  background: var(--bg-card);
+  color: var(--text);
 }
 
 /* ============================================================================
    4. CONTACT DOCK & FOOTER
    ============================================================================ */
 .contact-section {
-  padding: 40px;
+  padding: 42px;
   border-radius: var(--radius-card);
   border: 1px solid var(--glass-border);
   background:
@@ -1263,9 +1275,9 @@ body {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(7, 10, 16, 0.78);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(6, 8, 13, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   z-index: 200;
   display: none;
   align-items: center;
@@ -1282,7 +1294,7 @@ body {
   color: var(--text);
   border-radius: var(--radius-card);
   border: 1px solid var(--glass-border);
-  max-width: 880px;
+  max-width: 900px;
   width: 100%;
   max-height: 92vh;
   overflow-y: auto;
@@ -1334,13 +1346,13 @@ body {
   padding: 6px 14px;
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s var(--ease-out-expo);
 }
 
 [data-theme="dark"] .modal-close {
-  color: #070A10;
+  color: #06080D;
 }
 
 .modal-body {
@@ -1373,7 +1385,7 @@ body {
 .modal-media-wrap img {
   display: block;
   max-width: 100%;
-  max-height: 66vh;
+  max-height: 68vh;
   width: auto;
   height: auto;
 }
@@ -1394,18 +1406,16 @@ body {
 /* ============================================================================
    RESPONSIVE BREAKPOINTS (MOBILE COLLAPSE EXPLICIT PER SECTION)
    ============================================================================ */
-@media (max-width: 980px) {
-  .hero,
-  .discipline-body,
-  .rubooth-bento-grid,
+@media (max-width: 1024px) {
+  .hero-main-grid,
+  .live-stage,
+  .bento-hero-stage,
   .contact-section {
     grid-template-columns: 1fr !important;
   }
-  .live-stage,
-  .bento-hero-stage {
-    position: static;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
+  .work-scroll-area.grid-mode,
+  .bento-subgrid {
+    grid-template-columns: repeat(2, 1fr);
   }
   .nav {
     border-radius: 20px;
@@ -1413,18 +1423,15 @@ body {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 680px) {
   .shell {
     padding: 12px 14px 32px;
-    gap: 20px;
+    gap: 22px;
   }
-  .hero-left,
-  .hero-right,
-  .discipline-header,
+  .hero-main-grid,
+  .discipline-section,
   .live-stage,
-  .work-column,
   .bento-hero-stage,
-  .bento-spec-column,
   .contact-section {
     padding: 24px 18px;
   }
@@ -1434,6 +1441,7 @@ body {
   }
   .metrics-grid,
   .work-scroll-area.grid-mode,
+  .work-scroll-area.list-mode,
   .bento-subgrid {
     grid-template-columns: 1fr;
   }
@@ -1453,8 +1461,8 @@ body {
    ============================================================================ */
 @media (prefers-reduced-transparency: reduce) {
   .nav,
-  .hero-left,
-  .hero-right,
+  .hero-main-grid,
+  .metric-cell,
   .discipline-section,
   .contact-section,
   .site-footer,

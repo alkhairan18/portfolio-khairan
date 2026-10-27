@@ -70,8 +70,8 @@ function renderDriveList(filterKey) {
   container.innerHTML = currentFilteredDrive
     .map((item, idx) => {
       const safeId = encodeURIComponent(item.id);
-      const thumbUrl = `https://drive.google.com/thumbnail?id=${safeId}&sz=w400`;
-      const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${safeId}=w400`;
+      const thumbUrl = `https://drive.google.com/thumbnail?id=${safeId}&sz=w600`;
+      const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${safeId}=w600`;
       const actionLabel = item.type === 'video' ? 'Putar Video' : 'Buka Gambar';
       const mediaTag = item.type === 'video' ? '<span class="media-type-pill video-pill">VIDEO</span>' : '<span class="media-type-pill">GAMBAR</span>';
       const newTag = item.isNew ? '<span class="new-badge">BARU</span>' : '';
@@ -426,17 +426,13 @@ function syncThemeButtonLabel() {
 function applyStoredTheme() {
   try {
     const saved = localStorage.getItem('khairan_portfolio_theme');
-    if (saved === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else if (saved === 'light') {
+    if (saved === 'light') {
       document.documentElement.removeAttribute('data-theme');
-    } else if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.documentElement.setAttribute('data-theme', 'dark');
     } else {
-      document.documentElement.removeAttribute('data-theme');
+      document.documentElement.setAttribute('data-theme', 'dark');
     }
   } catch (_) {
-    // Abaikan jika localStorage diblokir browser
+    document.documentElement.setAttribute('data-theme', 'dark');
   }
   syncThemeButtonLabel();
 }

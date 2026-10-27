@@ -22,15 +22,23 @@ const { filters, items } = Astro.props;
 const firstItem = items[0];
 ---
 <section id="bagian-desain" class="discipline-section">
+  <!-- TOP HEADER & FILTER DOCK -->
   <div class="discipline-header">
-    <div class="discipline-title-stack">
-      <div class="title-with-counter">
-        <h2 class="discipline-title">Graphic Designer</h2>
-        <span class="section-counter-pill">{items.length} Karya Terkurasi</span>
+    <div class="discipline-header-top">
+      <div class="discipline-title-stack">
+        <div class="title-with-counter">
+          <h2 class="discipline-title">Graphic Designer</h2>
+          <span class="section-counter-pill">{items.length} Karya Terkurasi</span>
+        </div>
+        <p class="discipline-lead">
+          Galeri visual publikasi resmi instansi (KPU Kota Makassar), desain kemasan, identitas merek, ilustrasi vektor, video sinematik, dan animasi 3D.
+        </p>
       </div>
-      <p class="discipline-lead">
-        Arsip karya publikasi resmi instansi (KPU Kota Makassar), desain kemasan, identitas merek, ilustrasi vektor, video sinematik, dan animasi 3D.
-      </p>
+
+      <div class="view-mode-switch" role="group" aria-label="Mode tampilan galeri">
+        <button id="viewGridBtn" type="button" class="view-mode-btn active" onclick="setDriveViewMode('grid', this)">Galeri 3-Kolom</button>
+        <button id="viewListBtn" type="button" class="view-mode-btn" onclick="setDriveViewMode('list', this)">Indeks Tabel</button>
+      </div>
     </div>
 
     <div class="skill-bar-wrap">
@@ -50,13 +58,8 @@ const firstItem = items[0];
   </div>
 
   <div class="discipline-body">
+    <!-- 1. HORIZONTAL CINEMA SPOTLIGHT BANNER (FULL-WIDTH FEATURED PREVIEW) -->
     <div class="live-stage">
-      <div class="stage-topbar">
-        <span id="designStageBadge" class="stage-badge">{firstItem ? firstItem.tool.toUpperCase() : 'ADOBE PHOTOSHOP'}</span>
-        <button type="button" class="stage-expand-btn" onclick="openCurrentDesignStageModal()">
-          Perbesar Layar Penuh &nearr;
-        </button>
-      </div>
       <div class="stage-frame stage-clickable" onclick="openCurrentDesignStageModal()" title="Klik untuk memperbesar karya">
         <img
           id="designStageImg"
@@ -66,23 +69,30 @@ const firstItem = items[0];
         />
       </div>
       <div class="stage-meta-box">
+        <div class="stage-topbar">
+          <span id="designStageBadge" class="stage-badge">{firstItem ? firstItem.tool.toUpperCase() : 'ADOBE PHOTOSHOP'}</span>
+          <span class="spotlight-hint">SOROTAN KARYA AKTIF</span>
+        </div>
         <h3 id="designStageTitle" class="stage-info-title">{firstItem ? firstItem.title : ''}</h3>
         <p id="designStageDesc" class="stage-info-desc">{firstItem ? firstItem.desc : ''}</p>
+        <div class="stage-repo-actions">
+          <button type="button" class="stage-expand-btn" onclick="openCurrentDesignStageModal()">
+            Perbesar Layar Penuh / Putar Media &nearr;
+          </button>
+        </div>
       </div>
     </div>
 
+    <!-- 2. FULL-WIDTH 3-COLUMN VISUAL SHOWCASE GALLERY (NO CRAMPED SCROLLBOX) -->
     <div class="work-column">
       <div class="work-list-heading">
         <span id="workCountLabel">MENAMPILKAN {items.length} KARYA PADA KATEGORI INI</span>
-        <div class="view-mode-switch" role="group" aria-label="Mode tampilan galeri">
-          <button id="viewGridBtn" type="button" class="view-mode-btn active" onclick="setDriveViewMode('grid', this)">Galeri Visual</button>
-          <button id="viewListBtn" type="button" class="view-mode-btn" onclick="setDriveViewMode('list', this)">Daftar Indeks</button>
-        </div>
+        <span>KLIK KARTU UNTUK MEMPERBESAR / PUTAR VIDEO</span>
       </div>
       <div id="driveWorkList" class="work-scroll-area grid-mode">
         {items.map((item, idx) => {
-          const thumbUrl = `https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w400`;
-          const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${encodeURIComponent(item.id)}=w400`;
+          const thumbUrl = `https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w600`;
+          const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${encodeURIComponent(item.id)}=w600`;
           const actionLabel = item.type === 'video' ? 'Putar Video' : 'Buka Gambar';
           return (
             <div
