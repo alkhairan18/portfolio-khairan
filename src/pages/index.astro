@@ -1,0 +1,74 @@
+---
+import '../styles/global.css';
+import LightboxModal from '../components/LightboxModal.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import GraphicDesignSection from '../components/GraphicDesignSection.astro';
+import SoftwareDevSection from '../components/SoftwareDevSection.astro';
+import ContactFooter from '../components/ContactFooter.astro';
+import PORTFOLIO_DATA from '../../data/portfolio-data.js';
+
+const { profile, personas, driveFilters, driveItems, devFilters, devItems } = PORTFOLIO_DATA;
+---
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portofolio Muhammad Al Khairan Asaad - Lulusan Politeknik Negeri Ujung Pandang (IPK 3.74). Graphic Designer &amp; Software Development." />
+  <meta name="author" content={profile.name} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://portfolio-khairan.vercel.app/" />
+  <meta property="og:title" content="Portofolio - Muhammad Al Khairan Asaad (Graphic Designer &amp; Software Development)" />
+  <meta property="og:description" content="Lulusan Politeknik Negeri Ujung Pandang (IPK 3.74 / 4.00). Menampilkan 39 karya Graphic Design (Infografis KPU Makassar, Kemasan, Motion Graphics, 3D) &amp; Software Development (RUBOOTH Smart Photobooth)." />
+  <meta property="og:image" content="https://portfolio-khairan.vercel.app/assets/profile_khairan.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Portofolio - Muhammad Al Khairan Asaad" />
+  <meta name="twitter:description" content="Lulusan Politeknik Negeri Ujung Pandang (IPK 3.74). Graphic Designer &amp; Software Development." />
+  <meta name="twitter:image" content="https://portfolio-khairan.vercel.app/assets/profile_khairan.jpg" />
+  <title>Portofolio - {profile.name}</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="assets/profile_khairan.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <a href="#perkenalan" class="skip-link">Lewati ke konten utama</a>
+
+  <LightboxModal />
+
+  <div class="shell">
+    <Navbar
+      name={profile.name}
+      avatarUrl={profile.avatarUrl}
+      designCount={driveItems.length}
+    />
+
+    <Hero
+      profile={profile}
+      defaultBio={personas.hybrid}
+      designCount={driveItems.length}
+    />
+
+    <GraphicDesignSection
+      filters={driveFilters}
+      items={driveItems}
+    />
+
+    <SoftwareDevSection
+      filters={devFilters}
+      items={devItems}
+    />
+
+    <ContactFooter
+      profile={profile}
+      designCount={driveItems.length}
+    />
+  </div>
+
+  <script is:inline src="data/portfolio-data.js"></script>
+  <script is:inline src="scripts/app.js"></script>
+</body>
+</html>

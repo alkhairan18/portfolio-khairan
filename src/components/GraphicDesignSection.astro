@@ -1,0 +1,125 @@
+---
+interface DriveFilter {
+  key: string;
+  label: string;
+}
+interface DriveItem {
+  id: string;
+  cat: string;
+  subcat: string;
+  isNew: boolean;
+  tool: string;
+  type: string;
+  title: string;
+  file: string;
+  desc: string;
+}
+interface Props {
+  filters: DriveFilter[];
+  items: DriveItem[];
+}
+const { filters, items } = Astro.props;
+const firstItem = items[0];
+---
+<section id="bagian-desain" class="discipline-section">
+  <div class="discipline-header">
+    <div class="discipline-title-stack">
+      <div class="title-with-counter">
+        <h2 class="discipline-title">Graphic Designer</h2>
+        <span class="section-counter-pill">{items.length} Karya Terkurasi</span>
+      </div>
+      <p class="discipline-lead">
+        Arsip karya publikasi resmi instansi (KPU Kota Makassar), desain kemasan, identitas merek, ilustrasi vektor, video sinematik, dan animasi 3D.
+      </p>
+    </div>
+
+    <div class="skill-bar-wrap">
+      <div id="driveFilterBar" class="skill-workbench" role="toolbar" aria-label="Filter kategori karya desain">
+        {filters.map((f, i) => (
+          <button
+            class={`tool-chip${i === 0 ? ' active' : ''}`}
+            type="button"
+            aria-pressed={i === 0 ? 'true' : 'false'}
+            onclick={`filterDriveWorks('${f.key}', this)`}
+          >
+            {f.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="discipline-body">
+    <div class="live-stage">
+      <div class="stage-topbar">
+        <span id="designStageBadge" class="stage-badge">{firstItem ? firstItem.tool.toUpperCase() : 'ADOBE PHOTOSHOP'}</span>
+        <button type="button" class="stage-expand-btn" onclick="openCurrentDesignStageModal()">
+          Perbesar Layar Penuh &nearr;
+        </button>
+      </div>
+      <div class="stage-frame stage-clickable" onclick="openCurrentDesignStageModal()" title="Klik untuk memperbesar karya">
+        <img
+          id="designStageImg"
+          src={firstItem ? `https://drive.google.com/thumbnail?id=${firstItem.id}&sz=w1000` : ''}
+          alt={firstItem ? firstItem.title : 'Pratinjau Karya Desain'}
+          decoding="async"
+        />
+      </div>
+      <div class="stage-meta-box">
+        <h3 id="designStageTitle" class="stage-info-title">{firstItem ? firstItem.title : ''}</h3>
+        <p id="designStageDesc" class="stage-info-desc">{firstItem ? firstItem.desc : ''}</p>
+      </div>
+    </div>
+
+    <div class="work-column">
+      <div class="work-list-heading">
+        <span id="workCountLabel">MENAMPILKAN {items.length} KARYA PADA KATEGORI INI</span>
+        <div class="view-mode-switch" role="group" aria-label="Mode tampilan galeri">
+          <button id="viewGridBtn" type="button" class="view-mode-btn active" onclick="setDriveViewMode('grid', this)">Galeri Visual</button>
+          <button id="viewListBtn" type="button" class="view-mode-btn" onclick="setDriveViewMode('list', this)">Daftar Indeks</button>
+        </div>
+      </div>
+      <div id="driveWorkList" class="work-scroll-area grid-mode">
+        {items.map((item, idx) => {
+          const thumbUrl = `https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w400`;
+          const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${encodeURIComponent(item.id)}=w400`;
+          const actionLabel = item.type === 'video' ? 'Putar Video' : 'Buka Gambar';
+          return (
+            <div
+              class={`work-row${idx === 0 ? ' is-selected' : ''}`}
+              data-drive-idx={idx}
+              tabindex="0"
+              role="button"
+              onmouseenter={`previewDesignStageByIndex(${idx})`}
+              onfocus={`previewDesignStageByIndex(${idx})`}
+              onclick={`openDriveModalByIndex(${idx})`}
+              onkeydown={`if(event.key==='Enter'||event.key===' '){event.preventDefault();openDriveModalByIndex(${idx});}`}
+            >
+              <div class="work-thumb-wrap">
+                <img
+                  class="work-thumb"
+                  src={thumbUrl}
+                  onerror={`this.onerror=null;this.src='${fallbackThumbUrl}';`}
+                  alt={item.title}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class={`media-type-pill${item.type === 'video' ? ' video-pill' : ''}`}>
+                  {item.type === 'video' ? 'VIDEO' : 'GAMBAR'}
+                </span>
+              </div>
+              <div class="work-row-info">
+                <div class="work-row-name">
+                  {item.title}
+                  {item.isNew && <span class="new-badge">BARU</span>}
+                </div>
+                <div class="work-row-sub">{item.tool} &middot; {item.file}</div>
+              </div>
+              <span class="work-row-cta">{actionLabel}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>

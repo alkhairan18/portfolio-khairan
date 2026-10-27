@@ -1,0 +1,22 @@
+---
+// Komponen Modal Lightbox Detail Karya (Gambar & Video Google Drive / GitHub)
+---
+<div id="projectModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <span id="modalCategory">DETAIL PROYEK</span>
+      <div class="modal-nav-group">
+        <button id="prevModalBtn" class="modal-btn" type="button" onclick="stepModal(-1)">&larr; Sebelumnya</button>
+        <button id="nextModalBtn" class="modal-btn" type="button" onclick="stepModal(1)">Selanjutnya &rarr;</button>
+        <button class="modal-close" type="button" onclick="closeModal()">TUTUP [ESC]</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div id="modalMediaContainer" class="modal-media-wrap"></div>
+      <h3 id="modalTitle" class="modal-title"></h3>
+      <p id="modalDesc" class="modal-desc"></p>
+      <div id="modalRepoWrap" class="stage-repo-actions" style="display:none;"></div>
+      <div id="modalTags" class="tech-stack-row"></div>
+    </div>
+  </div>
+</div>

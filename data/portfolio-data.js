@@ -15,7 +15,7 @@
 const PORTFOLIO_DATA = {
   profile: {
     name: 'Muhammad Al Khairan Asaad',
-    kicker: 'PORTOFOLIO DISIPLIN GANDA · MAKASSAR',
+    kicker: 'PORTOFOLIO',
     institution: 'Politeknik Negeri Ujung Pandang',
     gpa: 'IPK 3.74 / 4.00',
     roleSummary: 'Graphic Designer & Software Dev.',

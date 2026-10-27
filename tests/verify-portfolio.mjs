@@ -124,4 +124,33 @@ test('Taste-Skill UI Upgrade: Zero em-dashes, prefers-reduced-motion, eyebrow re
   assert.match(html, /rubooth-bento-grid/);
 });
 
+test('Astro + Tailwind CSS v4 Architecture & Static Pre-rendered Output', () => {
+  assert.ok(fs.existsSync(path.join(ROOT, 'astro.config.mjs')), 'astro.config.mjs must exist');
+  assert.ok(fs.existsSync(path.join(ROOT, 'src/styles/global.css')), 'src/styles/global.css must exist');
+  assert.ok(fs.existsSync(path.join(ROOT, 'src/pages/index.astro')), 'src/pages/index.astro must exist');
+
+  for (const comp of [
+    'LightboxModal.astro',
+    'Navbar.astro',
+    'Hero.astro',
+    'GraphicDesignSection.astro',
+    'SoftwareDevSection.astro',
+    'ContactFooter.astro'
+  ]) {
+    assert.ok(fs.existsSync(path.join(ROOT, 'src/components', comp)), `${comp} must exist`);
+  }
+
+  const astroConfig = fs.readFileSync(path.join(ROOT, 'astro.config.mjs'), 'utf8');
+  const globalCss = fs.readFileSync(path.join(ROOT, 'src/styles/global.css'), 'utf8');
+  assert.match(astroConfig, /@tailwindcss\/vite/);
+  assert.match(globalCss, /@import\s+["']tailwindcss["']/);
+
+  assert.ok(fs.existsSync(path.join(ROOT, 'dist/index.html')), 'dist/index.html must be built');
+  const distHtml = fs.readFileSync(path.join(ROOT, 'dist/index.html'), 'utf8');
+  assert.doesNotMatch(distHtml, /—/, 'Built dist/index.html must contain zero em-dashes');
+  assert.match(distHtml, /data-drive-idx="38"/, 'All 39 Google Drive items (0..38) must be pre-rendered in static HTML');
+  assert.match(distHtml, /RUBOOTH - Smart Android Photobooth Kiosk System/);
+});
+
+
 

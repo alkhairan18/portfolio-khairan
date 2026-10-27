@@ -1,0 +1,25 @@
+---
+interface Props {
+  name: string;
+  avatarUrl: string;
+  designCount: number;
+}
+const { name, avatarUrl, designCount } = Astro.props;
+---
+<header class="nav">
+  <a href="#perkenalan" class="nav-brand">
+    <img class="nav-avatar" src={avatarUrl} alt={name} />
+    <span>{name}</span>
+  </a>
+  <div class="nav-right">
+    <nav class="nav-links" aria-label="Navigasi Utama">
+      <a href="#perkenalan">Profil</a>
+      <a href="#bagian-desain">Graphic Designer ({designCount})</a>
+      <a href="#bagian-development">Software Development</a>
+      <a href="#kontak">Kontak</a>
+    </nav>
+    <button id="themeToggleBtn" class="theme-toggle-btn" type="button" onclick="toggleTheme()">
+      Mode Gelap
+    </button>
+  </div>
+</header>

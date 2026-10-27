@@ -1,0 +1,64 @@
+---
+interface Props {
+  profile: {
+    name: string;
+    institution: string;
+    email: string;
+    linkedinUrl?: string;
+    whatsappUrl?: string;
+    cvUrl?: string;
+    driveFolderUrl: string;
+    githubProfileUrl: string;
+  };
+  designCount: number;
+}
+const { profile, designCount } = Astro.props;
+---
+<section id="kontak" class="contact-section">
+  <div class="contact-left">
+    <h2 class="discipline-title">Mari Berkolaborasi</h2>
+    <p class="contact-desc">
+      Terbuka untuk kesempatan kerja penuh waktu, magang, maupun proyek kolaborasi di bidang <strong>Graphic Designer</strong> dan <strong>Software Development</strong>.
+    </p>
+  </div>
+  <div class="contact-actions">
+    <a id="contactEmailBtn" href={`mailto:${profile.email}`} class="repo-link-btn">
+      Email: {profile.email} &nearr;
+    </a>
+    <a id="contactGithubBtn" href={profile.githubProfileUrl} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary">
+      GitHub (@alkhairan18) &nearr;
+    </a>
+    <a id="contactDriveBtn" href={profile.driveFolderUrl} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary">
+      Arsip Google Drive ({designCount} Karya) &nearr;
+    </a>
+    <a id="contactLinkedinBtn" href={profile.linkedinUrl || '#'} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary" style={profile.linkedinUrl ? 'display:inline-flex;' : 'display:none;'}>
+      LinkedIn &nearr;
+    </a>
+    <a id="contactWhatsappBtn" href={profile.whatsappUrl || '#'} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary" style={profile.whatsappUrl ? 'display:inline-flex;' : 'display:none;'}>
+      WhatsApp &nearr;
+    </a>
+    <a id="contactCvBtn" href={profile.cvUrl || '#'} target="_blank" rel="noopener noreferrer" class="repo-link-btn" style={profile.cvUrl ? 'display:inline-flex;' : 'display:none;'}>
+      Unduh CV (PDF) &nearr;
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div>
+    <strong>{profile.name}</strong> &middot; Lulusan {profile.institution} (IPK 3.74)
+  </div>
+  <div class="footer-links">
+    <a href={`mailto:${profile.email}`}>
+      {profile.email}
+    </a>
+    <a href={profile.driveFolderUrl} target="_blank" rel="noopener noreferrer">
+      Folder Google Drive Desain &nearr;
+    </a>
+    <a href="https://github.com/alkhairan18/rubooth" target="_blank" rel="noopener noreferrer">
+      GitHub RUBOOTH &nearr;
+    </a>
+    <a href={profile.githubProfileUrl} target="_blank" rel="noopener noreferrer">
+      Profil GitHub (@alkhairan18) &nearr;
+    </a>
+  </div>
+</footer>

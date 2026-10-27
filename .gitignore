@@ -1,3 +1,5 @@
 .superpowers/
-
 .vercel
+node_modules/
+dist/
+.astro/
