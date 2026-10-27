@@ -123,10 +123,9 @@ function renderDriveList(filterKey) {
       const actionLabel = item.type === 'video' ? 'Putar Video' : 'Perbesar Karya';
       const subText = `${escapeHtml(item.tool)}${item.type === 'video' ? ' &middot; Video' : ''}`;
       const numStr = String(idx + 1).padStart(2, '0');
-      const isFeatured = idx % 7 === 0;
       const typeLabel = item.type === 'video' ? 'MOTION MP4' : escapeHtml(item.tool);
       return `
-        <div class="work-row spotlight-card${idx === 0 ? ' is-selected' : ''}${isFeatured ? ' work-row-featured' : ''}"
+        <div class="work-row spotlight-card${idx === 0 ? ' is-selected' : ''}"
              data-drive-idx="${idx}"
              style="--stagger-idx: ${idx % 9};"
              tabindex="0"

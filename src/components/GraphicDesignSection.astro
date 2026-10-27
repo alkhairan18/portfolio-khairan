@@ -31,7 +31,7 @@ const firstItem = items[0];
         </div>
         <h2 class="discipline-title">Graphic Designer <span class="serif-italic">Showcase</span></h2>
         <p class="discipline-lead">
-          Kurasi 39 karya terpilih meliputi kampanye visual &amp; infografis resmi KPU Kota Makassar, eksplorasi identitas kemasan, ilustrasi vektor, hingga motion graphics dan 3D Blender.
+          Kurasi {items.length} karya terpilih meliputi kampanye visual &amp; infografis resmi KPU Kota Makassar, eksplorasi identitas kemasan, ilustrasi vektor, hingga motion graphics dan 3D Blender.
         </p>
       </div>
 
@@ -127,10 +127,9 @@ const firstItem = items[0];
           const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${encodeURIComponent(item.id)}=w600`;
           const actionLabel = item.type === 'video' ? 'Putar Video' : 'Perbesar Karya';
           const numStr = String(idx + 1).padStart(2, '0');
-          const isFeatured = idx % 7 === 0;
           return (
             <div
-              class={`work-row spotlight-card${idx === 0 ? ' is-selected' : ''}${isFeatured ? ' work-row-featured' : ''}`}
+              class={`work-row spotlight-card${idx === 0 ? ' is-selected' : ''}`}
               data-drive-idx={idx}
               style={`--stagger-idx: ${idx % 9};`}
               tabindex="0"

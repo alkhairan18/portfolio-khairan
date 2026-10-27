@@ -15,8 +15,9 @@ test('Task 1: Local assets and PORTFOLIO_DATA structure', () => {
   assert.equal(data.profile.name, 'Muhammad Al Khairan Asaad');
   assert.equal(data.profile.institution, 'Politeknik Negeri Ujung Pandang');
   assert.equal(data.profile.gpa, 'IPK 3.74 / 4.00');
-  assert.equal(data.driveItems.length, 39, 'Must have exactly 39 Google Drive works');
+  assert.equal(data.driveItems.length, 38, 'Must have exactly 38 Google Drive works');
   assert.equal(data.driveItems.some(i => i.id === '1bdApHoMt2PzXcptWipbhhpioNl59ribX'), false, 'UI/UX item must not be present');
+  assert.equal(data.driveItems.some(i => i.id === '1Q7xbfCeAFMPg2P67K6qXD-JOKF-rDr0J'), false, 'Infografis Daftar Partai Politik Peserta Pemilu must be removed');
   assert.equal(data.devItems.length, 1, 'Must have 1 unified RUBOOTH project');
   assert.equal(data.devItems[0].repoUrl, 'https://github.com/alkhairan18/rubooth');
   assert.equal(data.devItems[0].img, 'assets/rubooth_banner.jpg');
@@ -152,7 +153,8 @@ test('Astro + Tailwind CSS v4 Architecture & Static Pre-rendered Output', () => 
   assert.ok(fs.existsSync(path.join(ROOT, 'dist/index.html')), 'dist/index.html must be built');
   const distHtml = fs.readFileSync(path.join(ROOT, 'dist/index.html'), 'utf8');
   assert.doesNotMatch(distHtml, /—/, 'Built dist/index.html must contain zero em-dashes');
-  assert.match(distHtml, /data-drive-idx="38"/, 'All 39 Google Drive items (0..38) must be pre-rendered in static HTML');
+  assert.match(distHtml, /data-drive-idx="37"/, 'All 38 Google Drive items (0..37) must be pre-rendered in static HTML');
+  assert.doesNotMatch(distHtml, /Infografis Daftar Partai Politik Peserta Pemilu/, 'Removed work must not appear in built HTML');
   assert.match(distHtml, /RUBOOTH - Smart Android Photobooth Kiosk System/);
   assert.match(distHtml, /id="driveSearchInput"/, 'Live gallery search input must exist in pre-rendered HTML');
   assert.match(distHtml, /id="pipelineDetailBox"/, 'Interactive RUBOOTH pipeline explorer must exist in pre-rendered HTML');

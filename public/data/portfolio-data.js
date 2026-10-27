@@ -38,9 +38,9 @@ const PORTFOLIO_DATA = {
   },
 
   driveFilters: [
-    { key: 'all', label: 'Semua (39)' },
-    { key: 'ps', label: 'Photoshop · Semua (25)' },
-    { key: 'ps-kpu-info', label: 'Infografis & PPID KPU (9)' },
+    { key: 'all', label: 'Semua (38)' },
+    { key: 'ps', label: 'Photoshop · Semua (24)' },
+    { key: 'ps-kpu-info', label: 'Infografis & PPID KPU (8)' },
     { key: 'ps-kpu-sosmed', label: 'Kampanye Hari Besar KPU (11)' },
     { key: 'ps-pack', label: 'Kemasan & Manipulasi PS (5)' },
     { key: 'ai', label: 'Illustrator (4)' },
@@ -50,7 +50,7 @@ const PORTFOLIO_DATA = {
   ],
 
   driveItems: [
-    // === A. 9 Infografis Layanan Publik, PPID & Kepemiluan KPU Kota Makassar ===
+    // === A. 8 Infografis Layanan Publik, PPID & Kepemiluan KPU Kota Makassar ===
     {
       id: '1IpyHiFwfvmVWj_9VbptkDOkDRi1BT3NH',
       cat: 'ps',
@@ -94,17 +94,6 @@ const PORTFOLIO_DATA = {
       title: 'Infografis Hasil Survei Indeks Kepuasan Masyarakat (IKM 90,03)',
       file: 'Hasil Survey Indeks Kepuasan Masyarakat.png',
       desc: 'Tabel visualisasi capaian mutu layanan publik KPU Kota Makassar dengan nilai IKM 90,03 (Predikat A / Sangat Baik).'
-    },
-    {
-      id: '1Q7xbfCeAFMPg2P67K6qXD-JOKF-rDr0J',
-      cat: 'ps',
-      subcat: 'ps-kpu-info',
-      isNew: true,
-      tool: 'Adobe Photoshop · Infografis KPU',
-      type: 'image',
-      title: 'Infografis Daftar Partai Politik Peserta Pemilu',
-      file: 'Peserta Pemilu.png',
-      desc: 'Desain informasi publik mengenai partai politik peserta Pemilihan Umum untuk sosialisasi pemilih KPU Kota Makassar.'
     },
     {
       id: '1-JX-SNrrl1bFf4ysN0kBuZnnAJ_cT-5D',
