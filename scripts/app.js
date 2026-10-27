@@ -25,7 +25,7 @@ function renderFilterBars() {
     driveFilterBar.innerHTML = data.driveFilters
       .map(
         (f, i) =>
-          `<button class="tool-chip${i === 0 ? ' active' : ''}" type="button" onclick="filterDriveWorks('${escapeHtml(f.key)}', this)">${escapeHtml(f.label)}</button>`
+          `<button class="tool-chip${i === 0 ? ' active' : ''}" type="button" aria-pressed="${i === 0 ? 'true' : 'false'}" onclick="filterDriveWorks('${escapeHtml(f.key)}', this)">${escapeHtml(f.label)}</button>`
       )
       .join('');
   }
@@ -35,7 +35,7 @@ function renderFilterBars() {
     devFilterBar.innerHTML = data.devFilters
       .map(
         (f, i) =>
-          `<button class="tool-chip${i === 0 ? ' active' : ''}" type="button" onclick="filterDevWorks('${escapeHtml(f.key)}', this)">${escapeHtml(f.label)}</button>`
+          `<button class="tool-chip${i === 0 ? ' active' : ''}" type="button" aria-pressed="${i === 0 ? 'true' : 'false'}" onclick="filterDevWorks('${escapeHtml(f.key)}', this)">${escapeHtml(f.label)}</button>`
       )
       .join('');
   }
@@ -64,14 +64,20 @@ function renderDriveList(filterKey) {
 
   container.innerHTML = currentFilteredDrive
     .map((item, idx) => {
-      const thumbUrl = `https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w400`;
+      const safeId = encodeURIComponent(item.id);
+      const thumbUrl = `https://drive.google.com/thumbnail?id=${safeId}&sz=w400`;
+      const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${safeId}=w400`;
       const actionLabel = item.type === 'video' ? 'Putar Video' : 'Buka Gambar';
       const newTag = item.isNew ? '<span class="new-badge">BARU</span>' : '';
       return `
         <div class="work-row"
+             tabindex="0"
+             role="button"
              onmouseenter="previewDesignStageByIndex(${idx})"
-             onclick="openDriveModalByIndex(${idx})">
-          <img class="work-thumb" src="${thumbUrl}" alt="${escapeHtml(item.title)}" loading="lazy" />
+             onfocus="previewDesignStageByIndex(${idx})"
+             onclick="openDriveModalByIndex(${idx})"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDriveModalByIndex(${idx});}">
+          <img class="work-thumb" src="${thumbUrl}" onerror="this.onerror=null;this.src='${fallbackThumbUrl}';" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async" />
           <div>
             <div class="work-row-name">${escapeHtml(item.title)}${newTag}</div>
             <div class="work-row-sub">${escapeHtml(item.tool)} &middot; ${escapeHtml(item.file)}</div>
@@ -100,7 +106,12 @@ function previewDesignStageByIndex(idx) {
   if (titleEl) titleEl.textContent = item.title;
   if (descEl) descEl.textContent = item.desc;
   if (imgEl) {
-    imgEl.src = `https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w1000`;
+    const safeId = encodeURIComponent(item.id);
+    imgEl.onerror = function () {
+      imgEl.onerror = null;
+      imgEl.src = `https://lh3.googleusercontent.com/d/${safeId}=w1000`;
+    };
+    imgEl.src = `https://drive.google.com/thumbnail?id=${safeId}&sz=w1000`;
     imgEl.alt = item.title;
   }
 }
@@ -115,7 +126,11 @@ function openDriveModalByIndex(idx) {
   const repoWrap = document.getElementById('modalRepoWrap');
   if (prevBtn) prevBtn.style.display = 'inline-block';
   if (nextBtn) nextBtn.style.display = 'inline-block';
-  if (repoWrap) repoWrap.style.display = 'none';
+  if (repoWrap) {
+    const driveViewUrl = `https://drive.google.com/file/d/${encodeURIComponent(item.id)}/view`;
+    repoWrap.style.display = 'flex';
+    repoWrap.innerHTML = `<a href="${driveViewUrl}" target="_blank" rel="noopener noreferrer" class="repo-link-btn">Buka File Asli di Google Drive (${escapeHtml(item.file)}) &nearr;</a>`;
+  }
 
   const highResUrl = `https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w1600`;
   openModal(
@@ -149,9 +164,13 @@ function renderDevList(filterKey) {
     .map((item, idx) => {
       return `
         <div class="work-row"
+             tabindex="0"
+             role="button"
              onmouseenter="previewDevStageByIndex(${idx})"
-             onclick="openDevModalByIndex(${idx})">
-          <img class="work-thumb" src="${escapeHtml(item.img)}" alt="${escapeHtml(item.title)}" loading="lazy" />
+             onfocus="previewDevStageByIndex(${idx})"
+             onclick="openDevModalByIndex(${idx})"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDevModalByIndex(${idx});}">
+          <img class="work-thumb" src="${escapeHtml(item.img)}" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async" />
           <div>
             <div class="work-row-name">${escapeHtml(item.title)}</div>
             <div class="work-row-sub">${escapeHtml(item.sub)}</div>
@@ -220,16 +239,24 @@ function openDevModalByIndex(idx) {
 
 function filterDriveWorks(cat, btnEl) {
   if (btnEl && btnEl.parentElement) {
-    btnEl.parentElement.querySelectorAll('.tool-chip').forEach((b) => b.classList.remove('active'));
+    btnEl.parentElement.querySelectorAll('.tool-chip').forEach((b) => {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
     btnEl.classList.add('active');
+    btnEl.setAttribute('aria-pressed', 'true');
   }
   renderDriveList(cat);
 }
 
 function filterDevWorks(cat, btnEl) {
   if (btnEl && btnEl.parentElement) {
-    btnEl.parentElement.querySelectorAll('.tool-chip').forEach((b) => b.classList.remove('active'));
+    btnEl.parentElement.querySelectorAll('.tool-chip').forEach((b) => {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
     btnEl.classList.add('active');
+    btnEl.setAttribute('aria-pressed', 'true');
   }
   renderDevList(cat);
 }
@@ -247,15 +274,16 @@ function openModal(driveId, type, title, category, desc, fallbackImg, tags) {
   if (descEl) descEl.textContent = desc;
 
   if (mediaWrap) {
+    const safeId = encodeURIComponent(driveId);
     if (driveId && type === 'video') {
       mediaWrap.className = 'modal-media-wrap video-mode';
-      mediaWrap.innerHTML = `<iframe src="https://drive.google.com/file/d/${encodeURIComponent(driveId)}/preview" allow="autoplay; fullscreen"></iframe>`;
+      mediaWrap.innerHTML = `<iframe src="https://drive.google.com/file/d/${safeId}/preview" allow="autoplay; fullscreen" title="${escapeHtml(title)}"></iframe>`;
     } else if (driveId) {
       mediaWrap.className = 'modal-media-wrap';
-      mediaWrap.innerHTML = `<img src="https://drive.google.com/thumbnail?id=${encodeURIComponent(driveId)}&sz=w1600" alt="${escapeHtml(title)}" />`;
+      mediaWrap.innerHTML = `<img src="https://drive.google.com/thumbnail?id=${safeId}&sz=w1600" onerror="this.onerror=null;this.src='https://lh3.googleusercontent.com/d/${safeId}=w1600';" alt="${escapeHtml(title)}" decoding="async" />`;
     } else {
       mediaWrap.className = 'modal-media-wrap';
-      mediaWrap.innerHTML = `<img src="${escapeHtml(fallbackImg)}" alt="${escapeHtml(title)}" />`;
+      mediaWrap.innerHTML = `<img src="${escapeHtml(fallbackImg)}" alt="${escapeHtml(title)}" decoding="async" />`;
     }
   }
 
@@ -301,6 +329,56 @@ function hydrateProfile() {
     if (p.gpa) metricValues[1].textContent = p.gpa;
     if (p.roleSummary) metricValues[2].textContent = p.roleSummary;
   }
+
+  const emailBtn = document.getElementById('contactEmailBtn');
+  if (emailBtn && p.email) {
+    emailBtn.href = `mailto:${p.email}`;
+    emailBtn.innerHTML = `Email: ${escapeHtml(p.email)} &nearr;`;
+  }
+  const githubBtn = document.getElementById('contactGithubBtn');
+  if (githubBtn && p.githubProfileUrl) {
+    githubBtn.href = p.githubProfileUrl;
+  }
+  const driveBtn = document.getElementById('contactDriveBtn');
+  if (driveBtn && p.driveFolderUrl) {
+    driveBtn.href = p.driveFolderUrl;
+  }
+  const linkedinBtn = document.getElementById('contactLinkedinBtn');
+  if (linkedinBtn) {
+    if (p.linkedinUrl) {
+      linkedinBtn.href = p.linkedinUrl;
+      linkedinBtn.style.display = 'inline-flex';
+    } else {
+      linkedinBtn.style.display = 'none';
+    }
+  }
+  const whatsappBtn = document.getElementById('contactWhatsappBtn');
+  if (whatsappBtn) {
+    if (p.whatsappUrl) {
+      whatsappBtn.href = p.whatsappUrl;
+      whatsappBtn.style.display = 'inline-flex';
+    } else {
+      whatsappBtn.style.display = 'none';
+    }
+  }
+  const cvBtn = document.getElementById('contactCvBtn');
+  const heroCvBtn = document.getElementById('heroCvBtn');
+  if (cvBtn) {
+    if (p.cvUrl) {
+      cvBtn.href = p.cvUrl;
+      cvBtn.style.display = 'inline-flex';
+    } else {
+      cvBtn.style.display = 'none';
+    }
+  }
+  if (heroCvBtn) {
+    if (p.cvUrl) {
+      heroCvBtn.href = p.cvUrl;
+      heroCvBtn.style.display = 'inline-flex';
+    } else {
+      heroCvBtn.style.display = 'none';
+    }
+  }
 }
 
 function applyStoredTheme() {
@@ -334,8 +412,14 @@ function toggleTheme() {
 function setPersona(key, btnEl) {
   const data = window.PORTFOLIO_DATA;
   if (!data || !data.personas) return;
-  document.querySelectorAll('.persona-btn').forEach((b) => b.classList.remove('active'));
-  if (btnEl) btnEl.classList.add('active');
+  document.querySelectorAll('.persona-btn').forEach((b) => {
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+  });
+  if (btnEl) {
+    btnEl.classList.add('active');
+    btnEl.setAttribute('aria-selected', 'true');
+  }
   const bioEl = document.getElementById('personaBio');
   if (bioEl && data.personas[key]) {
     bioEl.innerHTML = data.personas[key];

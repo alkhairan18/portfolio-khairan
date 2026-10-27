@@ -66,3 +66,42 @@ test('Final Review Fixes: closeModal resets currentModalIdx and hydrateProfile s
   assert.match(js, /function hydrateProfile\(\)/);
   assert.match(js, /hydrateProfile\(\);/);
 });
+
+test('Audit Improvements: Favicon, Open Graph SEO, Contact/CV section, Accessibility, and Image Optimization', () => {
+  assert.ok(fs.existsSync(path.join(ROOT, 'favicon.svg')), 'favicon.svg must exist');
+  assert.ok(fs.existsSync(path.join(ROOT, 'favicon.ico')), 'favicon.ico must exist');
+
+  const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'styles/main.css'), 'utf8');
+  const js = fs.readFileSync(path.join(ROOT, 'scripts/app.js'), 'utf8');
+  const data = require(path.join(ROOT, 'data/portfolio-data.js'));
+
+  // 1. Favicon & Open Graph / Twitter meta tags
+  assert.match(html, /rel="icon"/);
+  assert.match(html, /property="og:title"/);
+  assert.match(html, /property="og:description"/);
+  assert.match(html, /property="og:image"/);
+  assert.match(html, /property="og:url"/);
+  assert.match(html, /name="twitter:card"/);
+
+  // 2. Contact & CV fields in data + section in HTML
+  assert.equal(data.profile.email, 'alkhairan18@gmail.com');
+  assert.ok('linkedinUrl' in data.profile);
+  assert.ok('whatsappUrl' in data.profile);
+  assert.ok('cvUrl' in data.profile);
+  assert.match(html, /id="kontak"/);
+  assert.match(html, /mailto:alkhairan18@gmail\.com/);
+
+  // 3. Accessibility (skip link, dialog role, keyboard support, focus-visible)
+  assert.match(html, /class="skip-link"/);
+  assert.match(html, /role="dialog"/);
+  assert.match(html, /aria-modal="true"/);
+  assert.match(css, /\.skip-link/);
+  assert.match(css, /:focus-visible/);
+  assert.match(js, /tabindex="0"/);
+
+  // 4. Image optimization & Google Drive fallback
+  assert.match(html, /fetchpriority="high"/);
+  assert.match(js, /lh3\.googleusercontent\.com\/d\//);
+});
+

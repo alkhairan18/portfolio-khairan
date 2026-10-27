@@ -4,16 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Portofolio Muhammad Al Khairan Asaad — Lulusan Politeknik Negeri Ujung Pandang (IPK 3.74). Graphic Designer &amp; Software Development." />
+  <meta name="author" content="Muhammad Al Khairan Asaad" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://portfolio-khairan.vercel.app/" />
+  <meta property="og:title" content="Portofolio — Muhammad Al Khairan Asaad (Graphic Designer &amp; Software Development)" />
+  <meta property="og:description" content="Lulusan Politeknik Negeri Ujung Pandang (IPK 3.74 / 4.00). Menampilkan 39 karya Graphic Design (Infografis KPU Makassar, Kemasan, Motion Graphics, 3D) &amp; Software Development (RUBOOTH Smart Photobooth)." />
+  <meta property="og:image" content="https://portfolio-khairan.vercel.app/assets/profile_khairan.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Portofolio — Muhammad Al Khairan Asaad" />
+  <meta name="twitter:description" content="Lulusan Politeknik Negeri Ujung Pandang (IPK 3.74). Graphic Designer &amp; Software Development." />
+  <meta name="twitter:image" content="https://portfolio-khairan.vercel.app/assets/profile_khairan.jpg" />
   <title>Portofolio — Muhammad Al Khairan Asaad</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="assets/profile_khairan.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles/main.css" />
 </head>
 <body>
+  <a href="#perkenalan" class="skip-link">Lewati ke konten utama</a>
 
   <!-- MODAL DETAIL KARYA / LIGHTBOX -->
-  <div id="projectModal" class="modal-backdrop" onclick="closeModal()">
+  <div id="projectModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc" onclick="closeModal()">
     <div class="modal-box" onclick="event.stopPropagation()">
       <div class="modal-head">
         <span id="modalCategory">DETAIL PROYEK</span>
@@ -45,6 +59,7 @@
           <a href="#perkenalan">Profil Diri</a>
           <a href="#bagian-desain">Graphic Designer (39 Karya)</a>
           <a href="#bagian-development">Software Development</a>
+          <a href="#kontak">Kontak</a>
         </nav>
         <button id="themeToggleBtn" class="theme-toggle-btn" type="button" onclick="toggleTheme()">
           Mode Terang / Gelap
@@ -60,9 +75,9 @@
           <h1 class="hero-name">Muhammad Al Khairan Asaad</h1>
 
           <div class="persona-switcher" role="tablist" aria-label="Pilih sudut pandang profil">
-            <button class="persona-btn active" type="button" onclick="setPersona('hybrid', this)">Profil Utuh (Seimbang)</button>
-            <button class="persona-btn" type="button" onclick="setPersona('designer', this)">Sudut Pandang HRD Desain</button>
-            <button class="persona-btn" type="button" onclick="setPersona('developer', this)">Sudut Pandang HRD IT/Tech</button>
+            <button class="persona-btn active" role="tab" aria-selected="true" type="button" onclick="setPersona('hybrid', this)">Profil Utuh (Seimbang)</button>
+            <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('designer', this)">Sudut Pandang HRD Desain</button>
+            <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('developer', this)">Sudut Pandang HRD IT/Tech</button>
           </div>
 
           <p id="personaBio" class="hero-bio">
@@ -89,7 +104,7 @@
       <div class="hero-right">
         <div class="tilt-stage">
           <div id="tiltCard" class="tilt-card">
-            <img src="assets/profile_khairan.jpg" alt="Foto Profil Muhammad Al Khairan Asaad" />
+            <img src="assets/profile_khairan.jpg" alt="Foto Profil Muhammad Al Khairan Asaad" fetchpriority="high" decoding="async" />
             <div class="tilt-overlay">
               <div>
                 <div style="font-weight:700;">Muhammad Al Khairan Asaad</div>
@@ -103,6 +118,8 @@
         <div class="cta-row">
           <a href="#bagian-desain" class="magnetic-btn magnetic-primary">1. Karya Graphic Design (39)</a>
           <a href="#bagian-development" class="magnetic-btn magnetic-secondary">2. Proyek Software Development</a>
+          <a href="#kontak" class="magnetic-btn magnetic-secondary">3. Hubungi Saya</a>
+          <a id="heroCvBtn" href="#" target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-primary" style="display:none;">Unduh CV (PDF) &nearr;</a>
         </div>
       </div>
     </section>
@@ -127,7 +144,7 @@
         <div class="live-stage">
           <div class="stage-frame">
             <span id="designStageBadge" class="stage-badge">ADOBE PHOTOSHOP &middot; INFOGRAFIS KPU</span>
-            <img id="designStageImg" src="https://drive.google.com/thumbnail?id=1IpyHiFwfvmVWj_9VbptkDOkDRi1BT3NH&sz=w1000" alt="Pratinjau Karya Desain" />
+            <img id="designStageImg" src="https://drive.google.com/thumbnail?id=1IpyHiFwfvmVWj_9VbptkDOkDRi1BT3NH&sz=w1000" alt="Pratinjau Karya Desain" decoding="async" />
           </div>
           <div>
             <h3 id="designStageTitle" class="stage-info-title">Infografis Data Pemilih (PDPB Triwulan III 2025) - KPU Kota Makassar</h3>
@@ -167,7 +184,7 @@
         <div class="live-stage">
           <div class="stage-frame">
             <span id="devStageBadge" class="stage-badge">PEMBUATAN APLIKASI &middot; ANDROID KOTLIN</span>
-            <img id="devStageImg" src="assets/rubooth_banner.jpg" alt="RUBOOTH Smart Photobooth" />
+            <img id="devStageImg" src="assets/rubooth_banner.jpg" alt="RUBOOTH Smart Photobooth" loading="lazy" decoding="async" />
           </div>
           <div>
             <h3 id="devStageTitle" class="stage-info-title">RUBOOTH - Smart Android Photobooth Kiosk System</h3>
@@ -192,12 +209,48 @@
       </div>
     </section>
 
+    <!-- =======================================================================
+         BAGIAN KONTAK & TAUTAN PROFESIONAL
+         ======================================================================= -->
+    <section id="kontak" class="contact-section">
+      <div class="contact-left">
+        <span class="discipline-tag">TERBUKA UNTUK PELUANG KERJA &amp; KOLABORASI</span>
+        <h2 class="discipline-title">Hubungi Saya</h2>
+        <p class="contact-desc">
+          Tertarik untuk berdiskusi mengenai posisi <strong>Graphic Designer</strong>, <strong>Software Development</strong>, atau kolaborasi proyek kreatif &amp; teknologi? Silakan hubungi saya langsung melalui kanal berikut.
+        </p>
+      </div>
+      <div class="contact-actions">
+        <a id="contactEmailBtn" href="mailto:alkhairan18@gmail.com" class="repo-link-btn">
+          Email: alkhairan18@gmail.com &nearr;
+        </a>
+        <a id="contactGithubBtn" href="https://github.com/alkhairan18" target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary">
+          GitHub (@alkhairan18) &nearr;
+        </a>
+        <a id="contactDriveBtn" href="https://drive.google.com/drive/folders/1_1u2Mi_RnFdh7tYA8i8AzM7Rwwlu4RPe" target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary">
+          Folder Google Drive (39 Karya) &nearr;
+        </a>
+        <a id="contactLinkedinBtn" href="#" target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary" style="display:none;">
+          LinkedIn &nearr;
+        </a>
+        <a id="contactWhatsappBtn" href="#" target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary" style="display:none;">
+          WhatsApp &nearr;
+        </a>
+        <a id="contactCvBtn" href="#" target="_blank" rel="noopener noreferrer" class="repo-link-btn" style="display:none;">
+          Unduh CV (PDF) &nearr;
+        </a>
+      </div>
+    </section>
+
     <!-- FOOTER -->
     <footer class="site-footer">
       <div>
         <strong>Muhammad Al Khairan Asaad</strong> &middot; Lulusan Politeknik Negeri Ujung Pandang (IPK 3.74)
       </div>
       <div class="footer-links">
+        <a href="mailto:alkhairan18@gmail.com">
+          alkhairan18@gmail.com
+        </a>
         <a href="https://drive.google.com/drive/folders/1_1u2Mi_RnFdh7tYA8i8AzM7Rwwlu4RPe" target="_blank" rel="noopener noreferrer">
           Folder Google Drive Desain &nearr;
         </a>

@@ -20,6 +20,10 @@ const PORTFOLIO_DATA = {
     gpa: 'IPK 3.74 / 4.00',
     roleSummary: 'Graphic Designer & Software Dev.',
     avatarUrl: 'assets/profile_khairan.jpg',
+    email: 'alkhairan18@gmail.com',
+    linkedinUrl: '',
+    whatsappUrl: '',
+    cvUrl: '',
     driveFolderUrl: 'https://drive.google.com/drive/folders/1_1u2Mi_RnFdh7tYA8i8AzM7Rwwlu4RPe',
     githubProfileUrl: 'https://github.com/alkhairan18'
   },
