@@ -115,8 +115,12 @@ test('Taste-Skill UI Upgrade: Zero em-dashes, prefers-reduced-motion, eyebrow re
   assert.doesNotMatch(html, /—/, 'HTML must contain zero em-dashes');
   assert.doesNotMatch(dataRaw, /—/, 'portfolio-data.js must contain zero em-dashes');
 
-  // 2. Reduced motion guardrail
+  // 2. Reduced motion & reduced transparency guardrails (Apple Liquid Glass web approx)
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
+  assert.match(css, /prefers-reduced-transparency:\s*reduce/);
+  assert.match(css, /\.liquid-glass-web-approx/);
+  assert.match(css, /--radius-card:\s*24px/);
+  assert.match(css, /--radius-pill:\s*9999px/);
 
   // 3. Tactile active state & gallery/list view mode support
   assert.match(css, /cubic-bezier\(0\.16,\s*1,\s*0\.3,\s*1\)/);
