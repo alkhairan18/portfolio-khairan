@@ -8,6 +8,27 @@ let currentFilteredDev = [];
 let currentModalIdx = -1;
 let currentStageDriveIdx = 0;
 let currentDriveViewMode = 'grid';
+let currentDriveFilterKey = 'all';
+let currentDriveSearchQuery = '';
+
+const RUBOOTH_MODULES = [
+  {
+    name: 'Dual-Camera USB PTP & UVC',
+    spec: '<strong>Alur Teknis:</strong> Android USB Host API mendeteksi antarmuka UVC untuk <em>stream</em> 30fps bebas jeda di layar sentuh, lalu mengirimkan perintah <code>PTP_OC_InitiateCapture</code> ke Canon EOS saat hitung mundur selesai.'
+  },
+  {
+    name: 'Google Gemini Generative AI',
+    spec: '<strong>Alur Teknis:</strong> Foto mentah dari kamera DSLR dikirim secara asinkron ke <em>endpoint</em> multimodal Google Gemini API bersama <em>prompt</em> komposisi pencahayaan studio untuk menghasilkan foto bersama figur idola.'
+  },
+  {
+    name: 'Midtrans Snap QRIS',
+    spec: '<strong>Alur Teknis:</strong> Sesi kios terkunci hingga <em>backend</em> memvalidasi status transaksi <code>settlement</code> dari <em>webhook</em> Midtrans Snap QRIS, lalu otomatis membuka antarmuka pemotretan.'
+  },
+  {
+    name: 'Firebase IoT & Epson L8050',
+    spec: '<strong>Alur Teknis:</strong> Perubahan <em>state</em> sesi pada Firebase Realtime Database memicu mikrokontroler lampu studio, sementara hasil akhir disusun ke dalam kanvas cetak 3R (300 DPI) untuk dikirim ke Epson L8050.'
+  }
+];
 
 function escapeHtml(str) {
   return String(str || '')
@@ -47,13 +68,30 @@ function renderDriveList(filterKey) {
   const data = window.PORTFOLIO_DATA;
   if (!data) return;
 
+  if (typeof filterKey === 'string') {
+    currentDriveFilterKey = filterKey;
+  }
+
   const items = data.driveItems || [];
-  if (filterKey === 'all') {
-    currentFilteredDrive = [...items];
-  } else if (filterKey.startsWith('ps-')) {
-    currentFilteredDrive = items.filter((i) => i.subcat === filterKey);
+  let byCat = [];
+  if (currentDriveFilterKey === 'all') {
+    byCat = [...items];
+  } else if (currentDriveFilterKey.startsWith('ps-')) {
+    byCat = items.filter((i) => i.subcat === currentDriveFilterKey);
   } else {
-    currentFilteredDrive = items.filter((i) => i.cat === filterKey);
+    byCat = items.filter((i) => i.cat === currentDriveFilterKey);
+  }
+
+  const q = currentDriveSearchQuery.trim().toLowerCase();
+  if (q) {
+    currentFilteredDrive = byCat.filter(
+      (i) =>
+        String(i.title || '').toLowerCase().includes(q) ||
+        String(i.tool || '').toLowerCase().includes(q) ||
+        String(i.desc || '').toLowerCase().includes(q)
+    );
+  } else {
+    currentFilteredDrive = byCat;
   }
 
   const countLabel = document.getElementById('workCountLabel');
@@ -67,16 +105,27 @@ function renderDriveList(filterKey) {
   container.classList.toggle('grid-mode', currentDriveViewMode === 'grid');
   container.classList.toggle('list-mode', currentDriveViewMode === 'list');
 
+  if (currentFilteredDrive.length === 0) {
+    container.innerHTML = `
+      <div class="empty-search-state">
+        <p>Tidak ada karya yang cocok dengan kata kunci <strong>"${escapeHtml(currentDriveSearchQuery)}"</strong>.</p>
+        <button type="button" class="stage-expand-btn" onclick="resetDriveSearch()">Reset Pencarian</button>
+      </div>
+    `;
+    return;
+  }
+
   container.innerHTML = currentFilteredDrive
     .map((item, idx) => {
       const safeId = encodeURIComponent(item.id);
       const thumbUrl = `https://drive.google.com/thumbnail?id=${safeId}&sz=w600`;
       const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${safeId}=w600`;
-      const actionLabel = item.type === 'video' ? 'Putar Video' : 'Lihat';
+      const actionLabel = item.type === 'video' ? 'Putar Video' : 'Perbesar Karya';
       const subText = `${escapeHtml(item.tool)}${item.type === 'video' ? ' &middot; Video' : ''}`;
       return `
-        <div class="work-row${idx === 0 ? ' is-selected' : ''}"
+        <div class="work-row spotlight-card${idx === 0 ? ' is-selected' : ''}"
              data-drive-idx="${idx}"
+             style="--stagger-idx: ${idx % 9};"
              tabindex="0"
              role="button"
              onmouseenter="previewDesignStageByIndex(${idx})"
@@ -85,6 +134,9 @@ function renderDriveList(filterKey) {
              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDriveModalByIndex(${idx});}">
           <div class="work-thumb-wrap">
             <img class="work-thumb" src="${thumbUrl}" onerror="this.onerror=null;this.src='${fallbackThumbUrl}';" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async" />
+            <div class="thumb-hover-drawer">
+              <span>${actionLabel} &nearr;</span>
+            </div>
           </div>
           <div class="work-row-info">
             <div class="work-row-name">${escapeHtml(item.title)}</div>
@@ -98,6 +150,33 @@ function renderDriveList(filterKey) {
 
   if (currentFilteredDrive.length > 0) {
     previewDesignStageByIndex(0);
+  }
+}
+
+function handleDriveSearch(query) {
+  currentDriveSearchQuery = String(query || '');
+  renderDriveList(currentDriveFilterKey);
+}
+
+function resetDriveSearch() {
+  currentDriveSearchQuery = '';
+  const input = document.getElementById('driveSearchInput');
+  if (input) input.value = '';
+  renderDriveList('all');
+}
+
+function selectRuboothModule(idx, tileEl) {
+  const mod = RUBOOTH_MODULES[idx];
+  if (!mod) return;
+  document.querySelectorAll('.bento-subgrid .arch-tile').forEach((el, i) => {
+    el.classList.toggle('active', i === idx);
+    el.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+  });
+  const statusEl = document.getElementById('pipelineActiveStatus');
+  const detailEl = document.getElementById('pipelineDetailBox');
+  if (statusEl) statusEl.textContent = `Modul Aktif: ${mod.name}`;
+  if (detailEl) {
+    detailEl.innerHTML = `<div class="pipeline-detail-spec">${mod.spec}</div>`;
   }
 }
 
@@ -482,6 +561,32 @@ function initTiltCard() {
   });
 }
 
+function initSpotlightAndMagnetic() {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) return;
+
+  document.addEventListener('pointermove', (e) => {
+    const card = e.target && e.target.closest ? e.target.closest('.spotlight-card') : null;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--spot-x', `${e.clientX - rect.left}px`);
+    card.style.setProperty('--spot-y', `${e.clientY - rect.top}px`);
+  });
+
+  document.querySelectorAll('.magnetic-btn').forEach((btn) => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const dx = (e.clientX - (rect.left + rect.width / 2)) * 0.14;
+      const dy = (e.clientY - (rect.top + rect.height / 2)) * 0.18;
+      btn.style.transform = `translate3d(${dx.toFixed(1)}px, ${dy.toFixed(1)}px, 0)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+    });
+  });
+}
+
 function initPortfolio() {
   applyStoredTheme();
   hydrateProfile();
@@ -489,6 +594,7 @@ function initPortfolio() {
   renderDriveList('all');
   renderDevList('all');
   initTiltCard();
+  initSpotlightAndMagnetic();
 
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();

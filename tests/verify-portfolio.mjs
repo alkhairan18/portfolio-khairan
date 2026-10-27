@@ -154,7 +154,12 @@ test('Astro + Tailwind CSS v4 Architecture & Static Pre-rendered Output', () => 
   assert.doesNotMatch(distHtml, /—/, 'Built dist/index.html must contain zero em-dashes');
   assert.match(distHtml, /data-drive-idx="38"/, 'All 39 Google Drive items (0..38) must be pre-rendered in static HTML');
   assert.match(distHtml, /RUBOOTH - Smart Android Photobooth Kiosk System/);
+  assert.match(distHtml, /id="driveSearchInput"/, 'Live gallery search input must exist in pre-rendered HTML');
+  assert.match(distHtml, /id="pipelineDetailBox"/, 'Interactive RUBOOTH pipeline explorer must exist in pre-rendered HTML');
+  assert.match(distHtml, /thumb-hover-drawer/, 'Hover quick-action drawer must exist on artwork cards');
+  assert.match(distHtml, /spotlight-card/, 'Cursor-tracking spotlight cards must exist');
 });
+
 
 
 

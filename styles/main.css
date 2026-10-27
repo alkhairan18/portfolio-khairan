@@ -106,8 +106,13 @@ body {
 }
 
 /* ============================================================================
-   MINIMALIST EDITORIAL NAVBAR
+   MINIMALIST EDITORIAL NAVBAR + SCROLL-DRIVEN PROGRESS HAIRLINE
    ============================================================================ */
+@keyframes scrollProgress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
 .nav {
   position: sticky;
   top: 0;
@@ -122,6 +127,45 @@ body {
   align-items: center;
   font-size: 13.5px;
   gap: 16px;
+}
+
+@supports (animation-timeline: scroll()) {
+  .nav::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1.5px;
+    background: var(--text);
+    transform-origin: 0 50%;
+    animation: scrollProgress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* CURSOR-TRACKING SPOTLIGHT SURFACE */
+.spotlight-card {
+  position: relative;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  background: radial-gradient(
+    360px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    color-mix(in srgb, var(--text) 7%, transparent),
+    transparent 70%
+  );
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
 }
 
 .nav-brand {
@@ -621,6 +665,59 @@ body {
   gap: 2px;
 }
 
+.gallery-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.gallery-search-input {
+  background: var(--bg-elevated);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 13px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  min-width: 240px;
+  transition: border-color 0.18s ease;
+}
+
+.gallery-search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.gallery-search-input:focus {
+  border-color: var(--text);
+  outline: none;
+}
+
+.empty-search-state {
+  grid-column: 1 / -1;
+  padding: 48px 24px;
+  text-align: center;
+  border-radius: 12px;
+  border: 1px dashed var(--border);
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
 .view-mode-btn {
   background: transparent;
   color: var(--text-muted);
@@ -678,6 +775,33 @@ body {
 
 .work-scroll-area.grid-mode .work-row:hover .work-thumb {
   transform: scale(1.03);
+}
+
+.thumb-hover-drawer {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 10px 14px;
+  background: linear-gradient(to top, rgba(9, 9, 11, 0.85), transparent);
+  color: #FAFAFA;
+  font-size: 12.5px;
+  font-weight: 600;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.22s var(--ease-out-expo), transform 0.22s var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.work-scroll-area.grid-mode .work-row:hover .thumb-hover-drawer,
+.work-scroll-area.grid-mode .work-row:focus-visible .thumb-hover-drawer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.work-scroll-area.list-mode .thumb-hover-drawer {
+  display: none;
 }
 
 /* HIDE REPETITIVE CTA BUTTON IN GRID MODE SO IT LOOKS LIKE A REAL PORTFOLIO */
@@ -779,18 +903,75 @@ body {
 .bento-spec-column {
   border-top: 1px solid var(--border);
   padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pipeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.pipeline-label {
+  color: var(--text-muted);
+}
+
+.pipeline-status {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 12.5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
 }
 
 .bento-subgrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
+  gap: 16px;
 }
 
 .arch-tile {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s var(--ease-out-expo);
+}
+
+.arch-tile:hover {
+  border-color: var(--text-muted);
+  transform: translateY(-2px);
+}
+
+.arch-tile.active {
+  background: var(--bg-elevated);
+  border-color: var(--text);
+}
+
+.pipeline-detail-box {
+  padding: 18px 22px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.pipeline-detail-box strong,
+.pipeline-detail-box code {
+  color: var(--text);
 }
 
 .arch-tile-title {

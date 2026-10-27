@@ -31,9 +31,21 @@ const firstItem = items[0];
         </p>
       </div>
 
-      <div class="view-mode-switch" role="group" aria-label="Mode tampilan galeri">
-        <button id="viewGridBtn" type="button" class="view-mode-btn active" onclick="setDriveViewMode('grid', this)">Galeri</button>
-        <button id="viewListBtn" type="button" class="view-mode-btn" onclick="setDriveViewMode('list', this)">Daftar</button>
+      <div class="gallery-controls-row">
+        <div class="search-box-wrap">
+          <label for="driveSearchInput" class="sr-only">Cari karya desain</label>
+          <input
+            id="driveSearchInput"
+            type="search"
+            class="gallery-search-input"
+            placeholder="Cari karya (mis. KPU, Kemasan, 3D)..."
+            oninput="handleDriveSearch(this.value)"
+          />
+        </div>
+        <div class="view-mode-switch" role="group" aria-label="Mode tampilan galeri">
+          <button id="viewGridBtn" type="button" class="view-mode-btn active" onclick="setDriveViewMode('grid', this)">Galeri</button>
+          <button id="viewListBtn" type="button" class="view-mode-btn" onclick="setDriveViewMode('list', this)">Daftar</button>
+        </div>
       </div>
     </div>
 
@@ -54,8 +66,8 @@ const firstItem = items[0];
   </div>
 
   <div class="discipline-body">
-    <!-- SUBTLE PREVIEW BAR (HIDDEN BY DEFAULT ON MOBILE, CLEAN EDITORIAL SPLIT ON DESKTOP) -->
-    <div class="live-stage">
+    <!-- INTERACTIVE STAGE PREVIEW -->
+    <div class="live-stage spotlight-card">
       <div class="stage-frame stage-clickable" onclick="openCurrentDesignStageModal()" title="Klik untuk memperbesar">
         <img
           id="designStageImg"
@@ -69,14 +81,14 @@ const firstItem = items[0];
         <h3 id="designStageTitle" class="stage-info-title">{firstItem ? firstItem.title : ''}</h3>
         <p id="designStageDesc" class="stage-info-desc">{firstItem ? firstItem.desc : ''}</p>
         <div class="stage-repo-actions">
-          <button type="button" class="stage-expand-btn" onclick="openCurrentDesignStageModal()">
+          <button type="button" class="stage-expand-btn magnetic-btn" onclick="openCurrentDesignStageModal()">
             Buka ukuran penuh &nearr;
           </button>
         </div>
       </div>
     </div>
 
-    <!-- CLEAN EXHIBITION GALLERY (FRAMELESS FIGURES, NO BUTTON SPAM) -->
+    <!-- EXHIBITION GALLERY WITH HOVER QUICK-ACTION SLIDE -->
     <div class="work-column">
       <div class="work-list-heading">
         <span id="workCountLabel">{items.length} karya ditampilkan</span>
@@ -85,11 +97,12 @@ const firstItem = items[0];
         {items.map((item, idx) => {
           const thumbUrl = `https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w600`;
           const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${encodeURIComponent(item.id)}=w600`;
-          const actionLabel = item.type === 'video' ? 'Putar Video' : 'Lihat';
+          const actionLabel = item.type === 'video' ? 'Putar Video' : 'Perbesar Karya';
           return (
             <div
-              class={`work-row${idx === 0 ? ' is-selected' : ''}`}
+              class={`work-row spotlight-card${idx === 0 ? ' is-selected' : ''}`}
               data-drive-idx={idx}
+              style={`--stagger-idx: ${idx % 9};`}
               tabindex="0"
               role="button"
               onmouseenter={`previewDesignStageByIndex(${idx})`}
@@ -106,6 +119,9 @@ const firstItem = items[0];
                   loading="lazy"
                   decoding="async"
                 />
+                <div class="thumb-hover-drawer">
+                  <span>{actionLabel} &nearr;</span>
+                </div>
               </div>
               <div class="work-row-info">
                 <div class="work-row-name">{item.title}</div>
