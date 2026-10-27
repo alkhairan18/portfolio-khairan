@@ -122,8 +122,11 @@ function renderDriveList(filterKey) {
       const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${safeId}=w600`;
       const actionLabel = item.type === 'video' ? 'Putar Video' : 'Perbesar Karya';
       const subText = `${escapeHtml(item.tool)}${item.type === 'video' ? ' &middot; Video' : ''}`;
+      const numStr = String(idx + 1).padStart(2, '0');
+      const isFeatured = idx % 7 === 0;
+      const typeLabel = item.type === 'video' ? 'MOTION MP4' : escapeHtml(item.tool);
       return `
-        <div class="work-row spotlight-card${idx === 0 ? ' is-selected' : ''}"
+        <div class="work-row spotlight-card${idx === 0 ? ' is-selected' : ''}${isFeatured ? ' work-row-featured' : ''}"
              data-drive-idx="${idx}"
              style="--stagger-idx: ${idx % 9};"
              tabindex="0"
@@ -132,6 +135,10 @@ function renderDriveList(filterKey) {
              onfocus="previewDesignStageByIndex(${idx})"
              onclick="openDriveModalByIndex(${idx})"
              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDriveModalByIndex(${idx});}">
+          <div class="work-card-top">
+            <span class="work-card-idx">NO. ${numStr}</span>
+            <span class="work-card-type">${typeLabel}</span>
+          </div>
           <div class="work-thumb-wrap">
             <img class="work-thumb" src="${thumbUrl}" onerror="this.onerror=null;this.src='${fallbackThumbUrl}';" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async" />
             <div class="thumb-hover-drawer">
@@ -139,8 +146,11 @@ function renderDriveList(filterKey) {
             </div>
           </div>
           <div class="work-row-info">
-            <div class="work-row-name">${escapeHtml(item.title)}</div>
-            <div class="work-row-sub">${subText}</div>
+            <div class="work-row-text">
+              <div class="work-row-name">${escapeHtml(item.title)}</div>
+              <div class="work-row-sub">${subText}</div>
+            </div>
+            <span class="work-arrow-icon" aria-hidden="true">&nearr;</span>
           </div>
           <span class="work-row-cta">${actionLabel}</span>
         </div>
@@ -197,6 +207,12 @@ function openCurrentDesignStageModal() {
   openDriveModalByIndex(currentStageDriveIdx || 0);
 }
 
+function stepDesignStage(delta) {
+  if (!currentFilteredDrive || currentFilteredDrive.length === 0) return;
+  const nextIdx = (currentStageDriveIdx + delta + currentFilteredDrive.length) % currentFilteredDrive.length;
+  previewDesignStageByIndex(nextIdx);
+}
+
 function previewDesignStageByIndex(idx) {
   const item = currentFilteredDrive[idx];
   if (!item) return;
@@ -207,6 +223,13 @@ function previewDesignStageByIndex(idx) {
     listEl.querySelectorAll('.work-row').forEach((row, rIdx) => {
       row.classList.toggle('is-selected', rIdx === idx);
     });
+  }
+
+  const counterEl = document.getElementById('designStageCounter');
+  if (counterEl) {
+    const numStr = String(idx + 1).padStart(2, '0');
+    const totalStr = String(currentFilteredDrive.length).padStart(2, '0');
+    counterEl.textContent = `NO. ${numStr} / ${totalStr}`;
   }
 
   const badgeEl = document.getElementById('designStageBadge');

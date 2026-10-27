@@ -14,16 +14,20 @@ interface Props {
 }
 const { profile, designCount } = Astro.props;
 ---
-<section id="kontak" class="contact-section">
+<section id="kontak" class="contact-section spotlight-card">
   <div class="contact-left">
-    <h2 class="discipline-title">Kontak</h2>
+    <div class="section-index-row">
+      <span class="section-index-num">03</span>
+      <span class="section-index-tag">INITIATE COLLABORATION // DIRECT CONTACT</span>
+    </div>
+    <h2 class="discipline-title">Mari Berkolaborasi <span class="serif-italic">Bersama</span></h2>
     <p class="contact-desc">
-      Terbuka untuk diskusi peluang kerja maupun kolaborasi proyek pada bidang <strong>Graphic Designer</strong> dan <strong>Software Development</strong>.
+      Terbuka untuk peluang karier profesional, komisi desain visual, maupun pengembangan sistem perangkat lunak pada bidang <strong>Graphic Designer</strong> dan <strong>Software Development</strong>.
     </p>
   </div>
   <div class="contact-actions">
-    <a id="contactEmailBtn" href={`mailto:${profile.email}`} class="repo-link-btn">
-      {profile.email} &nearr;
+    <a id="contactEmailBtn" href={`mailto:${profile.email}`} class="repo-link-btn magnetic-btn">
+      Email: {profile.email} &nearr;
     </a>
     <a id="contactGithubBtn" href={profile.githubProfileUrl} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary">
       GitHub (@alkhairan18) &nearr;
@@ -44,8 +48,9 @@ const { profile, designCount } = Astro.props;
 </section>
 
 <footer class="site-footer">
-  <div>
+  <div class="footer-brand-col">
     <strong>{profile.name}</strong> &middot; {profile.institution}
+    <span class="footer-edition">2026 STUDIO EDITION // ALL RIGHTS RESERVED</span>
   </div>
   <div class="footer-links">
     <a href={`mailto:${profile.email}`}>

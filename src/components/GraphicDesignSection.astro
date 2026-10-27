@@ -25,9 +25,13 @@ const firstItem = items[0];
   <div class="discipline-header">
     <div class="discipline-header-top">
       <div class="discipline-title-stack">
-        <h2 class="discipline-title">Graphic Designer</h2>
+        <div class="section-index-row">
+          <span class="section-index-num">01</span>
+          <span class="section-index-tag">EXHIBITION ARCHIVE // CURATED WORKS</span>
+        </div>
+        <h2 class="discipline-title">Graphic Designer <span class="serif-italic">Showcase</span></h2>
         <p class="discipline-lead">
-          Kumpulan 39 karya desain grafis dan multimedia, meliputi infografis resmi KPU Kota Makassar, desain kemasan, ilustrasi vektor, hingga motion graphics dan 3D.
+          Kurasi 39 karya terpilih meliputi kampanye visual &amp; infografis resmi KPU Kota Makassar, eksplorasi identitas kemasan, ilustrasi vektor, hingga motion graphics dan 3D Blender.
         </p>
       </div>
 
@@ -43,8 +47,8 @@ const firstItem = items[0];
           />
         </div>
         <div class="view-mode-switch" role="group" aria-label="Mode tampilan galeri">
-          <button id="viewGridBtn" type="button" class="view-mode-btn active" onclick="setDriveViewMode('grid', this)">Galeri</button>
-          <button id="viewListBtn" type="button" class="view-mode-btn" onclick="setDriveViewMode('list', this)">Daftar</button>
+          <button id="viewGridBtn" type="button" class="view-mode-btn active" onclick="setDriveViewMode('grid', this)">Bento Galeri</button>
+          <button id="viewListBtn" type="button" class="view-mode-btn" onclick="setDriveViewMode('list', this)">Indeks Katalog</button>
         </div>
       </div>
     </div>
@@ -66,41 +70,67 @@ const firstItem = items[0];
   </div>
 
   <div class="discipline-body">
-    <!-- INTERACTIVE STAGE PREVIEW -->
+    <!-- CINEMA FEATURED EXHIBITION STAGE -->
     <div class="live-stage spotlight-card">
-      <div class="stage-frame stage-clickable" onclick="openCurrentDesignStageModal()" title="Klik untuk memperbesar">
-        <img
-          id="designStageImg"
-          src={firstItem ? `https://drive.google.com/thumbnail?id=${firstItem.id}&sz=w1000` : ''}
-          alt={firstItem ? firstItem.title : 'Pratinjau Karya Desain'}
-          decoding="async"
-        />
+      <div class="stage-topbar">
+        <div class="stage-topbar-left">
+          <span class="stage-live-dot"></span>
+          <span>FEATURED EXHIBITION STAGE // SOROTAN KARYA</span>
+        </div>
+        <div class="stage-topbar-controls">
+          <span id="designStageCounter" class="stage-counter-pill">NO. 01 / {items.length}</span>
+          <button type="button" class="stage-step-btn" onclick="stepDesignStage(-1)" aria-label="Karya sebelumnya">&larr; Prev</button>
+          <button type="button" class="stage-step-btn" onclick="stepDesignStage(1)" aria-label="Karya berikutnya">Next &rarr;</button>
+        </div>
       </div>
-      <div class="stage-meta-box">
-        <span id="designStageBadge" class="stage-badge">{firstItem ? firstItem.tool : 'Adobe Photoshop'}</span>
-        <h3 id="designStageTitle" class="stage-info-title">{firstItem ? firstItem.title : ''}</h3>
-        <p id="designStageDesc" class="stage-info-desc">{firstItem ? firstItem.desc : ''}</p>
-        <div class="stage-repo-actions">
-          <button type="button" class="stage-expand-btn magnetic-btn" onclick="openCurrentDesignStageModal()">
-            Buka ukuran penuh &nearr;
-          </button>
+
+      <div class="stage-main-split">
+        <div class="stage-frame stage-clickable" onclick="openCurrentDesignStageModal()" title="Klik untuk memperbesar">
+          <img
+            id="designStageImg"
+            src={firstItem ? `https://drive.google.com/thumbnail?id=${firstItem.id}&sz=w1000` : ''}
+            alt={firstItem ? firstItem.title : 'Pratinjau Karya Desain'}
+            decoding="async"
+          />
+        </div>
+        <div class="stage-meta-box">
+          <div class="stage-badge-row">
+            <span id="designStageBadge" class="stage-badge">{firstItem ? firstItem.tool : 'Adobe Photoshop'}</span>
+            <span class="stage-format-tag">HIGH-RES ARCHIVE</span>
+          </div>
+          <h3 id="designStageTitle" class="stage-info-title">{firstItem ? firstItem.title : ''}</h3>
+          <p id="designStageDesc" class="stage-info-desc">{firstItem ? firstItem.desc : ''}</p>
+          <div class="stage-repo-actions">
+            <button type="button" class="stage-expand-btn magnetic-btn" onclick="openCurrentDesignStageModal()">
+              Buka Layar Penuh &nearr;
+            </button>
+            <button type="button" class="stage-next-outline-btn" onclick="stepDesignStage(1)">
+              Karya Berikutnya &rarr;
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- EXHIBITION GALLERY WITH HOVER QUICK-ACTION SLIDE -->
+    <!-- ASYMMETRIC BEHANCE-PRO EXHIBITION GALLERY -->
     <div class="work-column">
       <div class="work-list-heading">
-        <span id="workCountLabel">{items.length} karya ditampilkan</span>
+        <div class="work-list-heading-left">
+          <span class="heading-dot"></span>
+          <span id="workCountLabel">{items.length} karya ditampilkan</span>
+        </div>
+        <span class="work-list-hint">KLIK KARTU UNTUK LAYAR PENUH &middot; ARAHKAN KURSOR UNTUK SOROTAN</span>
       </div>
       <div id="driveWorkList" class="work-scroll-area grid-mode">
         {items.map((item, idx) => {
           const thumbUrl = `https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w600`;
           const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${encodeURIComponent(item.id)}=w600`;
           const actionLabel = item.type === 'video' ? 'Putar Video' : 'Perbesar Karya';
+          const numStr = String(idx + 1).padStart(2, '0');
+          const isFeatured = idx % 7 === 0;
           return (
             <div
-              class={`work-row spotlight-card${idx === 0 ? ' is-selected' : ''}`}
+              class={`work-row spotlight-card${idx === 0 ? ' is-selected' : ''}${isFeatured ? ' work-row-featured' : ''}`}
               data-drive-idx={idx}
               style={`--stagger-idx: ${idx % 9};`}
               tabindex="0"
@@ -110,6 +140,10 @@ const firstItem = items[0];
               onclick={`openDriveModalByIndex(${idx})`}
               onkeydown={`if(event.key==='Enter'||event.key===' '){event.preventDefault();openDriveModalByIndex(${idx});}`}
             >
+              <div class="work-card-top">
+                <span class="work-card-idx">NO. {numStr}</span>
+                <span class="work-card-type">{item.type === 'video' ? 'MOTION MP4' : item.tool}</span>
+              </div>
               <div class="work-thumb-wrap">
                 <img
                   class="work-thumb"
@@ -124,10 +158,13 @@ const firstItem = items[0];
                 </div>
               </div>
               <div class="work-row-info">
-                <div class="work-row-name">{item.title}</div>
-                <div class="work-row-sub">
-                  {item.tool}{item.type === 'video' ? ' · Video' : ''}
+                <div class="work-row-text">
+                  <div class="work-row-name">{item.title}</div>
+                  <div class="work-row-sub">
+                    {item.tool}{item.type === 'video' ? ' · Video' : ''}
+                  </div>
                 </div>
+                <span class="work-arrow-icon" aria-hidden="true">&nearr;</span>
               </div>
               <span class="work-row-cta">{actionLabel}</span>
             </div>

@@ -15,47 +15,120 @@ interface Props {
 const { profile, defaultBio, designCount } = Astro.props;
 ---
 <section id="perkenalan" class="hero">
+  <!-- TOP ARCHITECTURAL STUDIO MASTHEAD STRIP -->
+  <div class="hero-issue-bar">
+    <div class="issue-item">
+      <span class="issue-dot"></span>
+      <span>EDITION 2026 // SELECTED WORKS ARCHIVE</span>
+    </div>
+    <div class="issue-item issue-center">
+      <span>MAKASSAR, INDONESIA &middot; MULTIDISCIPLINARY PORTFOLIO</span>
+    </div>
+    <div class="issue-item issue-right">
+      <span>STATUS: OPEN FOR FULL-TIME &amp; COMMISSION</span>
+    </div>
+  </div>
+
   <div class="hero-main-grid">
     <div class="hero-left">
-      <div class="kicker">{profile.kicker}</div>
+      <div class="hero-kicker-row">
+        <span class="kicker-tag">00 // PROFILE</span>
+        <div class="kicker">{profile.kicker}</div>
+      </div>
+
       <h1 class="hero-name">{profile.name}</h1>
 
+      <p class="hero-statement">
+        Merancang <span class="serif-italic">identitas visual</span>, publikasi editorial berdampak tinggi, serta rekayasa sistem interaktif <span class="accent-underline">Android &amp; IoT</span>.
+      </p>
+
       <div class="persona-switcher" role="tablist" aria-label="Pilih fokus profil">
-        <button class="persona-btn active" role="tab" aria-selected="true" type="button" onclick="setPersona('hybrid', this)">Ringkasan</button>
-        <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('designer', this)">Graphic Design</button>
-        <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('developer', this)">Software Dev</button>
+        <button class="persona-btn active" role="tab" aria-selected="true" type="button" onclick="setPersona('hybrid', this)">
+          <span class="persona-dot"></span> Ringkasan Studio
+        </button>
+        <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('designer', this)">
+          <span class="persona-dot"></span> Graphic Design
+        </button>
+        <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('developer', this)">
+          <span class="persona-dot"></span> Software Dev
+        </button>
       </div>
 
       <p id="personaBio" class="hero-bio" set:html={defaultBio} />
 
       <div class="metrics-grid">
         <div class="metric-cell">
+          <div class="metric-index">01 // INSTITUSI</div>
           <div class="metric-label">Almamater</div>
           <div class="metric-value">{profile.institution}</div>
         </div>
         <div class="metric-cell">
-          <div class="metric-label">IPK</div>
+          <div class="metric-index">02 // AKADEMIK</div>
+          <div class="metric-label">Capaian IPK</div>
           <div class="metric-value">{profile.gpa}</div>
         </div>
         <div class="metric-cell">
-          <div class="metric-label">Disiplin</div>
+          <div class="metric-index">03 // SPESIALISASI</div>
+          <div class="metric-label">Disiplin Utama</div>
           <div class="metric-value">{profile.roleSummary}</div>
         </div>
       </div>
 
       <div class="cta-row">
-        <a href="#bagian-desain" class="magnetic-btn magnetic-primary">Lihat Karya ({designCount})</a>
-        <a href="#bagian-development" class="magnetic-btn magnetic-secondary">Proyek RUBOOTH</a>
-        <a id="heroCvBtn" href={profile.cvUrl || '#'} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary" style={profile.cvUrl ? 'display:inline-flex;' : 'display:none;'}>Unduh CV &nearr;</a>
+        <a href="#bagian-desain" class="magnetic-btn magnetic-primary">
+          Eksplorasi {designCount} Karya Desain &darr;
+        </a>
+        <a href="#bagian-development" class="magnetic-btn magnetic-secondary">
+          Studi Kasus RUBOOTH &nearr;
+        </a>
+        <a id="heroCvBtn" href={profile.cvUrl || '#'} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary" style={profile.cvUrl ? 'display:inline-flex;' : 'display:none;'}>
+          Unduh CV &nearr;
+        </a>
       </div>
     </div>
 
     <div class="hero-right">
       <div class="tilt-stage">
+        <div class="portrait-frame-header">
+          <span>[ FIG. 00 // CREATIVE DIRECTOR &amp; DEV ]</span>
+          <span class="portrait-coords">PNUP &middot; 3.74 GPA</span>
+        </div>
         <div id="tiltCard" class="tilt-card">
           <img src={profile.avatarUrl} alt={`Foto Profil ${profile.name}`} fetchpriority="high" decoding="async" />
+          <div class="portrait-corner corner-tl"></div>
+          <div class="portrait-corner corner-tr"></div>
+          <div class="portrait-corner corner-bl"></div>
+          <div class="portrait-corner corner-br"></div>
+        </div>
+        <div class="portrait-stat-strip">
+          <div class="portrait-stat-box">
+            <span class="portrait-stat-num">{designCount}</span>
+            <span class="portrait-stat-lbl">Karya Visual Terkurasi</span>
+          </div>
+          <div class="portrait-stat-divider"></div>
+          <div class="portrait-stat-box">
+            <span class="portrait-stat-num">01</span>
+            <span class="portrait-stat-lbl">Sistem Kios Pintar IoT</span>
+          </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- STUDIO DISCIPLINE RIBBON -->
+  <div class="studio-ribbon" aria-label="Keahlian Utama Studio">
+    <div class="studio-ribbon-track">
+      <span>INFOGRAFIS KPU KOTA MAKASSAR</span>
+      <i class="ribbon-star">&#10022;</i>
+      <span>PACKAGING &amp; BRAND IDENTITY</span>
+      <i class="ribbon-star">&#10022;</i>
+      <span>VECTOR ILLUSTRATION &amp; POSTER</span>
+      <i class="ribbon-star">&#10022;</i>
+      <span>3D BLENDER &amp; MOTION GRAPHICS</span>
+      <i class="ribbon-star">&#10022;</i>
+      <span>ANDROID KOTLIN KIOSK SYSTEM</span>
+      <i class="ribbon-star">&#10022;</i>
+      <span>DUAL-CAMERA USB PTP/UVC &amp; GEMINI AI</span>
     </div>
   </div>
 </section>

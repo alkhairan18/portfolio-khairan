@@ -27,9 +27,13 @@ const firstDev = items[0];
   <div class="discipline-header">
     <div class="discipline-header-top">
       <div class="discipline-title-stack">
-        <h2 class="discipline-title">Software Development</h2>
+        <div class="section-index-row">
+          <span class="section-index-num">02</span>
+          <span class="section-index-tag">FLAGSHIP ENGINEERING // SYSTEM ARCHITECTURE</span>
+        </div>
+        <h2 class="discipline-title">Software Development <span class="serif-italic">System</span></h2>
         <p class="discipline-lead">
-          Pengembangan aplikasi kios pintar dan integrasi perangkat keras untuk kebutuhan sistem interaktif mandiri.
+          Rekayasa sistem kios pintar mandiri berbasis Android Kotlin, integrasi perangkat keras kamera profesional USB PTP/UVC, pemrosesan Generative AI, serta automasi IoT.
         </p>
       </div>
 
@@ -51,6 +55,13 @@ const firstDev = items[0];
   <!-- EDITORIAL CASE STUDY + INTERACTIVE SYSTEM PIPELINE -->
   <div class="rubooth-bento-grid">
     <div class="bento-cell bento-hero-stage spotlight-card">
+      <div class="stage-topbar">
+        <div class="stage-topbar-left">
+          <span class="stage-live-dot"></span>
+          <span>CASE STUDY 01 // PRODUCTION ANDROID KIOSK</span>
+        </div>
+        <span class="stage-counter-pill">OPEN SOURCE REPO</span>
+      </div>
       <div class="stage-frame stage-clickable" onclick="openDevModalByIndex(0)">
         <img
           id="devStageImg"
@@ -61,7 +72,10 @@ const firstDev = items[0];
         />
       </div>
       <div class="stage-meta-box">
-        <span id="devStageBadge" class="stage-badge">{firstDev ? firstDev.badge : 'Android Kotlin'}</span>
+        <div class="stage-badge-row">
+          <span id="devStageBadge" class="stage-badge">{firstDev ? firstDev.badge : 'Android Kotlin'}</span>
+          <span class="stage-format-tag">HARDWARE + CLOUD IOT</span>
+        </div>
         <h3 id="devStageTitle" class="stage-info-title">{firstDev ? firstDev.title : ''}</h3>
         <p id="devStageDesc" class="stage-info-desc">{firstDev ? firstDev.desc : ''}</p>
         <div class="tech-stack-row">
@@ -79,6 +93,9 @@ const firstDev = items[0];
           >
             Lihat Kode Sumber di GitHub &nearr;
           </a>
+          <button type="button" class="stage-next-outline-btn" onclick="openDevModalByIndex(0)">
+            Perbesar Banner &nearr;
+          </button>
         </div>
       </div>
     </div>
@@ -86,7 +103,7 @@ const firstDev = items[0];
     <!-- INTERACTIVE KIOSK ARCHITECTURE EXPLORER -->
     <div class="bento-cell bento-spec-column">
       <div class="pipeline-header">
-        <span class="pipeline-label">Simulasi Alur Arsitektur Sistem RUBOOTH (Klik modul untuk inspeksi teknis):</span>
+        <span class="pipeline-label">INTERACTIVE SYSTEM ARCHITECTURE // KLIK MODUL UNTUK INSPEKSI:</span>
         <span id="pipelineActiveStatus" class="pipeline-status">Modul Aktif: Dual-Camera USB PTP &amp; UVC</span>
       </div>
 
@@ -99,6 +116,10 @@ const firstDev = items[0];
           onclick="selectRuboothModule(0, this)"
           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectRuboothModule(0, this);}"
         >
+          <div class="arch-tile-head">
+            <span class="arch-tile-idx">MODUL 01</span>
+            <span class="arch-tile-tag">HARDWARE I/O</span>
+          </div>
           <h4 class="arch-tile-title">Dual-Camera USB PTP &amp; UVC</h4>
           <p class="arch-tile-desc">Pratinjau langsung (<em>live view</em>) via webcam USB UVC yang dipadukan dengan pengambilan foto resolusi tinggi dari kamera DSLR Canon EOS melalui protokol USB PTP.</p>
         </article>
@@ -110,6 +131,10 @@ const firstDev = items[0];
           onclick="selectRuboothModule(1, this)"
           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectRuboothModule(1, this);}"
         >
+          <div class="arch-tile-head">
+            <span class="arch-tile-idx">MODUL 02</span>
+            <span class="arch-tile-tag">AI ENGINE</span>
+          </div>
           <h4 class="arch-tile-title">Google Gemini Generative AI</h4>
           <p class="arch-tile-desc">Pemrosesan komposisi gambar yang memungkinkan pengguna berfoto bersama figur idola secara otomatis langsung di layar kios.</p>
         </article>
@@ -121,6 +146,10 @@ const firstDev = items[0];
           onclick="selectRuboothModule(2, this)"
           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectRuboothModule(2, this);}"
         >
+          <div class="arch-tile-head">
+            <span class="arch-tile-idx">MODUL 03</span>
+            <span class="arch-tile-tag">PAYMENT GATEWAY</span>
+          </div>
           <h4 class="arch-tile-title">Midtrans Snap QRIS</h4>
           <p class="arch-tile-desc">Alur pembayaran nirsentuh (<em>cashless</em>) dengan pembuatan kode QR dinamis dan pembukaan sesi foto otomatis setelah transaksi terverifikasi.</p>
         </article>
@@ -132,6 +161,10 @@ const firstDev = items[0];
           onclick="selectRuboothModule(3, this)"
           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectRuboothModule(3, this);}"
         >
+          <div class="arch-tile-head">
+            <span class="arch-tile-idx">MODUL 04</span>
+            <span class="arch-tile-tag">REALTIME IOT &amp; PRINT</span>
+          </div>
           <h4 class="arch-tile-title">Firebase IoT &amp; Epson L8050</h4>
           <p class="arch-tile-desc">Sinkronisasi lampu studio melalui Firebase Realtime Database serta pencetakan foto ukuran 3R otomatis ke printer Epson L8050.</p>
         </article>
