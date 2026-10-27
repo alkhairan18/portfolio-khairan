@@ -27,12 +27,9 @@ const firstDev = items[0];
   <div class="discipline-header">
     <div class="discipline-header-top">
       <div class="discipline-title-stack">
-        <div class="title-with-counter">
-          <h2 class="discipline-title">Software Development</h2>
-          <span class="section-counter-pill">Android Kotlin &middot; AI &middot; IoT</span>
-        </div>
+        <h2 class="discipline-title">Software Development</h2>
         <p class="discipline-lead">
-          Rekayasa perangkat lunak aplikasi kios mandiri, integrasi perangkat keras kamera &amp; printer via USB, pembayaran QRIS otomatis, serta komputasi AI generatif.
+          Pengembangan aplikasi dan integrasi perangkat keras untuk kebutuhan sistem interaktif mandiri.
         </p>
       </div>
 
@@ -51,9 +48,8 @@ const firstDev = items[0];
     </div>
   </div>
 
-  <!-- WIDESCREEN PRODUCT LAUNCH BENTO -->
+  <!-- EDITORIAL CASE STUDY LAYOUT -->
   <div class="rubooth-bento-grid">
-    <!-- TOP FULL-WIDTH WIDESCREEN SHOWCASE -->
     <div class="bento-cell bento-hero-stage">
       <div class="stage-frame stage-clickable" onclick="openDevModalByIndex(0)">
         <img
@@ -65,12 +61,7 @@ const firstDev = items[0];
         />
       </div>
       <div class="stage-meta-box">
-        <div class="stage-topbar">
-          <span id="devStageBadge" class="stage-badge">{firstDev ? firstDev.badge : 'PEMBUATAN APLIKASI'}</span>
-          <button type="button" class="stage-expand-btn" onclick="openDevModalByIndex(0)">
-            Pratinjau Penuh &nearr;
-          </button>
-        </div>
+        <span id="devStageBadge" class="stage-badge">{firstDev ? firstDev.badge : 'Android Kotlin'}</span>
         <h3 id="devStageTitle" class="stage-info-title">{firstDev ? firstDev.title : ''}</h3>
         <p id="devStageDesc" class="stage-info-desc">{firstDev ? firstDev.desc : ''}</p>
         <div class="tech-stack-row">
@@ -86,42 +77,33 @@ const firstDev = items[0];
             rel="noopener noreferrer"
             class="repo-link-btn"
           >
-            Buka Kode Sumber di GitHub ({firstDev ? firstDev.repoLabel : 'github.com/alkhairan18/rubooth'}) &nearr;
+            Lihat Kode Sumber di GitHub &nearr;
           </a>
         </div>
       </div>
     </div>
 
-    <!-- BOTTOM 4-COLUMN ARCHITECTURE PILLARS + REPOSITORY LEDGER -->
     <div class="bento-cell bento-spec-column">
       <div class="bento-subgrid">
-        <article class="arch-tile arch-tile-accent">
-          <div class="arch-tile-meta">01 / PERANGKAT KERAS</div>
+        <article class="arch-tile">
           <h4 class="arch-tile-title">Dual-Camera USB PTP &amp; UVC</h4>
-          <p class="arch-tile-desc">Pratinjau langsung (<em>live view</em>) mulus via webcam USB UVC yang dipadukan dengan jepretan resolusi tinggi kamera DSLR Canon EOS melalui protokol USB PTP.</p>
+          <p class="arch-tile-desc">Pratinjau langsung (<em>live view</em>) via webcam USB UVC yang dipadukan dengan pengambilan foto resolusi tinggi dari kamera DSLR Canon EOS melalui protokol USB PTP.</p>
         </article>
         <article class="arch-tile">
-          <div class="arch-tile-meta">02 / KECERDASAN BUATAN</div>
           <h4 class="arch-tile-title">Google Gemini Generative AI</h4>
-          <p class="arch-tile-desc">Pemrosesan komposisi gambar cerdas yang memungkinkan pengguna berfoto bersama figur idola secara otomatis langsung di layar kios.</p>
+          <p class="arch-tile-desc">Pemrosesan komposisi gambar yang memungkinkan pengguna berfoto bersama figur idola secara otomatis langsung di layar kios.</p>
         </article>
         <article class="arch-tile">
-          <div class="arch-tile-meta">03 / TRANSAKSI MANDIRI</div>
-          <h4 class="arch-tile-title">Midtrans Snap QRIS Otomatis</h4>
-          <p class="arch-tile-desc">Alur pembayaran nirsentuh (<em>cashless</em>) dengan pembuatan kode QR dinamis dan pembukaan kunci sesi foto otomatis begitu transaksi terverifikasi.</p>
+          <h4 class="arch-tile-title">Midtrans Snap QRIS</h4>
+          <p class="arch-tile-desc">Alur pembayaran nirsentuh (<em>cashless</em>) dengan pembuatan kode QR dinamis dan pembukaan sesi foto otomatis setelah transaksi terverifikasi.</p>
         </article>
-        <article class="arch-tile arch-tile-tinted">
-          <div class="arch-tile-meta">04 / IOT &amp; CETAK INSTAN</div>
-          <h4 class="arch-tile-title">Firebase IoT &amp; Epson L8050 3R</h4>
-          <p class="arch-tile-desc">Sinkronisasi lampu studio pintar melalui Firebase Realtime Database serta antrean cetak otomatis ukuran 3R langsung ke printer foto Epson L8050.</p>
+        <article class="arch-tile">
+          <h4 class="arch-tile-title">Firebase IoT &amp; Epson L8050</h4>
+          <p class="arch-tile-desc">Sinkronisasi lampu studio melalui Firebase Realtime Database serta pencetakan foto ukuran 3R otomatis ke printer Epson L8050.</p>
         </article>
       </div>
 
-      <div class="dev-index-box">
-        <div class="work-list-heading">
-          <span>INDEKS REPOSITORI SOFTWARE DEVELOPMENT</span>
-          <span>KLIK DETAIL / BUKA GITHUB</span>
-        </div>
+      <div class="dev-index-box" style="display:none;">
         <div id="devWorkList">
           {items.map((item, idx) => (
             <div

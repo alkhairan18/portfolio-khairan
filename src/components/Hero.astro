@@ -20,18 +20,33 @@ const { profile, defaultBio, designCount } = Astro.props;
       <div class="kicker">{profile.kicker}</div>
       <h1 class="hero-name">{profile.name}</h1>
 
-      <div class="persona-switcher" role="tablist" aria-label="Pilih sudut pandang profil">
-        <button class="persona-btn active" role="tab" aria-selected="true" type="button" onclick="setPersona('hybrid', this)">Profil Utuh</button>
-        <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('designer', this)">HRD Desain</button>
-        <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('developer', this)">HRD IT / Tech</button>
+      <div class="persona-switcher" role="tablist" aria-label="Pilih fokus profil">
+        <button class="persona-btn active" role="tab" aria-selected="true" type="button" onclick="setPersona('hybrid', this)">Ringkasan</button>
+        <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('designer', this)">Graphic Design</button>
+        <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('developer', this)">Software Dev</button>
       </div>
 
       <p id="personaBio" class="hero-bio" set:html={defaultBio} />
 
+      <div class="metrics-grid">
+        <div class="metric-cell">
+          <div class="metric-label">Almamater</div>
+          <div class="metric-value">{profile.institution}</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-label">IPK</div>
+          <div class="metric-value">{profile.gpa}</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-label">Disiplin</div>
+          <div class="metric-value">{profile.roleSummary}</div>
+        </div>
+      </div>
+
       <div class="cta-row">
-        <a href="#bagian-desain" class="magnetic-btn magnetic-primary">Eksplorasi {designCount} Karya Desain</a>
-        <a href="#bagian-development" class="magnetic-btn magnetic-secondary">Studi Kasus RUBOOTH</a>
-        <a id="heroCvBtn" href={profile.cvUrl || '#'} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-primary" style={profile.cvUrl ? 'display:inline-flex;' : 'display:none;'}>Unduh CV (PDF) &nearr;</a>
+        <a href="#bagian-desain" class="magnetic-btn magnetic-primary">Lihat Karya ({designCount})</a>
+        <a href="#bagian-development" class="magnetic-btn magnetic-secondary">Proyek RUBOOTH</a>
+        <a id="heroCvBtn" href={profile.cvUrl || '#'} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary" style={profile.cvUrl ? 'display:inline-flex;' : 'display:none;'}>Unduh CV &nearr;</a>
       </div>
     </div>
 
@@ -39,31 +54,8 @@ const { profile, defaultBio, designCount } = Astro.props;
       <div class="tilt-stage">
         <div id="tiltCard" class="tilt-card">
           <img src={profile.avatarUrl} alt={`Foto Profil ${profile.name}`} fetchpriority="high" decoding="async" />
-          <div class="tilt-overlay">
-            <div>
-              <div class="tilt-name">{profile.name}</div>
-              <div class="tilt-sub">{profile.institution}</div>
-            </div>
-            <div class="tilt-gpa">IPK 3.74</div>
-          </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- FULL-WIDTH ARCHITECTURAL METRICS BAR UNDER HERO -->
-  <div class="metrics-grid">
-    <div class="metric-cell">
-      <div class="metric-label">Almamater Pendidikan</div>
-      <div class="metric-value">{profile.institution}</div>
-    </div>
-    <div class="metric-cell">
-      <div class="metric-label">Indeks Prestasi Kumulatif</div>
-      <div class="metric-value">{profile.gpa}</div>
-    </div>
-    <div class="metric-cell">
-      <div class="metric-label">Fokus Disiplin Ganda</div>
-      <div class="metric-value">{profile.roleSummary}</div>
     </div>
   </div>
 </section>

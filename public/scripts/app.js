@@ -58,7 +58,7 @@ function renderDriveList(filterKey) {
 
   const countLabel = document.getElementById('workCountLabel');
   if (countLabel) {
-    countLabel.textContent = `MENAMPILKAN ${currentFilteredDrive.length} KARYA PADA KATEGORI INI`;
+    countLabel.textContent = `${currentFilteredDrive.length} karya ditampilkan`;
   }
 
   const container = document.getElementById('driveWorkList');
@@ -72,9 +72,8 @@ function renderDriveList(filterKey) {
       const safeId = encodeURIComponent(item.id);
       const thumbUrl = `https://drive.google.com/thumbnail?id=${safeId}&sz=w600`;
       const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${safeId}=w600`;
-      const actionLabel = item.type === 'video' ? 'Putar Video' : 'Buka Gambar';
-      const mediaTag = item.type === 'video' ? '<span class="media-type-pill video-pill">VIDEO</span>' : '<span class="media-type-pill">GAMBAR</span>';
-      const newTag = item.isNew ? '<span class="new-badge">BARU</span>' : '';
+      const actionLabel = item.type === 'video' ? 'Putar Video' : 'Lihat';
+      const subText = `${escapeHtml(item.tool)}${item.type === 'video' ? ' &middot; Video' : ''}`;
       return `
         <div class="work-row${idx === 0 ? ' is-selected' : ''}"
              data-drive-idx="${idx}"
@@ -86,11 +85,10 @@ function renderDriveList(filterKey) {
              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDriveModalByIndex(${idx});}">
           <div class="work-thumb-wrap">
             <img class="work-thumb" src="${thumbUrl}" onerror="this.onerror=null;this.src='${fallbackThumbUrl}';" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async" />
-            ${mediaTag}
           </div>
           <div class="work-row-info">
-            <div class="work-row-name">${escapeHtml(item.title)}${newTag}</div>
-            <div class="work-row-sub">${escapeHtml(item.tool)} &middot; ${escapeHtml(item.file)}</div>
+            <div class="work-row-name">${escapeHtml(item.title)}</div>
+            <div class="work-row-sub">${subText}</div>
           </div>
           <span class="work-row-cta">${actionLabel}</span>
         </div>
@@ -137,7 +135,7 @@ function previewDesignStageByIndex(idx) {
   const descEl = document.getElementById('designStageDesc');
   const imgEl = document.getElementById('designStageImg');
 
-  if (badgeEl) badgeEl.textContent = item.tool.toUpperCase();
+  if (badgeEl) badgeEl.textContent = item.tool;
   if (titleEl) titleEl.textContent = item.title;
   if (descEl) descEl.textContent = item.desc;
   if (imgEl) {
