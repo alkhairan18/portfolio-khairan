@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * DATA PORTOFOLIO — MUHAMMAD AL KHAIRAN ASAAD
+ * DATA PORTOFOLIO - MUHAMMAD AL KHAIRAN ASAAD
  * ============================================================================
  * Panduan Mengubah / Menambah Karya di Masa Depan:
  * 1. Untuk mengubah biodata atau foto profil, edit objek `profile` dan `personas`.

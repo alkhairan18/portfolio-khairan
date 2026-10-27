@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portofolio Muhammad Al Khairan Asaad — Lulusan Politeknik Negeri Ujung Pandang (IPK 3.74). Graphic Designer &amp; Software Development." />
+  <meta name="description" content="Portofolio Muhammad Al Khairan Asaad - Lulusan Politeknik Negeri Ujung Pandang (IPK 3.74). Graphic Designer &amp; Software Development." />
   <meta name="author" content="Muhammad Al Khairan Asaad" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://portfolio-khairan.vercel.app/" />
-  <meta property="og:title" content="Portofolio — Muhammad Al Khairan Asaad (Graphic Designer &amp; Software Development)" />
+  <meta property="og:title" content="Portofolio - Muhammad Al Khairan Asaad (Graphic Designer &amp; Software Development)" />
   <meta property="og:description" content="Lulusan Politeknik Negeri Ujung Pandang (IPK 3.74 / 4.00). Menampilkan 39 karya Graphic Design (Infografis KPU Makassar, Kemasan, Motion Graphics, 3D) &amp; Software Development (RUBOOTH Smart Photobooth)." />
   <meta property="og:image" content="https://portfolio-khairan.vercel.app/assets/profile_khairan.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Portofolio — Muhammad Al Khairan Asaad" />
+  <meta name="twitter:title" content="Portofolio - Muhammad Al Khairan Asaad" />
   <meta name="twitter:description" content="Lulusan Politeknik Negeri Ujung Pandang (IPK 3.74). Graphic Designer &amp; Software Development." />
   <meta name="twitter:image" content="https://portfolio-khairan.vercel.app/assets/profile_khairan.jpg" />
-  <title>Portofolio — Muhammad Al Khairan Asaad</title>
+  <title>Portofolio - Muhammad Al Khairan Asaad</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="alternate icon" href="favicon.ico" />
   <link rel="apple-touch-icon" href="assets/profile_khairan.jpg" />
@@ -48,7 +48,7 @@
   </div>
 
   <div class="shell">
-    <!-- HEADER NAVIGASI -->
+    <!-- HEADER NAVIGASI (SINGLE LINE DESKTOP <= 72PX) -->
     <header class="nav">
       <a href="#perkenalan" class="nav-brand">
         <img class="nav-avatar" src="assets/profile_khairan.jpg" alt="Muhammad Al Khairan Asaad" />
@@ -56,18 +56,18 @@
       </a>
       <div class="nav-right">
         <nav class="nav-links" aria-label="Navigasi Utama">
-          <a href="#perkenalan">Profil Diri</a>
-          <a href="#bagian-desain">Graphic Designer (39 Karya)</a>
+          <a href="#perkenalan">Profil</a>
+          <a href="#bagian-desain">Graphic Designer (39)</a>
           <a href="#bagian-development">Software Development</a>
           <a href="#kontak">Kontak</a>
         </nav>
         <button id="themeToggleBtn" class="theme-toggle-btn" type="button" onclick="toggleTheme()">
-          Mode Terang / Gelap
+          Mode Gelap
         </button>
       </div>
     </header>
 
-    <!-- 1. HERO PERKENALAN DIRI -->
+    <!-- 1. HERO PERKENALAN DIRI (ASYMMETRIC SPLIT HERO) -->
     <section id="perkenalan" class="hero">
       <div class="hero-left">
         <div>
@@ -75,9 +75,9 @@
           <h1 class="hero-name">Muhammad Al Khairan Asaad</h1>
 
           <div class="persona-switcher" role="tablist" aria-label="Pilih sudut pandang profil">
-            <button class="persona-btn active" role="tab" aria-selected="true" type="button" onclick="setPersona('hybrid', this)">Profil Utuh (Seimbang)</button>
-            <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('designer', this)">Sudut Pandang HRD Desain</button>
-            <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('developer', this)">Sudut Pandang HRD IT/Tech</button>
+            <button class="persona-btn active" role="tab" aria-selected="true" type="button" onclick="setPersona('hybrid', this)">Profil Utuh</button>
+            <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('designer', this)">HRD Desain</button>
+            <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('developer', this)">HRD IT / Tech</button>
           </div>
 
           <p id="personaBio" class="hero-bio">
@@ -86,15 +86,15 @@
         </div>
 
         <div class="metrics-grid">
-          <div>
+          <div class="metric-cell">
             <div class="metric-label">Almamater</div>
             <div class="metric-value">Politeknik Negeri Ujung Pandang</div>
           </div>
-          <div>
+          <div class="metric-cell">
             <div class="metric-label">Capaian Akademik</div>
             <div class="metric-value">IPK 3.74 / 4.00</div>
           </div>
-          <div>
+          <div class="metric-cell">
             <div class="metric-label">Bidang Utama</div>
             <div class="metric-value">Graphic Designer &amp; Software Dev.</div>
           </div>
@@ -107,18 +107,17 @@
             <img src="assets/profile_khairan.jpg" alt="Foto Profil Muhammad Al Khairan Asaad" fetchpriority="high" decoding="async" />
             <div class="tilt-overlay">
               <div>
-                <div style="font-weight:700;">Muhammad Al Khairan Asaad</div>
-                <div style="color:#E5E2D9; font-size:11px;">Politeknik Negeri Ujung Pandang</div>
+                <div class="tilt-name">Muhammad Al Khairan Asaad</div>
+                <div class="tilt-sub">Politeknik Negeri Ujung Pandang</div>
               </div>
-              <div style="font-family:var(--font-mono); font-weight:600;">IPK 3.74</div>
+              <div class="tilt-gpa">IPK 3.74</div>
             </div>
           </div>
         </div>
 
         <div class="cta-row">
-          <a href="#bagian-desain" class="magnetic-btn magnetic-primary">1. Karya Graphic Design (39)</a>
-          <a href="#bagian-development" class="magnetic-btn magnetic-secondary">2. Proyek Software Development</a>
-          <a href="#kontak" class="magnetic-btn magnetic-secondary">3. Hubungi Saya</a>
+          <a href="#bagian-desain" class="magnetic-btn magnetic-primary">Eksplorasi 39 Karya Desain</a>
+          <a href="#bagian-development" class="magnetic-btn magnetic-secondary">Proyek Software Dev</a>
           <a id="heroCvBtn" href="#" target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-primary" style="display:none;">Unduh CV (PDF) &nearr;</a>
         </div>
       </div>
@@ -129,82 +128,133 @@
          ======================================================================= -->
     <section id="bagian-desain" class="discipline-section">
       <div class="discipline-header">
-        <div class="discipline-title-wrap">
-          <span class="discipline-tag">BIDANG UTAMA PERTAMA &middot; 39 KARYA VISUAL &amp; MULTIMEDIA</span>
-          <h2 class="discipline-title">Graphic Designer</h2>
+        <div class="discipline-title-stack">
+          <div class="title-with-counter">
+            <h2 class="discipline-title">Graphic Designer</h2>
+            <span class="section-counter-pill">39 Karya Terkurasi</span>
+          </div>
+          <p class="discipline-lead">
+            Arsip karya publikasi resmi instansi (KPU Kota Makassar), desain kemasan, identitas merek, ilustrasi vektor, video sinematik, dan animasi 3D.
+          </p>
         </div>
 
         <div class="skill-bar-wrap">
-          <div class="skill-bar-label">Filter berdasarkan perangkat keahlian &amp; seri karya Google Drive:</div>
-          <div id="driveFilterBar" class="skill-workbench"></div>
+          <div id="driveFilterBar" class="skill-workbench" role="toolbar" aria-label="Filter kategori karya desain"></div>
         </div>
       </div>
 
       <div class="discipline-body">
+        <!-- PANGGUNG PRATINJAU INTERAKTIF (STICKY DI DESKTOP) -->
         <div class="live-stage">
-          <div class="stage-frame">
+          <div class="stage-topbar">
             <span id="designStageBadge" class="stage-badge">ADOBE PHOTOSHOP &middot; INFOGRAFIS KPU</span>
+            <button type="button" class="stage-expand-btn" onclick="openCurrentDesignStageModal()">
+              Perbesar Layar Penuh &nearr;
+            </button>
+          </div>
+          <div class="stage-frame stage-clickable" onclick="openCurrentDesignStageModal()" title="Klik untuk memperbesar karya">
             <img id="designStageImg" src="https://drive.google.com/thumbnail?id=1IpyHiFwfvmVWj_9VbptkDOkDRi1BT3NH&sz=w1000" alt="Pratinjau Karya Desain" decoding="async" />
           </div>
-          <div>
+          <div class="stage-meta-box">
             <h3 id="designStageTitle" class="stage-info-title">Infografis Data Pemilih (PDPB Triwulan III 2025) - KPU Kota Makassar</h3>
             <p id="designStageDesc" class="stage-info-desc">
-              Visualisasi data dan diagram statistik Pemutakhiran Data Pemilih Berkelanjutan (PDPB) Triwulan 3 Tahun 2025 (1.070.078 pemilih) untuk KPU Kota Makassar. Arahkan kursor ke daftar di kanan untuk mengganti pratinjau, atau klik untuk memperbesar.
+              Visualisasi data dan diagram statistik Pemutakhiran Data Pemilih Berkelanjutan (PDPB) Triwulan 3 Tahun 2025 (1.070.078 pemilih) untuk KPU Kota Makassar. Arahkan kursor atau klik salah satu karya untuk melihat detail penuh.
             </p>
           </div>
         </div>
 
+        <!-- GALERI KARYA (GRID VISUAL / DAFTAR INDEKS) -->
         <div class="work-column">
           <div class="work-list-heading">
-            <span id="workCountLabel">MENAMPILKAN SELURUH 39 KARYA DARI GOOGLE DRIVE (GULIR KE BAWAH)</span>
-            <span>KLIK UNTUK BUKA / PUTAR</span>
+            <span id="workCountLabel">MENAMPILKAN 39 KARYA PADA KATEGORI INI</span>
+            <div class="view-mode-switch" role="group" aria-label="Mode tampilan galeri">
+              <button id="viewGridBtn" type="button" class="view-mode-btn active" onclick="setDriveViewMode('grid', this)">Galeri Visual</button>
+              <button id="viewListBtn" type="button" class="view-mode-btn" onclick="setDriveViewMode('list', this)">Daftar Indeks</button>
+            </div>
           </div>
-          <div id="driveWorkList" class="work-scroll-area"></div>
+          <div id="driveWorkList" class="work-scroll-area grid-mode"></div>
         </div>
       </div>
     </section>
 
     <!-- =======================================================================
-         BAGIAN BAWAH (FULL-WIDTH): SOFTWARE DEVELOPMENT
+         BAGIAN BAWAH (FULL-WIDTH): SOFTWARE DEVELOPMENT (ARCHITECTURAL BENTO)
          ======================================================================= -->
     <section id="bagian-development" class="discipline-section">
       <div class="discipline-header">
-        <div class="discipline-title-wrap">
-          <span class="discipline-tag">BIDANG UTAMA KEDUA &middot; APLIKASI &amp; WEB</span>
-          <h2 class="discipline-title">Software Development</h2>
+        <div class="discipline-title-stack">
+          <div class="title-with-counter">
+            <h2 class="discipline-title">Software Development</h2>
+            <span class="section-counter-pill">Android Kotlin &middot; AI &middot; IoT</span>
+          </div>
+          <p class="discipline-lead">
+            Rekayasa perangkat lunak aplikasi mandiri, integrasi perangkat keras kamera &amp; printer via USB, pembayaran QRIS otomatis, serta komputasi AI generatif.
+          </p>
         </div>
 
         <div class="skill-bar-wrap">
-          <div class="skill-bar-label">Filter berdasarkan kategori pengembangan:</div>
-          <div id="devFilterBar" class="skill-workbench"></div>
+          <div id="devFilterBar" class="skill-workbench" role="toolbar" aria-label="Filter kategori pengembangan"></div>
         </div>
       </div>
 
-      <div class="discipline-body">
-        <div class="live-stage">
-          <div class="stage-frame">
+      <!-- BENTO CASE STUDY LAYOUT (BERBEDA DARI SEKSI DESAIN AGAR TIDAK REPETITIF) -->
+      <div class="rubooth-bento-grid">
+        <!-- CELL 1: VISUAL STAGE & REPO CTA -->
+        <div class="bento-cell bento-hero-stage">
+          <div class="stage-topbar">
             <span id="devStageBadge" class="stage-badge">PEMBUATAN APLIKASI &middot; ANDROID KOTLIN</span>
+            <button type="button" class="stage-expand-btn" onclick="openDevModalByIndex(0)">
+              Detail Arsitektur &nearr;
+            </button>
+          </div>
+          <div class="stage-frame stage-clickable" onclick="openDevModalByIndex(0)">
             <img id="devStageImg" src="assets/rubooth_banner.jpg" alt="RUBOOTH Smart Photobooth" loading="lazy" decoding="async" />
           </div>
-          <div>
+          <div class="stage-meta-box">
             <h3 id="devStageTitle" class="stage-info-title">RUBOOTH - Smart Android Photobooth Kiosk System</h3>
             <p id="devStageDesc" class="stage-info-desc">
               Aplikasi kios photobooth interaktif mandiri berbasis Android (Kotlin) yang mengintegrasikan Dual-Camera (USB UVC Live Preview + kamera DSLR Canon EOS via USB PTP), Generative AI foto bersama idola (Google Gemini API), pembayaran otomatis QRIS Midtrans Snap, sinkronisasi lampu studio IoT via Firebase, dan pencetakan instan format 3R ke printer Epson L8050.
             </p>
             <div class="stage-repo-actions">
               <a id="devStageRepoLink" href="https://github.com/alkhairan18/rubooth" target="_blank" rel="noopener noreferrer" class="repo-link-btn">
-                Buka Proyek di GitHub (github.com/alkhairan18/rubooth) &nearr;
+                Buka Kode Sumber di GitHub (github.com/alkhairan18/rubooth) &nearr;
               </a>
             </div>
           </div>
         </div>
 
-        <div class="work-column">
-          <div class="work-list-heading">
-            <span>DAFTAR KARYA SOFTWARE DEVELOPMENT</span>
-            <span>KLIK DETAIL / BUKA GITHUB</span>
+        <!-- CELL 2: 4 PILAR ARSITEKTUR SISTEM RUBOOTH + DAFTAR PROYEK -->
+        <div class="bento-cell bento-spec-column">
+          <div class="bento-subgrid">
+            <article class="arch-tile arch-tile-accent">
+              <div class="arch-tile-meta">MODUL PERANGKAT KERAS</div>
+              <h4 class="arch-tile-title">Dual-Camera USB PTP &amp; UVC</h4>
+              <p class="arch-tile-desc">Pratinjau langsung (*live view*) mulus via webcam USB UVC yang dipadukan dengan jepretan resolusi tinggi kamera DSLR Canon EOS melalui protokol USB PTP.</p>
+            </article>
+            <article class="arch-tile">
+              <div class="arch-tile-meta">KECERDASAN BUATAN</div>
+              <h4 class="arch-tile-title">Google Gemini Generative AI</h4>
+              <p class="arch-tile-desc">Pemrosesan komposisi gambar cerdas yang memungkinkan pengguna berfoto bersama figur idola secara otomatis langsung di layar kios.</p>
+            </article>
+            <article class="arch-tile">
+              <div class="arch-tile-meta">TRANSAKSI MANDIRI</div>
+              <h4 class="arch-tile-title">Midtrans Snap QRIS Otomatis</h4>
+              <p class="arch-tile-desc">Alur pembayaran nirsentuh (*cashless*) dengan pembuatan kode QR dinamis dan pembukaan kunci sesi foto otomatis begitu transaksi terverifikasi.</p>
+            </article>
+            <article class="arch-tile arch-tile-tinted">
+              <div class="arch-tile-meta">IOT &amp; CETAK INSTAN</div>
+              <h4 class="arch-tile-title">Firebase IoT &amp; Epson L8050 3R</h4>
+              <p class="arch-tile-desc">Sinkronisasi lampu studio pintar melalui Firebase Realtime Database serta antrean cetak otomatis ukuran 3R langsung ke printer foto Epson L8050.</p>
+            </article>
           </div>
-          <div id="devWorkList"></div>
+
+          <div class="dev-index-box">
+            <div class="work-list-heading">
+              <span>INDEKS REPOSITORI SOFTWARE DEVELOPMENT</span>
+              <span>KLIK DETAIL / BUKA GITHUB</span>
+            </div>
+            <div id="devWorkList"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -214,10 +264,9 @@
          ======================================================================= -->
     <section id="kontak" class="contact-section">
       <div class="contact-left">
-        <span class="discipline-tag">TERBUKA UNTUK PELUANG KERJA &amp; KOLABORASI</span>
-        <h2 class="discipline-title">Hubungi Saya</h2>
+        <h2 class="discipline-title">Mari Berkolaborasi</h2>
         <p class="contact-desc">
-          Tertarik untuk berdiskusi mengenai posisi <strong>Graphic Designer</strong>, <strong>Software Development</strong>, atau kolaborasi proyek kreatif &amp; teknologi? Silakan hubungi saya langsung melalui kanal berikut.
+          Terbuka untuk kesempatan kerja penuh waktu, magang, maupun proyek kolaborasi di bidang <strong>Graphic Designer</strong> dan <strong>Software Development</strong>.
         </p>
       </div>
       <div class="contact-actions">
@@ -228,7 +277,7 @@
           GitHub (@alkhairan18) &nearr;
         </a>
         <a id="contactDriveBtn" href="https://drive.google.com/drive/folders/1_1u2Mi_RnFdh7tYA8i8AzM7Rwwlu4RPe" target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary">
-          Folder Google Drive (39 Karya) &nearr;
+          Arsip Google Drive (39 Karya) &nearr;
         </a>
         <a id="contactLinkedinBtn" href="#" target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary" style="display:none;">
           LinkedIn &nearr;

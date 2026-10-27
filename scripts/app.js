@@ -1,11 +1,13 @@
 /**
- * Logika Interaktif Portofolio — Muhammad Al Khairan Asaad
+ * Logika Interaktif Portofolio - Muhammad Al Khairan Asaad
  * Membaca data dari `window.PORTFOLIO_DATA` (`data/portfolio-data.js`).
  */
 
 let currentFilteredDrive = [];
 let currentFilteredDev = [];
 let currentModalIdx = -1;
+let currentStageDriveIdx = 0;
+let currentDriveViewMode = 'grid';
 
 function escapeHtml(str) {
   return String(str || '')
@@ -56,11 +58,14 @@ function renderDriveList(filterKey) {
 
   const countLabel = document.getElementById('workCountLabel');
   if (countLabel) {
-    countLabel.textContent = `MENAMPILKAN ${currentFilteredDrive.length} KARYA PADA KATEGORI INI (GULIR UNTUK LIHAT SEMUA)`;
+    countLabel.textContent = `MENAMPILKAN ${currentFilteredDrive.length} KARYA PADA KATEGORI INI`;
   }
 
   const container = document.getElementById('driveWorkList');
   if (!container) return;
+
+  container.classList.toggle('grid-mode', currentDriveViewMode === 'grid');
+  container.classList.toggle('list-mode', currentDriveViewMode === 'list');
 
   container.innerHTML = currentFilteredDrive
     .map((item, idx) => {
@@ -68,17 +73,22 @@ function renderDriveList(filterKey) {
       const thumbUrl = `https://drive.google.com/thumbnail?id=${safeId}&sz=w400`;
       const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${safeId}=w400`;
       const actionLabel = item.type === 'video' ? 'Putar Video' : 'Buka Gambar';
+      const mediaTag = item.type === 'video' ? '<span class="media-type-pill video-pill">VIDEO</span>' : '<span class="media-type-pill">GAMBAR</span>';
       const newTag = item.isNew ? '<span class="new-badge">BARU</span>' : '';
       return `
-        <div class="work-row"
+        <div class="work-row${idx === 0 ? ' is-selected' : ''}"
+             data-drive-idx="${idx}"
              tabindex="0"
              role="button"
              onmouseenter="previewDesignStageByIndex(${idx})"
              onfocus="previewDesignStageByIndex(${idx})"
              onclick="openDriveModalByIndex(${idx})"
              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDriveModalByIndex(${idx});}">
-          <img class="work-thumb" src="${thumbUrl}" onerror="this.onerror=null;this.src='${fallbackThumbUrl}';" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async" />
-          <div>
+          <div class="work-thumb-wrap">
+            <img class="work-thumb" src="${thumbUrl}" onerror="this.onerror=null;this.src='${fallbackThumbUrl}';" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async" />
+            ${mediaTag}
+          </div>
+          <div class="work-row-info">
             <div class="work-row-name">${escapeHtml(item.title)}${newTag}</div>
             <div class="work-row-sub">${escapeHtml(item.tool)} &middot; ${escapeHtml(item.file)}</div>
           </div>
@@ -93,9 +103,34 @@ function renderDriveList(filterKey) {
   }
 }
 
+function setDriveViewMode(mode, btnEl) {
+  currentDriveViewMode = mode === 'list' ? 'list' : 'grid';
+  const container = document.getElementById('driveWorkList');
+  if (container) {
+    container.classList.toggle('grid-mode', currentDriveViewMode === 'grid');
+    container.classList.toggle('list-mode', currentDriveViewMode === 'list');
+  }
+  if (btnEl && btnEl.parentElement) {
+    btnEl.parentElement.querySelectorAll('.view-mode-btn').forEach((b) => b.classList.remove('active'));
+    btnEl.classList.add('active');
+  }
+}
+
+function openCurrentDesignStageModal() {
+  openDriveModalByIndex(currentStageDriveIdx || 0);
+}
+
 function previewDesignStageByIndex(idx) {
   const item = currentFilteredDrive[idx];
   if (!item) return;
+  currentStageDriveIdx = idx;
+
+  const listEl = document.getElementById('driveWorkList');
+  if (listEl) {
+    listEl.querySelectorAll('.work-row').forEach((row, rIdx) => {
+      row.classList.toggle('is-selected', rIdx === idx);
+    });
+  }
 
   const badgeEl = document.getElementById('designStageBadge');
   const titleEl = document.getElementById('designStageTitle');
@@ -381,10 +416,21 @@ function hydrateProfile() {
   }
 }
 
+function syncThemeButtonLabel() {
+  const btn = document.getElementById('themeToggleBtn');
+  if (!btn) return;
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  btn.textContent = isDark ? 'Mode Terang' : 'Mode Gelap';
+}
+
 function applyStoredTheme() {
   try {
     const saved = localStorage.getItem('khairan_portfolio_theme');
     if (saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else if (saved === 'light') {
+      document.documentElement.removeAttribute('data-theme');
+    } else if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       document.documentElement.setAttribute('data-theme', 'dark');
     } else {
       document.documentElement.removeAttribute('data-theme');
@@ -392,6 +438,7 @@ function applyStoredTheme() {
   } catch (_) {
     // Abaikan jika localStorage diblokir browser
   }
+  syncThemeButtonLabel();
 }
 
 function toggleTheme() {
@@ -407,6 +454,7 @@ function toggleTheme() {
   } catch (_) {
     // Abaikan jika localStorage diblokir browser
   }
+  syncThemeButtonLabel();
 }
 
 function setPersona(key, btnEl) {

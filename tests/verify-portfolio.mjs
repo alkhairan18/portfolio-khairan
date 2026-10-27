@@ -105,3 +105,23 @@ test('Audit Improvements: Favicon, Open Graph SEO, Contact/CV section, Accessibi
   assert.match(js, /lh3\.googleusercontent\.com\/d\//);
 });
 
+test('Taste-Skill UI Upgrade: Zero em-dashes, prefers-reduced-motion, eyebrow restraint, and view-mode / bento enhancements', () => {
+  const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'styles/main.css'), 'utf8');
+  const js = fs.readFileSync(path.join(ROOT, 'scripts/app.js'), 'utf8');
+  const dataRaw = fs.readFileSync(path.join(ROOT, 'data/portfolio-data.js'), 'utf8');
+
+  // 1. Zero em-dashes (—) in HTML and data
+  assert.doesNotMatch(html, /—/, 'HTML must contain zero em-dashes');
+  assert.doesNotMatch(dataRaw, /—/, 'portfolio-data.js must contain zero em-dashes');
+
+  // 2. Reduced motion guardrail
+  assert.match(css, /prefers-reduced-motion:\s*reduce/);
+
+  // 3. Tactile active state & gallery/list view mode support
+  assert.match(css, /cubic-bezier\(0\.16,\s*1,\s*0\.3,\s*1\)/);
+  assert.match(js, /setDriveViewMode/);
+  assert.match(html, /rubooth-bento-grid/);
+});
+
+
