@@ -711,29 +711,44 @@ body {
 /* ARCHITECTURAL DISCIPLINE RIBBON */
 .studio-ribbon {
   margin-top: 48px;
-  padding: 14px 20px;
   background: var(--bg-invert);
   color: var(--bg);
-  border-radius: 10px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
   overflow: hidden;
 }
 
 .studio-ribbon-track {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px 18px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   font-family: var(--font-mono);
   font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
+}
+
+.ribbon-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-right: 1px solid color-mix(in srgb, var(--bg) 14%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--bg) 14%, transparent);
+}
+
+.ribbon-cell:nth-child(3n) {
+  border-right: none;
+}
+
+.ribbon-cell:nth-last-child(-n + 3) {
+  border-bottom: none;
 }
 
 .ribbon-star {
   font-style: normal;
   color: var(--accent);
-  font-size: 14px;
+  font-size: 13px;
+  flex-shrink: 0;
 }
 
 /* ============================================================================
@@ -1824,6 +1839,21 @@ body {
   .work-scroll-area.grid-mode .work-row.work-row-featured {
     grid-column: span 2;
   }
+  .studio-ribbon-track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ribbon-cell:nth-child(3n) {
+    border-right: 1px solid color-mix(in srgb, var(--bg) 14%, transparent);
+  }
+  .ribbon-cell:nth-child(2n) {
+    border-right: none;
+  }
+  .ribbon-cell:nth-last-child(-n + 3) {
+    border-bottom: 1px solid color-mix(in srgb, var(--bg) 14%, transparent);
+  }
+  .ribbon-cell:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
 }
 
 @media (max-width: 680px) {
@@ -1835,8 +1865,16 @@ body {
   }
   .metrics-grid,
   .bento-subgrid,
-  .work-scroll-area.grid-mode {
+  .work-scroll-area.grid-mode,
+  .studio-ribbon-track {
     grid-template-columns: 1fr;
+  }
+  .ribbon-cell {
+    border-right: none !important;
+    border-bottom: 1px solid color-mix(in srgb, var(--bg) 14%, transparent) !important;
+  }
+  .ribbon-cell:last-child {
+    border-bottom: none !important;
   }
   .work-scroll-area.grid-mode .work-row.work-row-featured {
     grid-column: span 1;
