@@ -445,7 +445,7 @@ function hydrateProfile() {
   const p = data.profile;
   const kickerEl = document.querySelector('.kicker');
   const heroNameEl = document.querySelector('.hero-name');
-  const navBrandSpan = document.querySelector('.nav-brand span');
+  const navBrandSpan = document.querySelector('.nav-brand-name') || document.querySelector('.nav-brand span');
   const navAvatarEl = document.querySelector('.nav-avatar');
   const heroAvatarEl = document.querySelector('#tiltCard img');
   const bioEl = document.getElementById('personaBio');

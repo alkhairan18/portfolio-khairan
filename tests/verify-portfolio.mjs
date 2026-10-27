@@ -158,6 +158,8 @@ test('Astro + Tailwind CSS v4 Architecture & Static Pre-rendered Output', () => 
   assert.match(distHtml, /id="pipelineDetailBox"/, 'Interactive RUBOOTH pipeline explorer must exist in pre-rendered HTML');
   assert.match(distHtml, /thumb-hover-drawer/, 'Hover quick-action drawer must exist on artwork cards');
   assert.match(distHtml, /spotlight-card/, 'Cursor-tracking spotlight cards must exist');
+  assert.match(distHtml, /class="nav-brand-name"/, 'Navbar brand name must have explicit .nav-brand-name class so hydrateProfile does not overwrite status dot');
+  assert.doesNotMatch(distHtml, /<span[^>]*class="nav-status-dot"/, 'Status dot must not be a span that precedes brand name');
 });
 
 

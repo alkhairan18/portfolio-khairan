@@ -8,10 +8,10 @@ const { name, avatarUrl, designCount } = Astro.props;
 ---
 <header class="nav">
   <a href="#perkenalan" class="nav-brand">
-    <span class="nav-status-dot" aria-hidden="true"></span>
+    <i class="nav-status-dot" aria-hidden="true"></i>
     <img class="nav-avatar" src={avatarUrl} alt={name} />
     <div class="nav-brand-text">
-      <span>{name}</span>
+      <span class="nav-brand-name">{name}</span>
       <small class="nav-brand-sub">STUDIO ARCHIVE // MAKASSAR, ID</small>
     </div>
   </a>
