@@ -17,9 +17,14 @@ interface DriveItem {
 interface Props {
   filters: DriveFilter[];
   items: DriveItem[];
+  curatedIds?: string[];
 }
-const { filters, items } = Astro.props;
-const firstItem = items[0];
+const { filters, items, curatedIds = [] } = Astro.props;
+const curatedList = curatedIds.length > 0
+  ? curatedIds.map(id => items.find(it => it.id === id)).filter(Boolean) as DriveItem[]
+  : items.filter(it => (it as any).isCurated);
+const firstCurated = curatedList[0] || items[0];
+const totalCurated = curatedList.length || 5;
 ---
 <section id="bagian-desain" class="discipline-section">
   <div class="discipline-header">
@@ -75,35 +80,35 @@ const firstItem = items[0];
       <div class="stage-topbar">
         <div class="stage-topbar-left">
           <span class="stage-live-dot"></span>
-          <span>FEATURED EXHIBITION STAGE // SOROTAN KARYA</span>
+          <span>CURATED EXHIBITION // TOP 05 KARYA PILIHAN</span>
         </div>
         <div class="stage-topbar-controls">
-          <span id="designStageCounter" class="stage-counter-pill">NO. 01 / {items.length}</span>
-          <button type="button" class="stage-step-btn" data-action="step-stage" data-delta="-1" aria-label="Karya sebelumnya">&larr; Prev</button>
-          <button type="button" class="stage-step-btn" data-action="step-stage" data-delta="1" aria-label="Karya berikutnya">Next &rarr;</button>
+          <span id="designStageCounter" class="stage-counter-pill">NO. 01 / {String(totalCurated).padStart(2, '0')}</span>
+          <button type="button" class="stage-step-btn" data-action="step-stage" data-delta="-1" aria-label="Karya pilihan sebelumnya">&larr; Prev</button>
+          <button type="button" class="stage-step-btn" data-action="step-stage" data-delta="1" aria-label="Karya pilihan berikutnya">Next &rarr;</button>
         </div>
       </div>
 
       <div class="stage-main-split">
-        <div class="stage-frame stage-clickable" data-action="open-stage" title="Klik untuk memperbesar">
+        <div class="stage-frame stage-clickable" data-action="open-stage" title="Klik untuk membuka studi kasus lengkap">
           <img
             id="designStageImg"
-            src={firstItem ? `/assets/works/${firstItem.id}-1200.webp` : ''}
-            onerror={firstItem ? `this.onerror=null;this.src='https://drive.google.com/thumbnail?id=${firstItem.id}&sz=w1200';` : undefined}
-            alt={firstItem ? firstItem.title : 'Pratinjau Karya Desain'}
+            src={firstCurated ? `/assets/works/${firstCurated.id}-1200.webp` : ''}
+            onerror={firstCurated ? `this.onerror=null;this.src='https://drive.google.com/thumbnail?id=${firstCurated.id}&sz=w1200';` : undefined}
+            alt={firstCurated ? firstCurated.title : 'Pratinjau Karya Desain'}
             decoding="async"
           />
         </div>
         <div class="stage-meta-box">
           <div class="stage-badge-row">
-            <span id="designStageBadge" class="stage-badge">{firstItem ? firstItem.tool : 'Adobe Photoshop'}</span>
-            <span class="stage-format-tag">HIGH-RES ARCHIVE</span>
+            <span id="designStageBadge" class="stage-badge">{firstCurated ? firstCurated.tool : 'Adobe Photoshop'}</span>
+            <span class="stage-format-tag">KURASI UNGGULAN</span>
           </div>
-          <h3 id="designStageTitle" class="stage-info-title">{firstItem ? firstItem.title : ''}</h3>
-          <p id="designStageDesc" class="stage-info-desc">{firstItem ? firstItem.desc : ''}</p>
+          <h3 id="designStageTitle" class="stage-info-title">{firstCurated ? firstCurated.title : ''}</h3>
+          <p id="designStageDesc" class="stage-info-desc">{firstCurated ? firstCurated.desc : ''}</p>
           <div class="stage-repo-actions">
             <button type="button" class="stage-expand-btn magnetic-btn" data-action="open-stage">
-              Buka Layar Penuh &nearr;
+              Lihat Studi Kasus Lengkap &nearr;
             </button>
             <button type="button" class="stage-next-outline-btn" data-action="step-stage" data-delta="1">
               Karya Berikutnya &rarr;

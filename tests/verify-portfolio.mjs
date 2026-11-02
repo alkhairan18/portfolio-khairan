@@ -253,8 +253,9 @@ test('Hardening 2: unconfirmed claims never ship', () => {
   assert.ok(caseStudies.length > 0, 'case studies must exist');
   for (const cs of caseStudies) {
     assert.equal(typeof cs.confirmed, 'boolean', 'each case study must have boolean confirmed property');
-    assert.equal(cs.confirmed, false, 'unconfirmed case studies must be flagged confirmed: false');
   }
+  const confirmedCaseStudies = caseStudies.filter(cs => cs.confirmed === true);
+  assert.ok(confirmedCaseStudies.length >= 3, 'Option A: confirmed KPU case studies must have confirmed: true');
 
   const js = fs.readFileSync(path.join(ROOT, 'src/scripts/app.js'), 'utf8');
   assert.doesNotMatch(js, /defaultLinkedIn/);

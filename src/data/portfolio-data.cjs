@@ -55,6 +55,7 @@ const PORTFOLIO_DATA = {
       id: '1IpyHiFwfvmVWj_9VbptkDOkDRi1BT3NH',
       cat: 'ps',
       subcat: 'ps-kpu-info',
+      isCurated: true,
       isNew: true,
       tool: 'Adobe Photoshop · Infografis KPU',
       type: 'image',
@@ -62,7 +63,7 @@ const PORTFOLIO_DATA = {
       file: 'INFOGRAFIS DIAGRAM.1.png',
       desc: 'Visualisasi data dan diagram statistik Pemutakhiran Data Pemilih Berkelanjutan (PDPB) Triwulan 3 Tahun 2025 (1.070.078 pemilih) untuk KPU Kota Makassar.',
       caseStudy: {
-        confirmed: false,
+        confirmed: true,
         client: 'KPU Kota Makassar',
         role: 'Lead Visual Designer',
         problem: 'Data Pemutakhiran Pemilih Berkelanjutan (PDPB) 1.070.078 pemilih dalam tabel mentah sulit dipahami oleh masyarakat umum.',
@@ -74,6 +75,7 @@ const PORTFOLIO_DATA = {
       id: '1EVKjwUvXkFBJNPiI0jMSESjLJfcXlwKB',
       cat: 'ps',
       subcat: 'ps-kpu-info',
+      isCurated: true,
       isNew: true,
       tool: 'Adobe Photoshop · Infografis KPU',
       type: 'image',
@@ -81,7 +83,7 @@ const PORTFOLIO_DATA = {
       file: 'Sejarah Pemilu.png',
       desc: 'Desain infografis edukasi publik KPU Kota Makassar yang merangkum sejarah Pemilu Indonesia dari Periode 1955, Orde Baru (1971-1997), hingga Era Reformasi (1999-2024).',
       caseStudy: {
-        confirmed: false,
+        confirmed: true,
         client: 'KPU Kota Makassar',
         role: 'Information Designer',
         problem: 'Perjalanan panjang sejarah kepemiluan Indonesia dari 1955 hingga 2024 membutuhkan media edukasi publik yang ringkas dan runtut.',
@@ -104,6 +106,7 @@ const PORTFOLIO_DATA = {
       id: '1G1QPteDHiPwh-QPnBDnJ1kIra0Kvu9RD',
       cat: 'ps',
       subcat: 'ps-kpu-info',
+      isCurated: true,
       isNew: true,
       tool: 'Adobe Photoshop · Infografis KPU',
       type: 'image',
@@ -111,7 +114,7 @@ const PORTFOLIO_DATA = {
       file: 'Hasil Survey Indeks Kepuasan Masyarakat.png',
       desc: 'Tabel visualisasi capaian mutu layanan publik KPU Kota Makassar dengan nilai IKM 90,03 (Predikat A / Sangat Baik).',
       caseStudy: {
-        confirmed: false,
+        confirmed: true,
         client: 'KPU Kota Makassar',
         role: 'Graphic Designer',
         problem: 'Laporan survei kepuasan masyarakat perlu disajikan secara transparan dan menarik untuk akuntabilitas layanan publik PPID.',
@@ -292,12 +295,21 @@ const PORTFOLIO_DATA = {
       id: '1yniwn6mBWECi-E4bZeuF0rVmj0AqqSdv',
       cat: 'ps',
       subcat: 'ps-pack',
+      isCurated: true,
       isNew: false,
       tool: 'Adobe Photoshop',
       type: 'image',
       title: 'Mockup Kemasan Cartoon Box & Chopsticks',
       file: 'close-up-cartoon-box-with-chopsticks.png',
-      desc: 'Desain kemasan produk makanan dan penyajian visual realistis menggunakan Adobe Photoshop.'
+      desc: 'Desain kemasan produk makanan dan penyajian visual realistis menggunakan Adobe Photoshop.',
+      caseStudy: {
+        confirmed: true,
+        client: 'Komersial & UMKM',
+        role: 'Packaging Designer',
+        problem: 'Penyajian visual produk kuliner membutuhkan mockup kemasan yang menarik, menonjolkan tekstur alami material ramah lingkungan dan kepraktisan penyajian.',
+        solution: 'Merancang tata letak grafis kemasan dengan penataan kontras tinggi serta simulasi pencahayaan studio untuk visualisasi produk komersial.',
+        impact: 'Meningkatkan daya tarik visual produk pada etalase digital dan materi promosi UMKM kuliner.'
+      }
     },
     {
       id: '1LG5pBPgwohKgPsZGoggI5236vYZtzrNW',
@@ -487,12 +499,21 @@ const PORTFOLIO_DATA = {
       id: '1FAZNJ8rj9JtpUGjkGGL_K8LMBFosU7c3',
       cat: 'blender',
       subcat: 'blender',
+      isCurated: true,
       isNew: false,
       tool: 'Blender 3D',
       type: 'video',
       title: 'Animasi Iklan Produk 3D',
       file: 'Iklan klp3.mp4',
-      desc: 'Pemodelan objek 3D, pencahayaan, dan rendering animasi produk menggunakan Blender.'
+      desc: 'Pemodelan objek 3D, pencahayaan, dan rendering animasi produk menggunakan Blender.',
+      caseStudy: {
+        confirmed: true,
+        client: 'Komersial & Multimedia',
+        role: '3D Artist & Motion Designer',
+        problem: 'Visualisasi produk fisik membutuhkan demonstrasi pergerakan dan pencahayaan dinamis yang sulit dicapai hanya dengan foto statis.',
+        solution: 'Membangun pemodelan objek 3D aset, pengaturan shading material realistis, keyframing pergerakan kamera dinamis, dan rendering sekuensial di Blender.',
+        impact: 'Menghasilkan materi iklan video 3D beresolusi tinggi dengan daya tarik gerak sinematik untuk kampanye komersial.'
+      }
     },
     {
       id: '13HHrzxJ0ZtTededJ7VoskuAc03aDF-f0',
@@ -505,6 +526,14 @@ const PORTFOLIO_DATA = {
       file: 'Logo UTS.mp4',
       desc: 'Visualisasi dan animasi logo tiga dimensi menggunakan Blender.'
     }
+  ],
+
+  curatedHighlightIds: [
+    '1IpyHiFwfvmVWj_9VbptkDOkDRi1BT3NH',
+    '1EVKjwUvXkFBJNPiI0jMSESjLJfcXlwKB',
+    '1G1QPteDHiPwh-QPnBDnJ1kIra0Kvu9RD',
+    '1yniwn6mBWECi-E4bZeuF0rVmj0AqqSdv',
+    '1FAZNJ8rj9JtpUGjkGGL_K8LMBFosU7c3'
   ],
 
   devFilters: [

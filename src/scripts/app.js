@@ -202,14 +202,77 @@ function setDriveViewMode(mode, btnEl) {
   }
 }
 
+let currentCuratedStageIdx = 0;
+
+function getCuratedItems() {
+  const data = typeof window !== 'undefined' ? window.PORTFOLIO_DATA : null;
+  if (!data || !data.driveItems) return [];
+  const ids = data.curatedHighlightIds || [];
+  if (ids.length > 0) {
+    const list = ids.map((id) => data.driveItems.find((it) => it.id === id)).filter(Boolean);
+    if (list.length > 0) return list;
+  }
+  return data.driveItems.filter((it) => it.isCurated).slice(0, 5);
+}
+
 function openCurrentDesignStageModal() {
-  openDriveModalByIndex(currentStageDriveIdx || 0);
+  const curated = getCuratedItems();
+  const currentItem = curated[currentCuratedStageIdx] || currentFilteredDrive[0];
+  if (!currentItem) return;
+
+  const driveIdx = currentFilteredDrive.findIndex((it) => it.id === currentItem.id);
+  if (driveIdx !== -1) {
+    openDriveModalByIndex(driveIdx);
+  } else {
+    const all = window.PORTFOLIO_DATA?.driveItems || [];
+    const allIdx = all.findIndex((it) => it.id === currentItem.id);
+    if (allIdx !== -1) {
+      currentFilteredDrive = all;
+      openDriveModalByIndex(allIdx);
+    }
+  }
 }
 
 function stepDesignStage(delta) {
-  if (!currentFilteredDrive || currentFilteredDrive.length === 0) return;
-  const nextIdx = (currentStageDriveIdx + delta + currentFilteredDrive.length) % currentFilteredDrive.length;
-  previewDesignStageByIndex(nextIdx);
+  const curated = getCuratedItems();
+  if (curated.length === 0) return;
+  currentCuratedStageIdx = (currentCuratedStageIdx + delta + curated.length) % curated.length;
+  previewCuratedStageByIndex(currentCuratedStageIdx);
+}
+
+function previewCuratedStageByIndex(idx) {
+  const curated = getCuratedItems();
+  const item = curated[idx];
+  if (!item) return;
+  currentCuratedStageIdx = idx;
+
+  const counterEl = document.getElementById('designStageCounter');
+  if (counterEl) {
+    const numStr = String(idx + 1).padStart(2, '0');
+    const totalStr = String(curated.length).padStart(2, '0');
+    counterEl.textContent = `NO. ${numStr} / ${totalStr}`;
+  }
+
+  const badgeEl = document.getElementById('designStageBadge');
+  const titleEl = document.getElementById('designStageTitle');
+  const descEl = document.getElementById('designStageDesc');
+  const imgEl = document.getElementById('designStageImg');
+
+  if (badgeEl) badgeEl.textContent = item.tool;
+  if (titleEl) titleEl.textContent = item.title;
+  if (descEl) descEl.textContent = item.desc;
+  if (imgEl) {
+    const safeId = encodeURIComponent(item.id);
+    imgEl.onerror = function () {
+      imgEl.onerror = function () {
+        imgEl.onerror = null;
+        imgEl.src = `https://lh3.googleusercontent.com/d/${safeId}=w1000`;
+      };
+      imgEl.src = `https://drive.google.com/thumbnail?id=${safeId}&sz=w1200`;
+    };
+    imgEl.src = `/assets/works/${safeId}-1200.webp`;
+    imgEl.alt = item.title;
+  }
 }
 
 function previewDesignStageByIndex(idx) {
@@ -615,7 +678,15 @@ function syncThemeButtonLabel() {
   const btn = document.getElementById('themeToggleBtn');
   if (!btn) return;
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  btn.textContent = isDark ? 'Mode Terang' : 'Mode Gelap';
+  btn.setAttribute('aria-label', isDark ? 'Beralih ke mode terang' : 'Beralih ke mode gelap');
+  const labelEl = btn.querySelector('.theme-btn-label');
+  const iconEl = btn.querySelector('.theme-btn-icon');
+  if (labelEl) {
+    labelEl.textContent = isDark ? 'Mode Terang' : 'Mode Gelap';
+  } else {
+    btn.textContent = isDark ? 'Mode Terang' : 'Mode Gelap';
+  }
+  if (iconEl) iconEl.textContent = isDark ? '☼' : '☾';
 }
 
 function applyStoredTheme() {
@@ -781,7 +852,41 @@ function handleGlobalClick(e) {
       copyEmailToClipboard(actionEl);
       break;
     }
+    case 'dock-link': {
+      const targetId = actionEl.getAttribute('data-target');
+      const targetEl = targetId ? document.getElementById(targetId) : null;
+      if (targetEl) {
+        e.preventDefault();
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+      }
+      break;
+    }
   }
+}
+
+function initMobileDockTracking() {
+  const dock = document.querySelector('.mobile-dock');
+  if (!dock) return;
+  const sections = ['perkenalan', 'bagian-desain', 'bagian-development', 'kontak'];
+  const items = Array.from(dock.querySelectorAll('.mobile-dock-item'));
+
+  function updateActiveDock() {
+    const scrollPos = window.scrollY + window.innerHeight * 0.35;
+    let currentId = sections[0];
+    for (const id of sections) {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollPos) {
+        currentId = id;
+      }
+    }
+    items.forEach((item) => {
+      const target = item.getAttribute('data-target');
+      item.classList.toggle('active', target === currentId);
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveDock, { passive: true });
+  updateActiveDock();
 }
 
 function initPortfolio() {
@@ -790,6 +895,8 @@ function initPortfolio() {
   renderFilterBars();
   renderDriveList('all');
   renderDevList('all');
+  previewCuratedStageByIndex(0);
+  initMobileDockTracking();
   initTiltCard();
   initSpotlightAndMagnetic();
 
@@ -800,19 +907,6 @@ function initPortfolio() {
     searchInput.addEventListener('input', (e) => {
       handleDriveSearch(e.target.value);
     });
-  }
-
-  if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(hover: hover)').matches) {
-    const driveListEl = document.getElementById('driveWorkList');
-    if (driveListEl) {
-      driveListEl.addEventListener('pointerover', (e) => {
-        const row = e.target && e.target.closest ? e.target.closest('.work-row') : null;
-        if (row && row.hasAttribute('data-drive-idx')) {
-          const idx = parseInt(row.getAttribute('data-drive-idx'), 10);
-          if (!isNaN(idx)) previewDesignStageByIndex(idx);
-        }
-      });
-    }
   }
 
   window.addEventListener('keydown', (e) => {
@@ -879,6 +973,8 @@ if (typeof window !== 'undefined') {
   window.setDriveViewMode = setDriveViewMode;
   window.openCurrentDesignStageModal = openCurrentDesignStageModal;
   window.stepDesignStage = stepDesignStage;
+  window.previewCuratedStageByIndex = previewCuratedStageByIndex;
+  window.getCuratedItems = getCuratedItems;
   window.previewDesignStageByIndex = previewDesignStageByIndex;
   window.openDriveModalByIndex = openDriveModalByIndex;
   window.stepModal = stepModal;

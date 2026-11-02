@@ -6,6 +6,7 @@ import Hero from '../components/Hero.astro';
 import GraphicDesignSection from '../components/GraphicDesignSection.astro';
 import SoftwareDevSection from '../components/SoftwareDevSection.astro';
 import ContactFooter from '../components/ContactFooter.astro';
+import MobileNavDock from '../components/MobileNavDock.astro';
 import PORTFOLIO_DATA from '../data/portfolio-data.cjs';
 
 const { profile, personas, driveFilters, driveItems, devFilters, devItems } = PORTFOLIO_DATA;
@@ -83,6 +84,7 @@ const { profile, personas, driveFilters, driveItems, devFilters, devItems } = PO
       <GraphicDesignSection
         filters={driveFilters}
         items={driveItems}
+        curatedIds={PORTFOLIO_DATA.curatedHighlightIds}
       />
 
       <SoftwareDevSection
@@ -95,6 +97,8 @@ const { profile, personas, driveFilters, driveItems, devFilters, devItems } = PO
         designCount={driveItems.length}
       />
     </main>
+
+    <MobileNavDock designCount={driveItems.length} />
   </div>
 
   <script is:inline set:html={`window.PORTFOLIO_DATA = ${JSON.stringify(PORTFOLIO_DATA)};`} />

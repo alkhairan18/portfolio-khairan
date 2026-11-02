@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "runs": [
+    {
+      "date": "2026-11-03",
+      "commit": "3cd924d",
+      "target": "https://portfolio-khairan.vercel.app/",
+      "scores": {
+        "h1": 3,
+        "h2": 3,
+        "h3": 3,
+        "h4": 2,
+        "h5": 4,
+        "h6": 3,
+        "h7": 3,
+        "h8": 2,
+        "h9": 4,
+        "h10": null
+      },
+      "total": 27,
+      "max": 36,
+      "ratingBand": "Good",
+      "violations": 10,
+      "p0_count": 0,
+      "p1_count": 2,
+      "p2_count": 3,
+      "p3_count": 3
+    }
+  ]
+}

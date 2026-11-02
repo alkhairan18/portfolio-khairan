@@ -1,0 +1,26 @@
+---
+interface Props {
+  designCount: number;
+}
+const { designCount } = Astro.props;
+---
+<nav class="mobile-dock" aria-label="Navigasi Cepat Mobile">
+  <div class="mobile-dock-inner">
+    <a href="#perkenalan" class="mobile-dock-item active" data-action="dock-link" data-target="perkenalan">
+      <span class="mobile-dock-idx">00</span>
+      <span class="mobile-dock-label">Profil</span>
+    </a>
+    <a href="#bagian-desain" class="mobile-dock-item" data-action="dock-link" data-target="bagian-desain">
+      <span class="mobile-dock-idx">01</span>
+      <span class="mobile-dock-label">Desain</span>
+    </a>
+    <a href="#bagian-development" class="mobile-dock-item" data-action="dock-link" data-target="bagian-development">
+      <span class="mobile-dock-idx">02</span>
+      <span class="mobile-dock-label">RUBOOTH</span>
+    </a>
+    <a href="#kontak" class="mobile-dock-item" data-action="dock-link" data-target="kontak">
+      <span class="mobile-dock-idx">03</span>
+      <span class="mobile-dock-label">Kontak</span>
+    </a>
+  </div>
+</nav>
