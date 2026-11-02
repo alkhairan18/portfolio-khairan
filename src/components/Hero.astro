@@ -15,31 +15,23 @@ interface Props {
 const { profile, defaultBio, designCount } = Astro.props;
 ---
 <section id="perkenalan" class="hero">
-  <!-- TOP ARCHITECTURAL STUDIO MASTHEAD STRIP -->
-  <div class="hero-issue-bar">
-    <div class="issue-item">
-      <span class="issue-dot"></span>
-      <span>EDITION 2026 // SELECTED WORKS ARCHIVE</span>
+  <!-- STATUS STRIP -->
+  <div class="hero-status-bar">
+    <div class="status-item">
+      <span class="status-dot"></span>
+      <span>Makassar, Indonesia</span>
     </div>
-    <div class="issue-item issue-center">
-      <span>MAKASSAR, INDONESIA &middot; MULTIDISCIPLINARY PORTFOLIO</span>
-    </div>
-    <div class="issue-item issue-right">
-      <span>STATUS: OPEN FOR FULL-TIME &amp; COMMISSION</span>
+    <div class="status-item status-right">
+      <span>Tersedia untuk Pekerjaan Penuh Waktu &amp; Kolaborasi</span>
     </div>
   </div>
 
   <div class="hero-main-grid">
     <div class="hero-left">
-      <div class="hero-kicker-row">
-        <span class="kicker-tag">00 // PROFILE</span>
-        <div class="kicker">{profile.kicker}</div>
-      </div>
-
       <h1 class="hero-name">{profile.name}</h1>
 
       <p class="hero-statement">
-        Merancang <span class="serif-italic">identitas visual</span>, publikasi editorial berdampak tinggi, serta rekayasa sistem interaktif <span class="accent-underline">Android &amp; IoT</span>.
+        Merancang identitas visual, publikasi editorial berdampak tinggi, serta rekayasa sistem interaktif Android &amp; IoT.
       </p>
 
       <div class="persona-switcher" role="tablist" aria-label="Pilih fokus profil">
@@ -58,17 +50,14 @@ const { profile, defaultBio, designCount } = Astro.props;
 
       <div class="metrics-grid">
         <div class="metric-cell">
-          <div class="metric-index">01 // INSTITUSI</div>
           <div class="metric-label">Almamater</div>
           <div class="metric-value">{profile.institution}</div>
         </div>
         <div class="metric-cell">
-          <div class="metric-index">02 // AKADEMIK</div>
           <div class="metric-label">Capaian IPK</div>
           <div class="metric-value">{profile.gpa}</div>
         </div>
         <div class="metric-cell">
-          <div class="metric-index">03 // SPESIALISASI</div>
           <div class="metric-label">Disiplin Utama</div>
           <div class="metric-value">{profile.roleSummary}</div>
         </div>
@@ -90,15 +79,11 @@ const { profile, defaultBio, designCount } = Astro.props;
     <div class="hero-right">
       <div class="tilt-stage">
         <div class="portrait-frame-header">
-          <span>[ FIG. 00 // CREATIVE DIRECTOR &amp; DEV ]</span>
+          <span>Creative Director &amp; Software Developer</span>
           <span class="portrait-coords">PNUP &middot; 3.74 GPA</span>
         </div>
         <div id="tiltCard" class="tilt-card">
           <img src={profile.avatarUrl} alt={`Foto Profil ${profile.name}`} fetchpriority="high" decoding="async" />
-          <div class="portrait-corner corner-tl"></div>
-          <div class="portrait-corner corner-tr"></div>
-          <div class="portrait-corner corner-bl"></div>
-          <div class="portrait-corner corner-br"></div>
         </div>
         <div class="portrait-stat-strip">
           <div class="portrait-stat-box">
@@ -107,7 +92,7 @@ const { profile, defaultBio, designCount } = Astro.props;
           </div>
           <div class="portrait-stat-divider"></div>
           <div class="portrait-stat-box">
-            <span class="portrait-stat-num">01</span>
+            <span class="portrait-stat-num">1</span>
             <span class="portrait-stat-lbl">Sistem Kios Pintar IoT</span>
           </div>
         </div>
@@ -118,12 +103,12 @@ const { profile, defaultBio, designCount } = Astro.props;
   <!-- STUDIO DISCIPLINE RIBBON -->
   <div class="studio-ribbon" aria-label="Keahlian Utama Studio">
     <div class="studio-ribbon-track">
-      <div class="ribbon-cell"><i class="ribbon-star" aria-hidden="true">&#10022;</i><span>INFOGRAFIS KPU KOTA MAKASSAR</span></div>
-      <div class="ribbon-cell"><i class="ribbon-star" aria-hidden="true">&#10022;</i><span>PACKAGING &amp; BRAND IDENTITY</span></div>
-      <div class="ribbon-cell"><i class="ribbon-star" aria-hidden="true">&#10022;</i><span>VECTOR ILLUSTRATION &amp; POSTER</span></div>
-      <div class="ribbon-cell"><i class="ribbon-star" aria-hidden="true">&#10022;</i><span>3D BLENDER &amp; MOTION GRAPHICS</span></div>
-      <div class="ribbon-cell"><i class="ribbon-star" aria-hidden="true">&#10022;</i><span>ANDROID KOTLIN KIOSK SYSTEM</span></div>
-      <div class="ribbon-cell"><i class="ribbon-star" aria-hidden="true">&#10022;</i><span>DUAL-CAMERA USB PTP/UVC &amp; GEMINI AI</span></div>
+      <div class="ribbon-cell"><span>INFOGRAFIS KPU KOTA MAKASSAR</span></div>
+      <div class="ribbon-cell"><span>PACKAGING &amp; BRAND IDENTITY</span></div>
+      <div class="ribbon-cell"><span>VECTOR ILLUSTRATION &amp; POSTER</span></div>
+      <div class="ribbon-cell"><span>3D BLENDER &amp; MOTION GRAPHICS</span></div>
+      <div class="ribbon-cell"><span>ANDROID KOTLIN KIOSK SYSTEM</span></div>
+      <div class="ribbon-cell"><span>DUAL-CAMERA USB PTP/UVC &amp; GEMINI AI</span></div>
     </div>
   </div>
 </section>

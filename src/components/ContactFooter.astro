@@ -16,11 +16,7 @@ const { profile, designCount } = Astro.props;
 ---
 <section id="kontak" class="contact-section spotlight-card">
   <div class="contact-left">
-    <div class="section-index-row">
-      <span class="section-index-num">03</span>
-      <span class="section-index-tag">INITIATE COLLABORATION // DIRECT CONTACT</span>
-    </div>
-    <h2 class="discipline-title">Mari Berkolaborasi <span class="serif-italic">Bersama</span></h2>
+    <h2 class="discipline-title">Mari Berkolaborasi Bersama</h2>
     <p class="contact-desc">
       Terbuka untuk peluang karier profesional, komisi desain visual, maupun pengembangan sistem perangkat lunak pada bidang <strong>Graphic Designer</strong> dan <strong>Software Development</strong>.
     </p>
@@ -31,7 +27,12 @@ const { profile, designCount } = Astro.props;
     </a>
     {/* copyEmailToClipboard helper via event delegation */}
     <button id="copyEmailBtn" type="button" class="copy-email-btn magnetic-btn" data-action="copy-email" title="Salin email ke clipboard">
-      <span class="copy-icon" aria-hidden="true">📋</span>
+      <span class="copy-icon" aria-hidden="true">
+        <svg class="copy-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+      </span>
       <span class="copy-label">Salin Email</span>
     </button>
     <a id="contactGithubBtn" href={profile.githubProfileUrl} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary">
@@ -55,7 +56,8 @@ const { profile, designCount } = Astro.props;
 <footer class="site-footer">
   <div class="footer-brand-col">
     <strong>{profile.name}</strong> &middot; {profile.institution}
-    <span class="footer-edition">2026 STUDIO EDITION // ALL RIGHTS RESERVED</span>
+    <span class="footer-edition">&copy; 2026 Muhammad Al Khairan Asaad. Portofolio Profesional.</span>
+    <span class="footer-credit">Footage 3D: Animación 3D Aerodinámica F1 oleh Alba María Jiménez (CC BY-SA 3.0 via Wikimedia Commons).</span>
   </div>
   <div class="footer-links">
     <a href={`mailto:${profile.email}`}>

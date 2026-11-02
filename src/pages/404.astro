@@ -15,11 +15,11 @@ const { profile } = PORTFOLIO_DATA;
   <link rel="alternate icon" href="/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" /> <!-- taste-skill-ignore: literal code font -->
   <script defer src="/_vercel/insights/script.js"></script>
   <style>
     .error-shell {
-      min-height: 100vh;
+      min-height: 100svh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -33,28 +33,23 @@ const { profile } = PORTFOLIO_DATA;
       max-width: 640px;
       padding: 48px 36px;
       background: var(--bg-card);
-      border: 1px solid var(--border);
       border-radius: var(--radius-card);
-      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28);
     }
     .error-code {
-      font-family: var(--font-mono);
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--accent);
-      letter-spacing: 0.12em;
+      letter-spacing: 0.05em;
       margin-bottom: 16px;
     }
     .error-title {
-      font-family: var(--font-serif);
-      font-size: clamp(38px, 6vw, 64px);
-      font-weight: 400;
-      line-height: 1.1;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      line-height: 1.15;
       margin-bottom: 20px;
       color: var(--text);
     }
     .error-lead {
-      font-family: var(--font-sans);
       font-size: 16px;
       color: var(--text-muted);
       line-height: 1.6;
@@ -69,10 +64,9 @@ const { profile } = PORTFOLIO_DATA;
       background: var(--accent);
       color: var(--on-accent);
       text-decoration: none;
-      font-family: var(--font-mono);
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 700;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.01em;
       transition: transform 0.2s ease, background-color 0.2s ease;
     }
     .error-home-btn:hover {
@@ -84,8 +78,8 @@ const { profile } = PORTFOLIO_DATA;
 <body>
   <div class="error-shell">
     <div class="error-card">
-      <div class="error-code">404 // INDEX ERROR</div>
-      <h1 class="error-title">Halaman <span class="serif-italic">Tidak Ditemukan</span></h1>
+      <div class="error-code">404 &middot; Halaman Tidak Ditemukan</div>
+      <h1 class="error-title">Halaman Tidak Ditemukan</h1>
       <p class="error-lead">
         Halaman atau rute arsip yang Anda cari tidak tersedia atau telah dipindahkan ke kurasi portofolio utama.
       </p>

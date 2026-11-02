@@ -529,11 +529,11 @@ const PORTFOLIO_DATA = {
   ],
 
   curatedHighlightIds: [
+    '1FAZNJ8rj9JtpUGjkGGL_K8LMBFosU7c3',
     '1IpyHiFwfvmVWj_9VbptkDOkDRi1BT3NH',
     '1EVKjwUvXkFBJNPiI0jMSESjLJfcXlwKB',
     '1G1QPteDHiPwh-QPnBDnJ1kIra0Kvu9RD',
-    '1yniwn6mBWECi-E4bZeuF0rVmj0AqqSdv',
-    '1FAZNJ8rj9JtpUGjkGGL_K8LMBFosU7c3'
+    '1yniwn6mBWECi-E4bZeuF0rVmj0AqqSdv'
   ],
 
   devFilters: [

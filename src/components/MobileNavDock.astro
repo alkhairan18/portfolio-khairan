@@ -7,19 +7,33 @@ const { designCount } = Astro.props;
 <nav class="mobile-dock" aria-label="Navigasi Cepat Mobile">
   <div class="mobile-dock-inner">
     <a href="#perkenalan" class="mobile-dock-item active" data-action="dock-link" data-target="perkenalan">
-      <span class="mobile-dock-idx">00</span>
+      <svg class="mobile-dock-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
       <span class="mobile-dock-label">Profil</span>
     </a>
     <a href="#bagian-desain" class="mobile-dock-item" data-action="dock-link" data-target="bagian-desain">
-      <span class="mobile-dock-idx">01</span>
+      <svg class="mobile-dock-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+      </svg>
       <span class="mobile-dock-label">Desain</span>
     </a>
     <a href="#bagian-development" class="mobile-dock-item" data-action="dock-link" data-target="bagian-development">
-      <span class="mobile-dock-idx">02</span>
+      <svg class="mobile-dock-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="16 18 22 12 16 6"></polyline>
+        <polyline points="8 6 2 12 8 18"></polyline>
+      </svg>
       <span class="mobile-dock-label">RUBOOTH</span>
     </a>
     <a href="#kontak" class="mobile-dock-item" data-action="dock-link" data-target="kontak">
-      <span class="mobile-dock-idx">03</span>
+      <svg class="mobile-dock-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+        <polyline points="22,6 12,13 2,6"></polyline>
+      </svg>
       <span class="mobile-dock-label">Kontak</span>
     </a>
   </div>

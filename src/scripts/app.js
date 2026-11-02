@@ -124,15 +124,14 @@ function renderDriveList(filterKey) {
       const lh3FallbackUrl = `https://lh3.googleusercontent.com/d/${safeId}=w600`;
       const actionLabel = item.type === 'video' ? 'Putar Video' : 'Perbesar Karya';
       const subText = `${escapeHtml(item.tool)}${item.type === 'video' ? ' &middot; Video' : ''}`;
-      const numStr = String(idx + 1).padStart(2, '0');
       const typeLabel = item.type === 'video' ? 'MOTION MP4' : escapeHtml(item.tool);
       return `
         <div class="work-row spotlight-card${idx === 0 ? ' is-selected' : ''}"
              data-drive-idx="${idx}"
              style="--stagger-idx: ${idx % 9};">
           <div class="work-card-top">
-            <span class="work-card-idx">NO. ${numStr}</span>
             <span class="work-card-type">${typeLabel}</span>
+            ${item.type === 'video' ? '<span class="work-card-format">Motion Video</span>' : ''}
           </div>
           <div class="work-thumb-wrap">
             <img class="work-thumb" src="${thumbUrl}" onerror="this.onerror=function(){this.onerror=null;this.src='${lh3FallbackUrl}';};this.src='${fallbackThumbUrl}';" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async" />
@@ -248,19 +247,27 @@ function previewCuratedStageByIndex(idx) {
 
   const counterEl = document.getElementById('designStageCounter');
   if (counterEl) {
-    const numStr = String(idx + 1).padStart(2, '0');
-    const totalStr = String(curated.length).padStart(2, '0');
-    counterEl.textContent = `NO. ${numStr} / ${totalStr}`;
+    counterEl.textContent = `${idx + 1} / ${curated.length}`;
   }
 
   const badgeEl = document.getElementById('designStageBadge');
   const titleEl = document.getElementById('designStageTitle');
   const descEl = document.getElementById('designStageDesc');
   const imgEl = document.getElementById('designStageImg');
+  const videoEl = document.getElementById('designStageVideo');
 
   if (badgeEl) badgeEl.textContent = item.tool;
   if (titleEl) titleEl.textContent = item.title;
   if (descEl) descEl.textContent = item.desc;
+
+  if (item.type === 'video') {
+    if (videoEl) videoEl.style.display = 'block';
+    if (imgEl) imgEl.style.display = 'none';
+  } else {
+    if (videoEl) videoEl.style.display = 'none';
+    if (imgEl) imgEl.style.display = 'block';
+  }
+
   if (imgEl) {
     const safeId = encodeURIComponent(item.id);
     imgEl.onerror = function () {
@@ -289,19 +296,27 @@ function previewDesignStageByIndex(idx) {
 
   const counterEl = document.getElementById('designStageCounter');
   if (counterEl) {
-    const numStr = String(idx + 1).padStart(2, '0');
-    const totalStr = String(currentFilteredDrive.length).padStart(2, '0');
-    counterEl.textContent = `NO. ${numStr} / ${totalStr}`;
+    counterEl.textContent = `${idx + 1} / ${currentFilteredDrive.length}`;
   }
 
   const badgeEl = document.getElementById('designStageBadge');
   const titleEl = document.getElementById('designStageTitle');
   const descEl = document.getElementById('designStageDesc');
   const imgEl = document.getElementById('designStageImg');
+  const videoEl = document.getElementById('designStageVideo');
 
   if (badgeEl) badgeEl.textContent = item.tool;
   if (titleEl) titleEl.textContent = item.title;
   if (descEl) descEl.textContent = item.desc;
+
+  if (item.type === 'video') {
+    if (videoEl) videoEl.style.display = 'block';
+    if (imgEl) imgEl.style.display = 'none';
+  } else {
+    if (videoEl) videoEl.style.display = 'none';
+    if (imgEl) imgEl.style.display = 'block';
+  }
+
   if (imgEl) {
     const safeId = encodeURIComponent(item.id);
     imgEl.onerror = function () {
@@ -666,7 +681,7 @@ function showCopyFeedback(btnEl) {
   if (!btnEl) return;
   const label = btnEl.querySelector('.copy-label') || btnEl;
   const original = label.textContent;
-  label.textContent = 'Email Tersalin! ✓';
+  label.textContent = 'Email Tersalin!';
   btnEl.classList.add('copied');
   setTimeout(() => {
     label.textContent = original;
@@ -680,13 +695,19 @@ function syncThemeButtonLabel() {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   btn.setAttribute('aria-label', isDark ? 'Beralih ke mode terang' : 'Beralih ke mode gelap');
   const labelEl = btn.querySelector('.theme-btn-label');
-  const iconEl = btn.querySelector('.theme-btn-icon');
   if (labelEl) {
     labelEl.textContent = isDark ? 'Mode Terang' : 'Mode Gelap';
   } else {
     btn.textContent = isDark ? 'Mode Terang' : 'Mode Gelap';
   }
-  if (iconEl) iconEl.textContent = isDark ? '☼' : '☾';
+  const iconSvg = btn.querySelector('.theme-icon-svg');
+  if (iconSvg) {
+    if (isDark) {
+      iconSvg.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+      iconSvg.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+  }
 }
 
 function applyStoredTheme() {

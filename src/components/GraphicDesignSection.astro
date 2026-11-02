@@ -30,11 +30,7 @@ const totalCurated = curatedList.length || 5;
   <div class="discipline-header">
     <div class="discipline-header-top">
       <div class="discipline-title-stack">
-        <div class="section-index-row">
-          <span class="section-index-num">01</span>
-          <span class="section-index-tag">EXHIBITION ARCHIVE // CURATED WORKS</span>
-        </div>
-        <h2 class="discipline-title">Graphic Designer <span class="serif-italic">Showcase</span></h2>
+        <h2 class="discipline-title">Graphic Designer Showcase</h2>
         <p class="discipline-lead">
           Kurasi {items.length} karya terpilih meliputi kampanye visual &amp; infografis resmi KPU Kota Makassar, eksplorasi identitas kemasan, ilustrasi vektor, hingga motion graphics dan 3D Blender.
         </p>
@@ -80,10 +76,10 @@ const totalCurated = curatedList.length || 5;
       <div class="stage-topbar">
         <div class="stage-topbar-left">
           <span class="stage-live-dot"></span>
-          <span>CURATED EXHIBITION // TOP 05 KARYA PILIHAN</span>
+          <span>Karya Pilihan Unggulan</span>
         </div>
         <div class="stage-topbar-controls">
-          <span id="designStageCounter" class="stage-counter-pill">NO. 01 / {String(totalCurated).padStart(2, '0')}</span>
+          <span id="designStageCounter" class="stage-counter-pill">1 / {totalCurated}</span>
           <button type="button" class="stage-step-btn" data-action="step-stage" data-delta="-1" aria-label="Karya pilihan sebelumnya">&larr; Prev</button>
           <button type="button" class="stage-step-btn" data-action="step-stage" data-delta="1" aria-label="Karya pilihan berikutnya">Next &rarr;</button>
         </div>
@@ -91,20 +87,36 @@ const totalCurated = curatedList.length || 5;
 
       <div class="stage-main-split">
         <div class="stage-frame stage-clickable" data-action="open-stage" title="Klik untuk membuka studi kasus lengkap">
+          <video
+            id="designStageVideo"
+            class="stage-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="/assets/animacion-3d-aerodinamica-f1-poster.jpg"
+            width="854"
+            height="480"
+            aria-label="Animasi 3D Studio"
+          >
+            <source src="/assets/animacion-3d-aerodinamica-f1.webm" type="video/webm" />
+          </video>
           <img
             id="designStageImg"
             src={firstCurated ? `/assets/works/${firstCurated.id}-1200.webp` : ''}
             onerror={firstCurated ? `this.onerror=null;this.src='https://drive.google.com/thumbnail?id=${firstCurated.id}&sz=w1200';` : undefined}
             alt={firstCurated ? firstCurated.title : 'Pratinjau Karya Desain'}
             decoding="async"
+            style="display:none;"
           />
         </div>
         <div class="stage-meta-box">
+          <h3 id="designStageTitle" class="stage-info-title">{firstCurated ? firstCurated.title : ''}</h3>
           <div class="stage-badge-row">
             <span id="designStageBadge" class="stage-badge">{firstCurated ? firstCurated.tool : 'Adobe Photoshop'}</span>
-            <span class="stage-format-tag">KURASI UNGGULAN</span>
+            <span class="stage-format-tag">Kurasi Unggulan</span>
           </div>
-          <h3 id="designStageTitle" class="stage-info-title">{firstCurated ? firstCurated.title : ''}</h3>
           <p id="designStageDesc" class="stage-info-desc">{firstCurated ? firstCurated.desc : ''}</p>
           <div class="stage-repo-actions">
             <button type="button" class="stage-expand-btn magnetic-btn" data-action="open-stage">
@@ -118,21 +130,20 @@ const totalCurated = curatedList.length || 5;
       </div>
     </div>
 
-    <!-- ASYMMETRIC BEHANCE-PRO EXHIBITION GALLERY -->
+    <!-- ASYMMETRIC EXHIBITION GALLERY -->
     <div class="work-column">
       <div class="work-list-heading">
         <div class="work-list-heading-left">
           <span class="heading-dot"></span>
           <span id="workCountLabel">{items.length} karya ditampilkan</span>
         </div>
-        <span class="work-list-hint">KLIK KARTU UNTUK LAYAR PENUH &middot; ARAHKAN KURSOR UNTUK SOROTAN</span>
+        <span class="work-list-hint">Pilih kartu untuk melihat detail dan dokumentasi visual</span>
       </div>
       <div id="driveWorkList" class="work-scroll-area grid-mode">
         {items.map((item, idx) => {
           const thumbUrl = `/assets/works/${item.id}-600.webp`;
           const fallbackThumbUrl = `https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w600`;
           const actionLabel = item.type === 'video' ? 'Putar Video' : 'Perbesar Karya';
-          const numStr = String(idx + 1).padStart(2, '0');
           return (
             <div
               class={`work-row spotlight-card${idx === 0 ? ' is-selected' : ''}`}
@@ -140,8 +151,8 @@ const totalCurated = curatedList.length || 5;
               style={`--stagger-idx: ${idx % 9};`}
             >
               <div class="work-card-top">
-                <span class="work-card-idx">NO. {numStr}</span>
-                <span class="work-card-type">{item.type === 'video' ? 'MOTION MP4' : item.tool}</span>
+                <span class="work-card-type">{item.tool}</span>
+                {item.type === 'video' && <span class="work-card-format">Motion Video</span>}
               </div>
               <div class="work-thumb-wrap">
                 <img
