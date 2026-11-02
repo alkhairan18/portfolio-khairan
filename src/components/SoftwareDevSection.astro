@@ -50,7 +50,8 @@ const confirmedMetrics = (firstDev?.metrics || []).filter((m) => m.confirmed ===
             class={`tool-chip${i === 0 ? ' active' : ''}`}
             type="button"
             aria-pressed={i === 0 ? 'true' : 'false'}
-            onclick={`filterDevWorks('${f.key}', this)`}
+            data-action="filter-dev"
+            data-key={f.key}
           >
             {f.label}
           </button>
@@ -69,7 +70,7 @@ const confirmedMetrics = (firstDev?.metrics || []).filter((m) => m.confirmed ===
         </div>
         <span class="stage-counter-pill">OPEN SOURCE REPO</span>
       </div>
-      <div class="stage-frame stage-clickable" onclick="openDevModalByIndex(0)">
+      <div class="stage-frame stage-clickable" data-action="open-dev" data-idx="0">
         <img
           id="devStageImg"
           src={firstDev ? firstDev.img : 'assets/rubooth_banner.jpg'}
@@ -110,7 +111,7 @@ const confirmedMetrics = (firstDev?.metrics || []).filter((m) => m.confirmed ===
           >
             Lihat Kode Sumber di GitHub &nearr;
           </a>
-          <button type="button" class="stage-next-outline-btn" onclick="openDevModalByIndex(0)">
+          <button type="button" class="stage-next-outline-btn" data-action="open-dev" data-idx="0">
             Perbesar Banner &nearr;
           </button>
         </div>
@@ -130,8 +131,8 @@ const confirmedMetrics = (firstDev?.metrics || []).filter((m) => m.confirmed ===
           role="tab"
           tabindex="0"
           aria-selected="true"
-          onclick="selectRuboothModule(0, this)"
-          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectRuboothModule(0, this);}"
+          data-action="select-module"
+          data-idx="0"
         >
           <div class="arch-tile-head">
             <span class="arch-tile-idx">MODUL 01</span>
@@ -145,8 +146,8 @@ const confirmedMetrics = (firstDev?.metrics || []).filter((m) => m.confirmed ===
           role="tab"
           tabindex="0"
           aria-selected="false"
-          onclick="selectRuboothModule(1, this)"
-          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectRuboothModule(1, this);}"
+          data-action="select-module"
+          data-idx="1"
         >
           <div class="arch-tile-head">
             <span class="arch-tile-idx">MODUL 02</span>
@@ -160,8 +161,8 @@ const confirmedMetrics = (firstDev?.metrics || []).filter((m) => m.confirmed ===
           role="tab"
           tabindex="0"
           aria-selected="false"
-          onclick="selectRuboothModule(2, this)"
-          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectRuboothModule(2, this);}"
+          data-action="select-module"
+          data-idx="2"
         >
           <div class="arch-tile-head">
             <span class="arch-tile-idx">MODUL 03</span>
@@ -175,8 +176,8 @@ const confirmedMetrics = (firstDev?.metrics || []).filter((m) => m.confirmed ===
           role="tab"
           tabindex="0"
           aria-selected="false"
-          onclick="selectRuboothModule(3, this)"
-          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectRuboothModule(3, this);}"
+          data-action="select-module"
+          data-idx="3"
         >
           <div class="arch-tile-head">
             <span class="arch-tile-idx">MODUL 04</span>
@@ -198,20 +199,17 @@ const confirmedMetrics = (firstDev?.metrics || []).filter((m) => m.confirmed ===
           {items.map((item, idx) => (
             <div
               class="work-row"
-              tabindex="0"
-              role="button"
-              onmouseenter={`previewDevStageByIndex(${idx})`}
-              onfocus={`previewDevStageByIndex(${idx})`}
-              onclick={`openDevModalByIndex(${idx})`}
-              onkeydown={`if(event.key==='Enter'||event.key===' '){event.preventDefault();openDevModalByIndex(${idx});}`}
+              data-dev-idx={idx}
             >
               <img class="work-thumb" src={item.img} alt={item.title} loading="lazy" decoding="async" />
               <div>
-                <div class="work-row-name">{item.title}</div>
+                <button type="button" class="work-open" data-action="open-dev" data-idx={idx}>
+                  <span class="work-row-name">{item.title}</span>
+                </button>
                 <div class="work-row-sub">{item.sub}</div>
               </div>
               <div class="work-row-actions">
-                <a href={item.repoUrl} target="_blank" rel="noopener noreferrer" class="work-row-github" onclick="event.stopPropagation()">
+                <a href={item.repoUrl} target="_blank" rel="noopener noreferrer" class="work-row-github">
                   GitHub &nearr;
                 </a>
                 <span class="work-row-cta">Detail</span>

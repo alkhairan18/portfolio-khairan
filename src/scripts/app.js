@@ -10,6 +10,7 @@ let currentStageDriveIdx = 0;
 let currentDriveViewMode = 'grid';
 let currentDriveFilterKey = 'all';
 let currentDriveSearchQuery = '';
+let lastFocusedTrigger = null;
 
 const RUBOOTH_MODULES = [
   {
@@ -48,7 +49,7 @@ function renderFilterBars() {
     driveFilterBar.innerHTML = data.driveFilters
       .map(
         (f, i) =>
-          `<button class="tool-chip${i === 0 ? ' active' : ''}" type="button" aria-pressed="${i === 0 ? 'true' : 'false'}" onclick="filterDriveWorks('${escapeHtml(f.key)}', this)">${escapeHtml(f.label)}</button>`
+          `<button class="tool-chip${i === 0 ? ' active' : ''}" type="button" aria-pressed="${i === 0 ? 'true' : 'false'}" data-action="filter-drive" data-key="${escapeHtml(f.key)}">${escapeHtml(f.label)}</button>`
       )
       .join('');
   }
@@ -58,7 +59,7 @@ function renderFilterBars() {
     devFilterBar.innerHTML = data.devFilters
       .map(
         (f, i) =>
-          `<button class="tool-chip${i === 0 ? ' active' : ''}" type="button" aria-pressed="${i === 0 ? 'true' : 'false'}" onclick="filterDevWorks('${escapeHtml(f.key)}', this)">${escapeHtml(f.label)}</button>`
+          `<button class="tool-chip${i === 0 ? ' active' : ''}" type="button" aria-pressed="${i === 0 ? 'true' : 'false'}" data-action="filter-dev" data-key="${escapeHtml(f.key)}">${escapeHtml(f.label)}</button>`
       )
       .join('');
   }
@@ -109,7 +110,7 @@ function renderDriveList(filterKey) {
     container.innerHTML = `
       <div class="empty-search-state">
         <p>Tidak ada karya yang cocok dengan kata kunci <strong>"${escapeHtml(currentDriveSearchQuery)}"</strong>.</p>
-        <button type="button" class="stage-expand-btn" onclick="resetDriveSearch()">Reset Pencarian</button>
+        <button type="button" class="stage-expand-btn" data-action="reset-search">Reset Pencarian</button>
       </div>
     `;
     return;
@@ -128,13 +129,7 @@ function renderDriveList(filterKey) {
       return `
         <div class="work-row spotlight-card${idx === 0 ? ' is-selected' : ''}"
              data-drive-idx="${idx}"
-             style="--stagger-idx: ${idx % 9};"
-             tabindex="0"
-             role="button"
-             onmouseenter="previewDesignStageByIndex(${idx})"
-             onfocus="previewDesignStageByIndex(${idx})"
-             onclick="openDriveModalByIndex(${idx})"
-             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDriveModalByIndex(${idx});}">
+             style="--stagger-idx: ${idx % 9};">
           <div class="work-card-top">
             <span class="work-card-idx">NO. ${numStr}</span>
             <span class="work-card-type">${typeLabel}</span>
@@ -147,7 +142,11 @@ function renderDriveList(filterKey) {
           </div>
           <div class="work-row-info">
             <div class="work-row-text">
-              <div class="work-row-name">${escapeHtml(item.title)}</div>
+              <div class="work-row-name">
+                <button type="button" class="work-open" data-action="open-work" data-idx="${idx}">
+                  ${escapeHtml(item.title)}
+                </button>
+              </div>
               <div class="work-row-sub">${subText}</div>
             </div>
             <span class="work-arrow-icon" aria-hidden="true">&nearr;</span>
@@ -302,20 +301,18 @@ function renderDevList(filterKey) {
   container.innerHTML = currentFilteredDev
     .map((item, idx) => {
       return `
-        <div class="work-row"
-             tabindex="0"
-             role="button"
-             onmouseenter="previewDevStageByIndex(${idx})"
-             onfocus="previewDevStageByIndex(${idx})"
-             onclick="openDevModalByIndex(${idx})"
-             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDevModalByIndex(${idx});}">
+        <div class="work-row" data-dev-idx="${idx}">
           <img class="work-thumb" src="${escapeHtml(item.img)}" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async" />
           <div>
-            <div class="work-row-name">${escapeHtml(item.title)}</div>
+            <div class="work-row-name">
+              <button type="button" class="work-open" data-action="open-dev" data-idx="${idx}">
+                ${escapeHtml(item.title)}
+              </button>
+            </div>
             <div class="work-row-sub">${escapeHtml(item.sub)}</div>
           </div>
           <div class="work-row-actions">
-            <a href="${escapeHtml(item.repoUrl)}" target="_blank" rel="noopener noreferrer" class="work-row-github" onclick="event.stopPropagation()">
+            <a href="${escapeHtml(item.repoUrl)}" target="_blank" rel="noopener noreferrer" class="work-row-github">
               GitHub &nearr;
             </a>
             <span class="work-row-cta">Detail</span>
@@ -438,6 +435,9 @@ function renderCaseStudy(caseStudy) {
 }
 
 function openModal(driveId, type, title, category, desc, fallbackImg, tags, caseStudy) {
+  if (typeof document !== 'undefined' && document.activeElement) {
+    lastFocusedTrigger = document.activeElement;
+  }
   const catEl = document.getElementById('modalCategory');
   const titleEl = document.getElementById('modalTitle');
   const descEl = document.getElementById('modalDesc');
@@ -471,6 +471,12 @@ function openModal(driveId, type, title, category, desc, fallbackImg, tags, case
 
   if (modalEl) {
     modalEl.classList.add('open');
+    const closeBtn = modalEl.querySelector('.modal-close');
+    if (closeBtn && typeof closeBtn.focus === 'function') {
+      closeBtn.focus();
+    } else if (typeof modalEl.focus === 'function') {
+      modalEl.focus();
+    }
   }
 }
 
@@ -478,8 +484,14 @@ function closeModal() {
   currentModalIdx = -1;
   const modalEl = document.getElementById('projectModal');
   if (modalEl) modalEl.classList.remove('open');
-  document.getElementById('modalMediaContainer').innerHTML = '';
+  if (document.getElementById('modalMediaContainer')) {
+    document.getElementById('modalMediaContainer').innerHTML = '';
+  }
   renderCaseStudy(null);
+  if (lastFocusedTrigger && typeof lastFocusedTrigger.focus === 'function') {
+    lastFocusedTrigger.focus();
+    lastFocusedTrigger = null;
+  }
 }
 
 function hydrateProfile() {
@@ -693,6 +705,85 @@ function initSpotlightAndMagnetic() {
   });
 }
 
+function handleGlobalClick(e) {
+  if (e.target && e.target.closest && e.target.closest('a[target="_blank"]')) {
+    e.stopPropagation();
+  }
+  const actionEl = e.target && e.target.closest ? e.target.closest('[data-action]') : null;
+  if (!actionEl) return;
+  const action = actionEl.getAttribute('data-action');
+
+  switch (action) {
+    case 'toggle-theme':
+      toggleTheme();
+      break;
+    case 'persona': {
+      const key = actionEl.getAttribute('data-key');
+      setPersona(key, actionEl);
+      break;
+    }
+    case 'filter-drive': {
+      const key = actionEl.getAttribute('data-key');
+      filterDriveWorks(key, actionEl);
+      break;
+    }
+    case 'filter-dev': {
+      const key = actionEl.getAttribute('data-key');
+      filterDevWorks(key, actionEl);
+      break;
+    }
+    case 'view-mode': {
+      const mode = actionEl.getAttribute('data-mode');
+      setDriveViewMode(mode, actionEl);
+      break;
+    }
+    case 'step-stage': {
+      const delta = parseInt(actionEl.getAttribute('data-delta') || '1', 10);
+      stepDesignStage(delta);
+      break;
+    }
+    case 'open-stage': {
+      openCurrentDesignStageModal();
+      break;
+    }
+    case 'open-work': {
+      const idx = parseInt(actionEl.getAttribute('data-idx') || '0', 10);
+      openDriveModalByIndex(idx);
+      break;
+    }
+    case 'reset-search': {
+      resetDriveSearch();
+      break;
+    }
+    case 'open-dev': {
+      const idx = parseInt(actionEl.getAttribute('data-idx') || '0', 10);
+      openDevModalByIndex(idx);
+      break;
+    }
+    case 'select-module': {
+      const idx = parseInt(actionEl.getAttribute('data-idx') || '0', 10);
+      selectRuboothModule(idx, actionEl);
+      break;
+    }
+    case 'close-modal': {
+      if (actionEl.id === 'projectModal' && e.target !== actionEl) {
+        return;
+      }
+      closeModal();
+      break;
+    }
+    case 'step-modal': {
+      const delta = parseInt(actionEl.getAttribute('data-delta') || '1', 10);
+      stepModal(delta);
+      break;
+    }
+    case 'copy-email': {
+      copyEmailToClipboard(actionEl);
+      break;
+    }
+  }
+}
+
 function initPortfolio() {
   applyStoredTheme();
   hydrateProfile();
@@ -702,10 +793,71 @@ function initPortfolio() {
   initTiltCard();
   initSpotlightAndMagnetic();
 
+  document.addEventListener('click', handleGlobalClick);
+
+  const searchInput = document.getElementById('driveSearchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      handleDriveSearch(e.target.value);
+    });
+  }
+
+  if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+    const driveListEl = document.getElementById('driveWorkList');
+    if (driveListEl) {
+      driveListEl.addEventListener('pointerover', (e) => {
+        const row = e.target && e.target.closest ? e.target.closest('.work-row') : null;
+        if (row && row.hasAttribute('data-drive-idx')) {
+          const idx = parseInt(row.getAttribute('data-drive-idx'), 10);
+          if (!isNaN(idx)) previewDesignStageByIndex(idx);
+        }
+      });
+    }
+  }
+
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-    if (e.key === 'ArrowRight') stepModal(1);
-    if (e.key === 'ArrowLeft') stepModal(-1);
+    const modalEl = document.getElementById('projectModal');
+    const isModalOpen = modalEl && modalEl.classList.contains('open');
+
+    if (isModalOpen) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeModal();
+        return;
+      }
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        stepModal(1);
+        return;
+      }
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        stepModal(-1);
+        return;
+      }
+      if (e.key === 'Tab') {
+        const focusables = Array.from(
+          modalEl.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')
+        ).filter((el) => el.offsetParent !== null || el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0);
+
+        if (focusables.length > 0) {
+          const firstEl = focusables[0];
+          const lastEl = focusables[focusables.length - 1];
+
+          if (e.shiftKey) {
+            if (document.activeElement === firstEl || !modalEl.contains(document.activeElement)) {
+              e.preventDefault();
+              lastEl.focus();
+            }
+          } else {
+            if (document.activeElement === lastEl || !modalEl.contains(document.activeElement)) {
+              e.preventDefault();
+              firstEl.focus();
+            }
+          }
+        }
+      }
+    }
   });
 }
 

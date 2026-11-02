@@ -17,10 +17,12 @@
   --text-muted: #655D53;
   --border: #D5CBB9;
   --border-soft: #E4DDD0;
-  --accent: #E03E10;
-  --accent-hover: #C23108;
+  --accent: #C2410C;
+  --accent-ink: #B8320C;
+  --on-accent: #FFFFFF;
+  --accent-hover: #9A3412;
   --accent-amber: #D97706;
-  --accent-soft: rgba(224, 62, 16, 0.11);
+  --accent-soft: rgba(194, 65, 12, 0.11);
 
   --radius-card: 24px;
   --radius-inner: 14px;
@@ -53,6 +55,8 @@
   --border: #2C2622;
   --border-soft: #1E1A17;
   --accent: #FF4D1C;
+  --accent-ink: #FF6A3D;
+  --on-accent: #0B0A09;
   --accent-hover: #FF663B;
   --accent-amber: #F59E0B;
   --accent-soft: rgba(255, 77, 28, 0.15);
@@ -579,7 +583,7 @@ body {
 
 .magnetic-primary {
   background: var(--accent);
-  color: #FFFFFF;
+  color: var(--on-accent);
   border: 1px solid var(--accent);
   box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 32%, transparent);
 }
@@ -1184,6 +1188,7 @@ body {
 
 .work-scroll-area.grid-mode .work-row {
   height: 100%;
+  position: relative;
   background: var(--bg-card);
   border: 1.5px solid var(--border);
   border-radius: 14px;
@@ -1196,7 +1201,35 @@ body {
   contain-intrinsic-size: 420px 520px;
 }
 
-.work-scroll-area.grid-mode .work-row:hover {
+.work-open {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  display: inline;
+}
+
+.work-open::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.work-open:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.work-scroll-area.grid-mode .work-row:hover,
+.work-scroll-area.grid-mode .work-row:focus-within {
   transform: translateY(-5px);
   border-color: var(--accent);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
@@ -1275,7 +1308,7 @@ body {
   padding: 10px 16px;
   border-radius: 8px;
   background: var(--accent);
-  color: #FFFFFF;
+  color: var(--on-accent);
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 700;
@@ -1287,6 +1320,7 @@ body {
   opacity: 0;
   transition: transform 0.25s var(--ease-out-expo), opacity 0.2s ease;
   z-index: 3;
+  pointer-events: none;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 

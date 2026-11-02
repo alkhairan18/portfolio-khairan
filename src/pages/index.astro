@@ -59,7 +59,7 @@ const { profile, personas, driveFilters, driveItems, devFilters, devItems } = PO
   })} />
 </head>
 <body>
-  <a href="#perkenalan" class="skip-link">Lewati ke konten utama</a>
+  <a href="#perkenalan-main" class="skip-link">Lewati ke konten utama</a>
 
   <LightboxModal />
 
@@ -70,26 +70,28 @@ const { profile, personas, driveFilters, driveItems, devFilters, devItems } = PO
       designCount={driveItems.length}
     />
 
-    <Hero
-      profile={profile}
-      defaultBio={personas.hybrid}
-      designCount={driveItems.length}
-    />
+    <main id="perkenalan-main">
+      <Hero
+        profile={profile}
+        defaultBio={personas.hybrid}
+        designCount={driveItems.length}
+      />
 
-    <GraphicDesignSection
-      filters={driveFilters}
-      items={driveItems}
-    />
+      <GraphicDesignSection
+        filters={driveFilters}
+        items={driveItems}
+      />
 
-    <SoftwareDevSection
-      filters={devFilters}
-      items={devItems}
-    />
+      <SoftwareDevSection
+        filters={devFilters}
+        items={devItems}
+      />
 
-    <ContactFooter
-      profile={profile}
-      designCount={driveItems.length}
-    />
+      <ContactFooter
+        profile={profile}
+        designCount={driveItems.length}
+      />
+    </main>
   </div>
 
   <script is:inline set:html={`window.PORTFOLIO_DATA = ${JSON.stringify(PORTFOLIO_DATA)};`} />

@@ -43,12 +43,11 @@ const firstItem = items[0];
             type="search"
             class="gallery-search-input"
             placeholder="Cari karya (mis. KPU, Kemasan, 3D)..."
-            oninput="handleDriveSearch(this.value)"
           />
         </div>
         <div class="view-mode-switch" role="group" aria-label="Mode tampilan galeri">
-          <button id="viewGridBtn" type="button" class="view-mode-btn active" onclick="setDriveViewMode('grid', this)">Bento Galeri</button>
-          <button id="viewListBtn" type="button" class="view-mode-btn" onclick="setDriveViewMode('list', this)">Indeks Katalog</button>
+          <button id="viewGridBtn" type="button" class="view-mode-btn active" data-action="view-mode" data-mode="grid">Bento Galeri</button>
+          <button id="viewListBtn" type="button" class="view-mode-btn" data-action="view-mode" data-mode="list">Indeks Katalog</button>
         </div>
       </div>
     </div>
@@ -60,7 +59,8 @@ const firstItem = items[0];
             class={`tool-chip${i === 0 ? ' active' : ''}`}
             type="button"
             aria-pressed={i === 0 ? 'true' : 'false'}
-            onclick={`filterDriveWorks('${f.key}', this)`}
+            data-action="filter-drive"
+            data-key={f.key}
           >
             {f.label}
           </button>
@@ -79,13 +79,13 @@ const firstItem = items[0];
         </div>
         <div class="stage-topbar-controls">
           <span id="designStageCounter" class="stage-counter-pill">NO. 01 / {items.length}</span>
-          <button type="button" class="stage-step-btn" onclick="stepDesignStage(-1)" aria-label="Karya sebelumnya">&larr; Prev</button>
-          <button type="button" class="stage-step-btn" onclick="stepDesignStage(1)" aria-label="Karya berikutnya">Next &rarr;</button>
+          <button type="button" class="stage-step-btn" data-action="step-stage" data-delta="-1" aria-label="Karya sebelumnya">&larr; Prev</button>
+          <button type="button" class="stage-step-btn" data-action="step-stage" data-delta="1" aria-label="Karya berikutnya">Next &rarr;</button>
         </div>
       </div>
 
       <div class="stage-main-split">
-        <div class="stage-frame stage-clickable" onclick="openCurrentDesignStageModal()" title="Klik untuk memperbesar">
+        <div class="stage-frame stage-clickable" data-action="open-stage" title="Klik untuk memperbesar">
           <img
             id="designStageImg"
             src={firstItem ? `/assets/works/${firstItem.id}-1200.webp` : ''}
@@ -102,10 +102,10 @@ const firstItem = items[0];
           <h3 id="designStageTitle" class="stage-info-title">{firstItem ? firstItem.title : ''}</h3>
           <p id="designStageDesc" class="stage-info-desc">{firstItem ? firstItem.desc : ''}</p>
           <div class="stage-repo-actions">
-            <button type="button" class="stage-expand-btn magnetic-btn" onclick="openCurrentDesignStageModal()">
+            <button type="button" class="stage-expand-btn magnetic-btn" data-action="open-stage">
               Buka Layar Penuh &nearr;
             </button>
-            <button type="button" class="stage-next-outline-btn" onclick="stepDesignStage(1)">
+            <button type="button" class="stage-next-outline-btn" data-action="step-stage" data-delta="1">
               Karya Berikutnya &rarr;
             </button>
           </div>
@@ -133,12 +133,6 @@ const firstItem = items[0];
               class={`work-row spotlight-card${idx === 0 ? ' is-selected' : ''}`}
               data-drive-idx={idx}
               style={`--stagger-idx: ${idx % 9};`}
-              tabindex="0"
-              role="button"
-              onmouseenter={`previewDesignStageByIndex(${idx})`}
-              onfocus={`previewDesignStageByIndex(${idx})`}
-              onclick={`openDriveModalByIndex(${idx})`}
-              onkeydown={`if(event.key==='Enter'||event.key===' '){event.preventDefault();openDriveModalByIndex(${idx});}`}
             >
               <div class="work-card-top">
                 <span class="work-card-idx">NO. {numStr}</span>
@@ -159,7 +153,11 @@ const firstItem = items[0];
               </div>
               <div class="work-row-info">
                 <div class="work-row-text">
-                  <div class="work-row-name">{item.title}</div>
+                  <div class="work-row-name">
+                    <button type="button" class="work-open" data-action="open-work" data-idx={idx}>
+                      {item.title}
+                    </button>
+                  </div>
                   <div class="work-row-sub">
                     {item.tool}{item.type === 'video' ? ' · Video' : ''}
                   </div>

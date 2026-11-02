@@ -29,7 +29,8 @@ const { profile, designCount } = Astro.props;
     <a id="contactEmailBtn" href={`mailto:${profile.email}`} class="repo-link-btn magnetic-btn">
       Email: {profile.email} &nearr;
     </a>
-    <button id="copyEmailBtn" type="button" class="copy-email-btn magnetic-btn" onclick="copyEmailToClipboard(this)" title="Salin email ke clipboard">
+    {/* copyEmailToClipboard helper via event delegation */}
+    <button id="copyEmailBtn" type="button" class="copy-email-btn magnetic-btn" data-action="copy-email" title="Salin email ke clipboard">
       <span class="copy-icon" aria-hidden="true">📋</span>
       <span class="copy-label">Salin Email</span>
     </button>

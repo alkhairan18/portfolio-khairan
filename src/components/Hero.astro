@@ -43,13 +43,13 @@ const { profile, defaultBio, designCount } = Astro.props;
       </p>
 
       <div class="persona-switcher" role="tablist" aria-label="Pilih fokus profil">
-        <button class="persona-btn active" role="tab" aria-selected="true" type="button" onclick="setPersona('hybrid', this)">
+        <button class="persona-btn active" role="tab" aria-selected="true" type="button" data-action="persona" data-key="hybrid">
           <span class="persona-dot"></span> Ringkasan Studio
         </button>
-        <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('designer', this)">
+        <button class="persona-btn" role="tab" aria-selected="false" type="button" data-action="persona" data-key="designer">
           <span class="persona-dot"></span> Graphic Design
         </button>
-        <button class="persona-btn" role="tab" aria-selected="false" type="button" onclick="setPersona('developer', this)">
+        <button class="persona-btn" role="tab" aria-selected="false" type="button" data-action="persona" data-key="developer">
           <span class="persona-dot"></span> Software Dev
         </button>
       </div>

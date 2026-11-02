@@ -99,7 +99,7 @@ test('Audit Improvements: Favicon, Open Graph SEO, Contact/CV section, Accessibi
   assert.match(html, /aria-modal="true"/);
   assert.match(css, /\.skip-link/);
   assert.match(css, /:focus-visible/);
-  assert.match(js, /tabindex="0"/);
+  assert.match(html, /tabindex="0"/);
 
   // 4. Image optimization & Google Drive fallback
   assert.match(html, /fetchpriority="high"/);
@@ -317,6 +317,119 @@ test('Hardening 3: local thumbnails', async () => {
 
   const graphicAstro = fs.readFileSync(path.join(ROOT, 'src/components/GraphicDesignSection.astro'), 'utf8');
   assert.match(graphicAstro, /onerror=/);
+});
+
+function relativeLuminance(hex) {
+  const clean = hex.trim().replace(/^#/, '');
+  const r = parseInt(clean.slice(0, 2), 16) / 255;
+  const g = parseInt(clean.slice(2, 4), 16) / 255;
+  const b = parseInt(clean.slice(4, 6), 16) / 255;
+  const a = [r, g, b].map(v => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)));
+  return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2];
+}
+
+function contrastRatio(hexA, hexB) {
+  const l1 = relativeLuminance(hexA);
+  const l2 = relativeLuminance(hexB);
+  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+}
+
+function extractCssTokens(css, selector) {
+  const clean = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  const blockRegex = new RegExp(`${selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*\\{([^}]+)\\}`, 'm');
+  const match = clean.match(blockRegex);
+  if (!match) return {};
+  const tokens = {};
+  const lines = match[1].split(';');
+  for (const line of lines) {
+    const colonIdx = line.indexOf(':');
+    if (colonIdx !== -1) {
+      const key = line.slice(0, colonIdx).trim();
+      const val = line.slice(colonIdx + 1).trim();
+      if (key && val) {
+        tokens[key] = val;
+      }
+    }
+  }
+  return tokens;
+}
+
+test('Hardening 4: accessibility, semantics, and contrast', async () => {
+  const distHtml = fs.readFileSync(path.join(ROOT, 'dist/index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'src/styles/main.css'), 'utf8');
+
+  // (a) No inline event attributes, no role="button", exactly one <main>
+  assert.doesNotMatch(distHtml, /\sonclick=/);
+  assert.doesNotMatch(distHtml, /\sonkeydown=/);
+  assert.doesNotMatch(distHtml, /\sonmouseenter=/);
+  assert.doesNotMatch(distHtml, /\sonfocus=/);
+  assert.doesNotMatch(distHtml, /\srole="button"/);
+  const mainMatches = distHtml.match(/<main[\s>]/g) || [];
+  assert.equal(mainMatches.length, 1, 'dist/index.html must contain exactly one <main> landmark');
+
+  // (b) WCAG AA contrast ratio >= 4.5
+  const light = extractCssTokens(css, ':root');
+  const dark = extractCssTokens(css, '[data-theme="dark"]');
+
+  assert.ok(light['--accent-ink'], 'Light mode must define --accent-ink');
+  assert.ok(light['--on-accent'], 'Light mode must define --on-accent');
+  assert.ok(dark['--accent-ink'], 'Dark mode must define --accent-ink');
+  assert.ok(dark['--on-accent'], 'Dark mode must define --on-accent');
+
+  assert.ok(contrastRatio(light['--accent-ink'], light['--bg']) >= 4.5, 'Light accent-ink on bg must be >= 4.5');
+  assert.ok(contrastRatio(light['--accent-ink'], light['--bg-card']) >= 4.5, 'Light accent-ink on bg-card must be >= 4.5');
+  assert.ok(contrastRatio(light['--on-accent'], light['--accent']) >= 4.5, 'Light on-accent on accent must be >= 4.5');
+  assert.ok(contrastRatio(light['--text-muted'], light['--bg']) >= 4.5, 'Light text-muted on bg must be >= 4.5');
+
+  assert.ok(contrastRatio(dark['--accent-ink'], dark['--bg']) >= 4.5, 'Dark accent-ink on bg must be >= 4.5');
+  assert.ok(contrastRatio(dark['--accent-ink'], dark['--bg-card']) >= 4.5, 'Dark accent-ink on bg-card must be >= 4.5');
+  assert.ok(contrastRatio(dark['--on-accent'], dark['--accent']) >= 4.5, 'Dark on-accent on accent must be >= 4.5');
+  assert.ok(contrastRatio(dark['--text-muted'], dark['--bg']) >= 4.5, 'Dark text-muted on bg must be >= 4.5');
+
+  // (c) jsdom behavior: focus management, modal trigger, focus trap, Escape return
+  const { JSDOM } = await import('jsdom');
+  const dom = new JSDOM(distHtml, {
+    runScripts: 'dangerously',
+    url: 'https://portfolio-khairan.vercel.app/'
+  });
+  const appJsCode = fs.readFileSync(path.join(ROOT, 'src/scripts/app.js'), 'utf8');
+  dom.window.eval(appJsCode);
+  dom.window.document.dispatchEvent(new dom.window.Event('DOMContentLoaded'));
+
+  const firstWorkBtn = dom.window.document.querySelector('.work-open');
+  assert.ok(firstWorkBtn, '.work-open button must exist');
+  firstWorkBtn.focus();
+  firstWorkBtn.click();
+
+  const modal = dom.window.document.getElementById('projectModal');
+  assert.ok(modal.classList.contains('open'), 'Modal must open on click');
+  assert.ok(modal.contains(dom.window.document.activeElement), 'Active element must be inside modal on open');
+
+  // Escape key closes modal and returns focus to trigger
+  dom.window.dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+  assert.ok(!modal.classList.contains('open'), 'Modal must close on Escape');
+  assert.equal(dom.window.document.activeElement, firstWorkBtn, 'Focus must return to triggering .work-open on close');
+
+  // (d) XSS immunity on quotes and HTML tags
+  const testItem = {
+    id: 'test_xss_id',
+    cat: 'ps',
+    tool: 'Photoshop',
+    title: 'O\'Reilly "X" <b>&',
+    desc: 'Test description',
+    file: 'test.png',
+    type: 'image'
+  };
+  dom.window.PORTFOLIO_DATA.driveItems = [testItem];
+  dom.window.renderDriveList('all');
+  const renderedRow = dom.window.document.querySelector('.work-row');
+  assert.ok(renderedRow, 'Rendered row must exist');
+  assert.equal(renderedRow.querySelectorAll('b').length, 0, 'No <b> tags should be created by title');
+  const renderedBtn = renderedRow.querySelector('.work-open');
+  renderedBtn.click();
+  const modalTitle = dom.window.document.getElementById('modalTitle');
+  assert.equal(modalTitle.textContent, 'O\'Reilly "X" <b>&');
+  dom.window.closeModal();
 });
 
 
