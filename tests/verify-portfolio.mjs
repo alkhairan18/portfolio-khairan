@@ -432,6 +432,35 @@ test('Hardening 4: accessibility, semantics, and contrast', async () => {
   dom.window.closeModal();
 });
 
+test('Hardening 5: social, 404, analytics', async () => {
+  const { buildOg } = await import('../scripts/build-og.mjs');
+  const tmpOg = path.join(os.tmpdir(), `test-og-${Date.now()}.png`);
+  const meta = await buildOg(tmpOg);
+  assert.equal(meta.width, 1200);
+  assert.equal(meta.height, 630);
+  assert.ok(fs.existsSync(tmpOg));
+  fs.rmSync(tmpOg, { force: true });
+
+  const sharp = (await import('sharp')).default;
+  const ogPath = path.join(ROOT, 'public/og-image.png');
+  assert.ok(fs.existsSync(ogPath), 'public/og-image.png must exist');
+  const ogMeta = await sharp(ogPath).metadata();
+  assert.equal(ogMeta.width, 1200);
+  assert.equal(ogMeta.height, 630);
+  assert.equal(ogMeta.format, 'png');
+
+  const indexHtml = fs.readFileSync(path.join(ROOT, 'dist/index.html'), 'utf8');
+  assert.match(indexHtml, /property="og:image"\s+content="https:\/\/portfolio-khairan\.vercel\.app\/og-image\.png"/);
+  assert.match(indexHtml, /property="og:image:width"\s+content="1200"/);
+  assert.match(indexHtml, /property="og:image:height"\s+content="630"/);
+  assert.match(indexHtml, /name="twitter:image"\s+content="https:\/\/portfolio-khairan\.vercel\.app\/og-image\.png"/);
+  assert.match(indexHtml, /\/_vercel\/insights\/script\.js/);
+
+  const notFoundHtml = fs.readFileSync(path.join(ROOT, 'dist/404.html'), 'utf8');
+  assert.match(notFoundHtml, /href="\/"/);
+  assert.match(notFoundHtml, /\/_vercel\/insights\/script\.js/);
+});
+
 
 
 
