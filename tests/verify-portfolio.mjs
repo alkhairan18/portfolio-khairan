@@ -197,6 +197,16 @@ test('Task 2 (Improvements): Case study highlights in portfolio-data and Lightbo
   assert.match(js, /renderCaseStudy/);
 });
 
+test('Task 3 (Improvements): RUBOOTH engineering metrics strip and enhanced architecture spec', () => {
+  const devSection = fs.readFileSync(path.join(ROOT, 'src/components/SoftwareDevSection.astro'), 'utf8');
+  assert.match(devSection, /rubooth-metrics-strip/);
+  assert.match(devSection, /PTP_OC_InitiateCapture/);
+
+  const css = fs.readFileSync(path.join(ROOT, 'styles/main.css'), 'utf8');
+  assert.match(css, /\.rubooth-metrics-strip/);
+});
+
+
 
 
 
