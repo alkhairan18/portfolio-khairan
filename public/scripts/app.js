@@ -274,7 +274,8 @@ function openDriveModalByIndex(idx) {
     `${item.tool} (${idx + 1} / ${currentFilteredDrive.length})`,
     item.desc,
     highResUrl,
-    [item.tool, item.file, 'Google Drive Portfolio']
+    [item.tool, item.file, 'Google Drive Portfolio'],
+    item.caseStudy
   );
 }
 
@@ -395,7 +396,44 @@ function filterDevWorks(cat, btnEl) {
   renderDevList(cat);
 }
 
-function openModal(driveId, type, title, category, desc, fallbackImg, tags) {
+function renderCaseStudy(caseStudy) {
+  const wrap = document.getElementById('modalCaseStudyWrap');
+  if (!wrap) return;
+  if (!caseStudy) {
+    wrap.style.display = 'none';
+    wrap.innerHTML = '';
+    return;
+  }
+  wrap.style.display = 'block';
+  wrap.innerHTML = `
+    <div class="case-study-card">
+      <div class="case-study-head">
+        <span class="case-study-tag">STUDI KASUS // PROJECT HIGHLIGHT</span>
+        <span class="case-study-client">${escapeHtml(caseStudy.client || '')}</span>
+      </div>
+      <div class="case-study-grid">
+        <div class="case-study-col">
+          <strong>Peran:</strong>
+          <p>${escapeHtml(caseStudy.role || '')}</p>
+        </div>
+        <div class="case-study-col">
+          <strong>Tantangan:</strong>
+          <p>${escapeHtml(caseStudy.problem || '')}</p>
+        </div>
+        <div class="case-study-col">
+          <strong>Solusi Visual:</strong>
+          <p>${escapeHtml(caseStudy.solution || '')}</p>
+        </div>
+        <div class="case-study-col">
+          <strong>Dampak:</strong>
+          <p>${escapeHtml(caseStudy.impact || '')}</p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function openModal(driveId, type, title, category, desc, fallbackImg, tags, caseStudy) {
   const catEl = document.getElementById('modalCategory');
   const titleEl = document.getElementById('modalTitle');
   const descEl = document.getElementById('modalDesc');
@@ -406,6 +444,8 @@ function openModal(driveId, type, title, category, desc, fallbackImg, tags) {
   if (catEl) catEl.textContent = String(category || '').toUpperCase();
   if (titleEl) titleEl.textContent = title;
   if (descEl) descEl.textContent = desc;
+
+  renderCaseStudy(caseStudy);
 
   if (mediaWrap) {
     const safeId = encodeURIComponent(driveId);
@@ -435,6 +475,7 @@ function closeModal() {
   const modalEl = document.getElementById('projectModal');
   if (modalEl) modalEl.classList.remove('open');
   document.getElementById('modalMediaContainer').innerHTML = '';
+  renderCaseStudy(null);
 }
 
 function hydrateProfile() {
@@ -479,40 +520,65 @@ function hydrateProfile() {
   }
   const linkedinBtn = document.getElementById('contactLinkedinBtn');
   if (linkedinBtn) {
-    if (p.linkedinUrl) {
-      linkedinBtn.href = p.linkedinUrl;
-      linkedinBtn.style.display = 'inline-flex';
-    } else {
-      linkedinBtn.style.display = 'none';
-    }
+    const defaultLinkedIn = 'https://www.linkedin.com/search/results/all/?keywords=Muhammad%20Al%20Khairan%20Asaad';
+    linkedinBtn.href = p.linkedinUrl || defaultLinkedIn;
+    linkedinBtn.style.display = 'inline-flex';
   }
   const whatsappBtn = document.getElementById('contactWhatsappBtn');
   if (whatsappBtn) {
-    if (p.whatsappUrl) {
-      whatsappBtn.href = p.whatsappUrl;
-      whatsappBtn.style.display = 'inline-flex';
-    } else {
-      whatsappBtn.style.display = 'none';
-    }
+    const defaultWa = 'https://wa.me/?text=Halo%20Khairan%2C%20saya%20melihat%20portofolio%20Anda%20dan%20ingin%20berdiskusi%20peluang%20kerja%20atau%20proyek.';
+    whatsappBtn.href = p.whatsappUrl || defaultWa;
+    whatsappBtn.style.display = 'inline-flex';
   }
   const cvBtn = document.getElementById('contactCvBtn');
   const heroCvBtn = document.getElementById('heroCvBtn');
   if (cvBtn) {
-    if (p.cvUrl) {
-      cvBtn.href = p.cvUrl;
-      cvBtn.style.display = 'inline-flex';
-    } else {
-      cvBtn.style.display = 'none';
-    }
+    cvBtn.href = p.cvUrl || `mailto:${p.email}?subject=Permintaan%20CV%20Muhammad%20Al%20Khairan%20Asaad`;
+    cvBtn.style.display = 'inline-flex';
   }
   if (heroCvBtn) {
-    if (p.cvUrl) {
-      heroCvBtn.href = p.cvUrl;
-      heroCvBtn.style.display = 'inline-flex';
-    } else {
-      heroCvBtn.style.display = 'none';
-    }
+    heroCvBtn.href = p.cvUrl || `mailto:${p.email}?subject=Permintaan%20CV%20Muhammad%20Al%20Khairan%20Asaad`;
+    heroCvBtn.style.display = 'inline-flex';
   }
+}
+
+function copyEmailToClipboard(btnEl) {
+  const email = (window.PORTFOLIO_DATA && window.PORTFOLIO_DATA.profile && window.PORTFOLIO_DATA.profile.email) || 'alkhairan18@gmail.com';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(email).then(() => {
+      showCopyFeedback(btnEl);
+    }).catch(() => {
+      fallbackCopyText(email, btnEl);
+    });
+  } else {
+    fallbackCopyText(email, btnEl);
+  }
+}
+
+function fallbackCopyText(text, btnEl) {
+  const input = document.createElement('textarea');
+  input.value = text;
+  document.body.appendChild(input);
+  input.select();
+  try {
+    document.execCommand('copy');
+    showCopyFeedback(btnEl);
+  } catch (_) {
+    prompt('Salin email Anda:', text);
+  }
+  document.body.removeChild(input);
+}
+
+function showCopyFeedback(btnEl) {
+  if (!btnEl) return;
+  const label = btnEl.querySelector('.copy-label') || btnEl;
+  const original = label.textContent;
+  label.textContent = 'Email Tersalin! ✓';
+  btnEl.classList.add('copied');
+  setTimeout(() => {
+    label.textContent = original;
+    btnEl.classList.remove('copied');
+  }, 2200);
 }
 
 function syncThemeButtonLabel() {
