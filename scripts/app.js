@@ -274,7 +274,8 @@ function openDriveModalByIndex(idx) {
     `${item.tool} (${idx + 1} / ${currentFilteredDrive.length})`,
     item.desc,
     highResUrl,
-    [item.tool, item.file, 'Google Drive Portfolio']
+    [item.tool, item.file, 'Google Drive Portfolio'],
+    item.caseStudy
   );
 }
 
@@ -395,7 +396,44 @@ function filterDevWorks(cat, btnEl) {
   renderDevList(cat);
 }
 
-function openModal(driveId, type, title, category, desc, fallbackImg, tags) {
+function renderCaseStudy(caseStudy) {
+  const wrap = document.getElementById('modalCaseStudyWrap');
+  if (!wrap) return;
+  if (!caseStudy) {
+    wrap.style.display = 'none';
+    wrap.innerHTML = '';
+    return;
+  }
+  wrap.style.display = 'block';
+  wrap.innerHTML = `
+    <div class="case-study-card">
+      <div class="case-study-head">
+        <span class="case-study-tag">STUDI KASUS // PROJECT HIGHLIGHT</span>
+        <span class="case-study-client">${escapeHtml(caseStudy.client || '')}</span>
+      </div>
+      <div class="case-study-grid">
+        <div class="case-study-col">
+          <strong>Peran:</strong>
+          <p>${escapeHtml(caseStudy.role || '')}</p>
+        </div>
+        <div class="case-study-col">
+          <strong>Tantangan:</strong>
+          <p>${escapeHtml(caseStudy.problem || '')}</p>
+        </div>
+        <div class="case-study-col">
+          <strong>Solusi Visual:</strong>
+          <p>${escapeHtml(caseStudy.solution || '')}</p>
+        </div>
+        <div class="case-study-col">
+          <strong>Dampak:</strong>
+          <p>${escapeHtml(caseStudy.impact || '')}</p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function openModal(driveId, type, title, category, desc, fallbackImg, tags, caseStudy) {
   const catEl = document.getElementById('modalCategory');
   const titleEl = document.getElementById('modalTitle');
   const descEl = document.getElementById('modalDesc');
@@ -406,6 +444,8 @@ function openModal(driveId, type, title, category, desc, fallbackImg, tags) {
   if (catEl) catEl.textContent = String(category || '').toUpperCase();
   if (titleEl) titleEl.textContent = title;
   if (descEl) descEl.textContent = desc;
+
+  renderCaseStudy(caseStudy);
 
   if (mediaWrap) {
     const safeId = encodeURIComponent(driveId);
@@ -435,6 +475,7 @@ function closeModal() {
   const modalEl = document.getElementById('projectModal');
   if (modalEl) modalEl.classList.remove('open');
   document.getElementById('modalMediaContainer').innerHTML = '';
+  renderCaseStudy(null);
 }
 
 function hydrateProfile() {

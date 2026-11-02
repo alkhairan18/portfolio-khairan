@@ -184,6 +184,20 @@ test('Task 1 (Improvements): SEO Essentials - Canonical, robots.txt, sitemap.xml
   assert.match(fallbackHtml, /"alumniOf":\s*"Politeknik Negeri Ujung Pandang"/);
 });
 
+test('Task 2 (Improvements): Case study highlights in portfolio-data and LightboxModal support', () => {
+  const data = require(path.join(ROOT, 'data/portfolio-data.js'));
+  const kpuItem = data.driveItems.find(i => i.id === '1IpyHiFwfvmVWj_9VbptkDOkDRi1BT3NH');
+  assert.ok(kpuItem.caseStudy, 'Featured item must have caseStudy object');
+  assert.ok(kpuItem.caseStudy.impact, 'Featured item must have impact detail');
+
+  const modalHtml = fs.readFileSync(path.join(ROOT, 'src/components/LightboxModal.astro'), 'utf8');
+  assert.match(modalHtml, /id="modalCaseStudyWrap"/);
+
+  const js = fs.readFileSync(path.join(ROOT, 'scripts/app.js'), 'utf8');
+  assert.match(js, /renderCaseStudy/);
+});
+
+
 
 
 

@@ -60,7 +60,14 @@ const PORTFOLIO_DATA = {
       type: 'image',
       title: 'Infografis Kategori Pemilih (PDPB Triwulan III 2025) - KPU Makassar',
       file: 'INFOGRAFIS DIAGRAM.1.png',
-      desc: 'Visualisasi data dan diagram statistik Pemutakhiran Data Pemilih Berkelanjutan (PDPB) Triwulan 3 Tahun 2025 (1.070.078 pemilih) untuk KPU Kota Makassar.'
+      desc: 'Visualisasi data dan diagram statistik Pemutakhiran Data Pemilih Berkelanjutan (PDPB) Triwulan 3 Tahun 2025 (1.070.078 pemilih) untuk KPU Kota Makassar.',
+      caseStudy: {
+        client: 'KPU Kota Makassar',
+        role: 'Lead Visual Designer',
+        problem: 'Data Pemutakhiran Pemilih Berkelanjutan (PDPB) 1.070.078 pemilih dalam tabel mentah sulit dipahami oleh masyarakat umum.',
+        solution: 'Merancang visualisasi data diagram hierarkis dengan palet warna resmi KPU, membagi pemilih ke dalam kategori demografis dan wilayah secara jelas.',
+        impact: 'Dipublikasikan di kanal resmi KPU Kota Makassar dan menjadi rujukan sosialisasi publik pada triwulan 3 tahun 2025.'
+      }
     },
     {
       id: '1EVKjwUvXkFBJNPiI0jMSESjLJfcXlwKB',
@@ -71,7 +78,14 @@ const PORTFOLIO_DATA = {
       type: 'image',
       title: 'Infografis Lini Masa Sejarah Pemilihan Umum di Indonesia',
       file: 'Sejarah Pemilu.png',
-      desc: 'Desain infografis edukasi publik KPU Kota Makassar yang merangkum sejarah Pemilu Indonesia dari Periode 1955, Orde Baru (1971-1997), hingga Era Reformasi (1999-2024).'
+      desc: 'Desain infografis edukasi publik KPU Kota Makassar yang merangkum sejarah Pemilu Indonesia dari Periode 1955, Orde Baru (1971-1997), hingga Era Reformasi (1999-2024).',
+      caseStudy: {
+        client: 'KPU Kota Makassar',
+        role: 'Information Designer',
+        problem: 'Perjalanan panjang sejarah kepemiluan Indonesia dari 1955 hingga 2024 membutuhkan media edukasi publik yang ringkas dan runtut.',
+        solution: 'Menyusun lini masa kronologis dengan tipografi terstruktur, membedakan era pra-reformasi dan pasca-reformasi dengan penanda visual tegas.',
+        impact: 'Meningkatkan literasi demokrasi pemilih pemula di Kota Makassar melalui media visual informatif.'
+      }
     },
     {
       id: '1TM2KW9W9zKRA8D0hsEpUV5Tz7uUHrDqz',
@@ -93,7 +107,14 @@ const PORTFOLIO_DATA = {
       type: 'image',
       title: 'Infografis Hasil Survei Indeks Kepuasan Masyarakat (IKM 90,03)',
       file: 'Hasil Survey Indeks Kepuasan Masyarakat.png',
-      desc: 'Tabel visualisasi capaian mutu layanan publik KPU Kota Makassar dengan nilai IKM 90,03 (Predikat A / Sangat Baik).'
+      desc: 'Tabel visualisasi capaian mutu layanan publik KPU Kota Makassar dengan nilai IKM 90,03 (Predikat A / Sangat Baik).',
+      caseStudy: {
+        client: 'KPU Kota Makassar',
+        role: 'Graphic Designer',
+        problem: 'Laporan survei kepuasan masyarakat perlu disajikan secara transparan dan menarik untuk akuntabilitas layanan publik PPID.',
+        solution: 'Mengubah matriks angka survei menjadi infografis dashboard dengan skor capaian 90,03 (Predikat A) yang menonjol.',
+        impact: 'Mendukung transparansi instansi dan meraih respon positif masyarakat terhadap keterbukaan informasi publik.'
+      }
     },
     {
       id: '1-JX-SNrrl1bFf4ysN0kBuZnnAJ_cT-5D',
