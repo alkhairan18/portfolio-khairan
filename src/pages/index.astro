@@ -30,12 +30,36 @@ const { profile, personas, driveFilters, driveItems, devFilters, devItems } = PO
   <meta name="twitter:description" content="Lulusan Politeknik Negeri Ujung Pandang (IPK 3.74). Graphic Designer &amp; Software Development." />
   <meta name="twitter:image" content="https://portfolio-khairan.vercel.app/assets/profile_khairan.jpg" />
   <title>Portofolio - {profile.name}</title>
+  <link rel="canonical" href="https://portfolio-khairan.vercel.app/" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="alternate icon" href="favicon.ico" />
   <link rel="apple-touch-icon" href="assets/profile_khairan.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": profile.name,
+    "url": "https://portfolio-khairan.vercel.app/",
+    "image": "https://portfolio-khairan.vercel.app/assets/profile_khairan.jpg",
+    "jobTitle": ["Graphic Designer", "Software Developer"],
+    "alumniOf": profile.institution,
+    "knowsAbout": [
+      "Graphic Design",
+      "Infografis KPU",
+      "Packaging Design",
+      "3D Blender",
+      "Motion Graphics",
+      "Android Kotlin",
+      "Hardware Integration",
+      "IoT Systems"
+    ],
+    "sameAs": [
+      profile.githubProfileUrl,
+      profile.driveFolderUrl
+    ].filter(Boolean)
+  })} />
 </head>
 <body>
   <a href="#perkenalan" class="skip-link">Lewati ke konten utama</a>

@@ -164,6 +164,27 @@ test('Astro + Tailwind CSS v4 Architecture & Static Pre-rendered Output', () => 
   assert.doesNotMatch(distHtml, /<span[^>]*class="nav-status-dot"/, 'Status dot must not be a span that precedes brand name');
 });
 
+test('Task 1 (Improvements): SEO Essentials - Canonical, robots.txt, sitemap.xml, and Schema.org JSON-LD', () => {
+  assert.ok(fs.existsSync(path.join(ROOT, 'public/robots.txt')), 'public/robots.txt must exist');
+  assert.ok(fs.existsSync(path.join(ROOT, 'public/sitemap.xml')), 'public/sitemap.xml must exist');
+
+  const robots = fs.readFileSync(path.join(ROOT, 'public/robots.txt'), 'utf8');
+  assert.match(robots, /User-agent:\s*\*/i);
+  assert.match(robots, /Sitemap:\s*https:\/\/portfolio-khairan\.vercel\.app\/sitemap\.xml/i);
+
+  const sitemap = fs.readFileSync(path.join(ROOT, 'public/sitemap.xml'), 'utf8');
+  assert.match(sitemap, /<loc>https:\/\/portfolio-khairan\.vercel\.app\/<\/loc>/);
+
+  const astroHtml = fs.readFileSync(path.join(ROOT, 'src/pages/index.astro'), 'utf8');
+  assert.match(astroHtml, /rel="canonical"/);
+  assert.match(astroHtml, /application\/ld\+json/);
+  assert.match(astroHtml, /"alumniOf":\s*profile\.institution/);
+
+  const fallbackHtml = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  assert.match(fallbackHtml, /"alumniOf":\s*"Politeknik Negeri Ujung Pandang"/);
+});
+
+
 
 
 
