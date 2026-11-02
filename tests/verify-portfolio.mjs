@@ -238,6 +238,34 @@ test('Hardening 1: single source layout', () => {
   assert.match(readme, /src\/data\/portfolio-data\.cjs/);
 });
 
+test('Hardening 2: unconfirmed claims never ship', () => {
+  const data = require(path.join(ROOT, 'src/data/portfolio-data.cjs'));
+
+  assert.ok(Array.isArray(data.devItems[0].metrics), 'devItems[0].metrics must be an array');
+  assert.ok(data.devItems[0].metrics.length > 0, 'metrics array must not be empty');
+  for (const m of data.devItems[0].metrics) {
+    assert.equal(typeof m.confirmed, 'boolean', 'each metric must have a boolean confirmed property');
+    assert.equal(m.confirmed, false, 'unconfirmed metrics must be flagged confirmed: false');
+  }
+
+  const caseStudies = data.driveItems.filter(i => i.caseStudy).map(i => i.caseStudy);
+  assert.ok(caseStudies.length > 0, 'case studies must exist');
+  for (const cs of caseStudies) {
+    assert.equal(typeof cs.confirmed, 'boolean', 'each case study must have boolean confirmed property');
+    assert.equal(cs.confirmed, false, 'unconfirmed case studies must be flagged confirmed: false');
+  }
+
+  const js = fs.readFileSync(path.join(ROOT, 'src/scripts/app.js'), 'utf8');
+  assert.doesNotMatch(js, /defaultLinkedIn/);
+  assert.doesNotMatch(js, /defaultWa/);
+
+  const contactAstro = fs.readFileSync(path.join(ROOT, 'src/components/ContactFooter.astro'), 'utf8');
+  assert.doesNotMatch(contactAstro, /linkedin\.com\/search/);
+  assert.doesNotMatch(contactAstro, /wa\.me\/\?text/);
+  assert.doesNotMatch(contactAstro, /mailto:\$\{profile\.email\}\?subject=Permintaan/);
+});
+
+
 
 
 

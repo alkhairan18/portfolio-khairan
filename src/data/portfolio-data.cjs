@@ -62,6 +62,7 @@ const PORTFOLIO_DATA = {
       file: 'INFOGRAFIS DIAGRAM.1.png',
       desc: 'Visualisasi data dan diagram statistik Pemutakhiran Data Pemilih Berkelanjutan (PDPB) Triwulan 3 Tahun 2025 (1.070.078 pemilih) untuk KPU Kota Makassar.',
       caseStudy: {
+        confirmed: false,
         client: 'KPU Kota Makassar',
         role: 'Lead Visual Designer',
         problem: 'Data Pemutakhiran Pemilih Berkelanjutan (PDPB) 1.070.078 pemilih dalam tabel mentah sulit dipahami oleh masyarakat umum.',
@@ -80,6 +81,7 @@ const PORTFOLIO_DATA = {
       file: 'Sejarah Pemilu.png',
       desc: 'Desain infografis edukasi publik KPU Kota Makassar yang merangkum sejarah Pemilu Indonesia dari Periode 1955, Orde Baru (1971-1997), hingga Era Reformasi (1999-2024).',
       caseStudy: {
+        confirmed: false,
         client: 'KPU Kota Makassar',
         role: 'Information Designer',
         problem: 'Perjalanan panjang sejarah kepemiluan Indonesia dari 1955 hingga 2024 membutuhkan media edukasi publik yang ringkas dan runtut.',
@@ -109,6 +111,7 @@ const PORTFOLIO_DATA = {
       file: 'Hasil Survey Indeks Kepuasan Masyarakat.png',
       desc: 'Tabel visualisasi capaian mutu layanan publik KPU Kota Makassar dengan nilai IKM 90,03 (Predikat A / Sangat Baik).',
       caseStudy: {
+        confirmed: false,
         client: 'KPU Kota Makassar',
         role: 'Graphic Designer',
         problem: 'Laporan survei kepuasan masyarakat perlu disajikan secara transparan dan menarik untuk akuntabilitas layanan publik PPID.',
@@ -528,6 +531,12 @@ const PORTFOLIO_DATA = {
         'Midtrans QRIS',
         'Firebase IoT',
         'Epson L8050 Print'
+      ],
+      metrics: [
+        { value: '< 120ms', label: 'PTP Trigger Shutter', confirmed: false },
+        { value: '300 DPI', label: 'Thermal Print Output', confirmed: false },
+        { value: '30 FPS', label: 'Zero-Drop UVC Stream', confirmed: false },
+        { value: '99.9%', label: 'Lock-Task Kiosk Uptime', confirmed: false }
       ],
       type: 'image'
     }

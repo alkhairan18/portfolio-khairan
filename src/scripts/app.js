@@ -399,7 +399,7 @@ function filterDevWorks(cat, btnEl) {
 function renderCaseStudy(caseStudy) {
   const wrap = document.getElementById('modalCaseStudyWrap');
   if (!wrap) return;
-  if (!caseStudy) {
+  if (!caseStudy || caseStudy.confirmed !== true) {
     wrap.style.display = 'none';
     wrap.innerHTML = '';
     return;
@@ -520,25 +520,39 @@ function hydrateProfile() {
   }
   const linkedinBtn = document.getElementById('contactLinkedinBtn');
   if (linkedinBtn) {
-    const defaultLinkedIn = 'https://www.linkedin.com/search/results/all/?keywords=Muhammad%20Al%20Khairan%20Asaad';
-    linkedinBtn.href = p.linkedinUrl || defaultLinkedIn;
-    linkedinBtn.style.display = 'inline-flex';
+    if (p.linkedinUrl) {
+      linkedinBtn.href = p.linkedinUrl;
+      linkedinBtn.style.display = 'inline-flex';
+    } else {
+      linkedinBtn.style.display = 'none';
+    }
   }
   const whatsappBtn = document.getElementById('contactWhatsappBtn');
   if (whatsappBtn) {
-    const defaultWa = 'https://wa.me/?text=Halo%20Khairan%2C%20saya%20melihat%20portofolio%20Anda%20dan%20ingin%20berdiskusi%20peluang%20kerja%20atau%20proyek.';
-    whatsappBtn.href = p.whatsappUrl || defaultWa;
-    whatsappBtn.style.display = 'inline-flex';
+    if (p.whatsappUrl) {
+      whatsappBtn.href = p.whatsappUrl;
+      whatsappBtn.style.display = 'inline-flex';
+    } else {
+      whatsappBtn.style.display = 'none';
+    }
   }
   const cvBtn = document.getElementById('contactCvBtn');
   const heroCvBtn = document.getElementById('heroCvBtn');
   if (cvBtn) {
-    cvBtn.href = p.cvUrl || `mailto:${p.email}?subject=Permintaan%20CV%20Muhammad%20Al%20Khairan%20Asaad`;
-    cvBtn.style.display = 'inline-flex';
+    if (p.cvUrl) {
+      cvBtn.href = p.cvUrl;
+      cvBtn.style.display = 'inline-flex';
+    } else {
+      cvBtn.style.display = 'none';
+    }
   }
   if (heroCvBtn) {
-    heroCvBtn.href = p.cvUrl || `mailto:${p.email}?subject=Permintaan%20CV%20Muhammad%20Al%20Khairan%20Asaad`;
-    heroCvBtn.style.display = 'inline-flex';
+    if (p.cvUrl) {
+      heroCvBtn.href = p.cvUrl;
+      heroCvBtn.style.display = 'inline-flex';
+    } else {
+      heroCvBtn.style.display = 'none';
+    }
   }
 }
 

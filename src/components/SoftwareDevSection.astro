@@ -3,6 +3,11 @@ interface DevFilter {
   key: string;
   label: string;
 }
+interface DevMetric {
+  value: string;
+  label: string;
+  confirmed: boolean;
+}
 interface DevItem {
   id: string;
   cat: string;
@@ -14,6 +19,7 @@ interface DevItem {
   repoLabel: string;
   desc: string;
   tags: string[];
+  metrics?: DevMetric[];
   type: string;
 }
 interface Props {
@@ -22,6 +28,7 @@ interface Props {
 }
 const { filters, items } = Astro.props;
 const firstDev = items[0];
+const confirmedMetrics = (firstDev?.metrics || []).filter((m) => m.confirmed === true);
 ---
 <section id="bagian-development" class="discipline-section">
   <div class="discipline-header">
@@ -83,24 +90,16 @@ const firstDev = items[0];
             <span class="tech-tag">{t}</span>
           ))}
         </div>
-        <div class="rubooth-metrics-strip">
-          <div class="rubooth-metric-item">
-            <span class="rubooth-metric-val">&lt; 120ms</span>
-            <span class="rubooth-metric-lbl">PTP Trigger Shutter</span>
+        {confirmedMetrics.length > 0 && (
+          <div class="rubooth-metrics-strip">
+            {confirmedMetrics.map((m) => (
+              <div class="rubooth-metric-item">
+                <span class="rubooth-metric-val">{m.value}</span>
+                <span class="rubooth-metric-lbl">{m.label}</span>
+              </div>
+            ))}
           </div>
-          <div class="rubooth-metric-item">
-            <span class="rubooth-metric-val">300 DPI</span>
-            <span class="rubooth-metric-lbl">Thermal Print Output</span>
-          </div>
-          <div class="rubooth-metric-item">
-            <span class="rubooth-metric-val">30 FPS</span>
-            <span class="rubooth-metric-lbl">Zero-Drop UVC Stream</span>
-          </div>
-          <div class="rubooth-metric-item">
-            <span class="rubooth-metric-val">99.9%</span>
-            <span class="rubooth-metric-lbl">Lock-Task Kiosk Uptime</span>
-          </div>
-        </div>
+        )}
         <div class="stage-repo-actions">
           <a
             id="devStageRepoLink"

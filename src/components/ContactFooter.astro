@@ -39,14 +39,14 @@ const { profile, designCount } = Astro.props;
     <a id="contactDriveBtn" href={profile.driveFolderUrl} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary">
       Google Drive ({designCount} Karya) &nearr;
     </a>
-    <a id="contactLinkedinBtn" href={profile.linkedinUrl || 'https://www.linkedin.com/search/results/all/?keywords=Muhammad%20Al%20Khairan%20Asaad'} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary">
+    <a id="contactLinkedinBtn" href={profile.linkedinUrl || '#'} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary" style={profile.linkedinUrl ? 'display:inline-flex;' : 'display:none;'}>
       LinkedIn &nearr;
     </a>
-    <a id="contactWhatsappBtn" href={profile.whatsappUrl || 'https://wa.me/?text=Halo%20Khairan%2C%20saya%20melihat%20portofolio%20Anda%20dan%20ingin%20berdiskusi%20peluang%20kerja%20atau%20proyek.'} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary">
+    <a id="contactWhatsappBtn" href={profile.whatsappUrl || '#'} target="_blank" rel="noopener noreferrer" class="magnetic-btn magnetic-secondary" style={profile.whatsappUrl ? 'display:inline-flex;' : 'display:none;'}>
       WhatsApp &nearr;
     </a>
-    <a id="contactCvBtn" href={profile.cvUrl || `mailto:${profile.email}?subject=Permintaan%20CV%20Muhammad%20Al%20Khairan%20Asaad`} class="repo-link-btn">
-      Minta CV (PDF) &nearr;
+    <a id="contactCvBtn" href={profile.cvUrl || '#'} target="_blank" rel="noopener noreferrer" class="repo-link-btn" style={profile.cvUrl ? 'display:inline-flex;' : 'display:none;'}>
+      Unduh CV (PDF) &nearr;
     </a>
   </div>
 </section>
