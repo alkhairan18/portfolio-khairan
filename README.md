@@ -1,55 +1,71 @@
-# Website Portofolio — Muhammad Al Khairan Asaad
+# Website Portofolio // Muhammad Al Khairan Asaad
 
 Website portofolio disiplin ganda (**Graphic Designer** & **Software Development**) milik **Muhammad Al Khairan Asaad** (Lulusan **Politeknik Negeri Ujung Pandang**, **IPK 3.74 / 4.00**).
+
+Dibangun dengan arsitektur **Astro 5 SSG** dan **Tailwind CSS v4** dengan prinsip satu sumber kebenaran (*single source of truth*), bebas dari duplikasi file warisan.
+
+---
 
 ## Struktur Direktori
 
 ```text
 F:\portfolio-khairan\
-├── index.html                  # Halaman utama portofolio
-├── styles/
-│   └── main.css                # Gaya Swiss Architectural (Mode Terang & Gelap)
-├── data/
-│   └── portfolio-data.js       # Pusat data karya & profil (mudah diedit kapan saja)
-├── scripts/
-│   └── app.js                  # Logika interaktif (filter, pratinjau stage, modal lightbox)
-├── assets/
-│   ├── profile_khairan.jpg     # Foto profil resmi Muhammad Al Khairan Asaad
-│   └── rubooth_banner.jpg      # Gambar banner proyek aplikasi RUBOOTH
-└── tests/
-    └── verify-portfolio.mjs    # Pengujian otomatis kelengkapan data & tampilan
+├── public/                     # Aset publik statis murni
+│   ├── assets/                 # Foto profil dan banner RUBOOTH
+│   ├── favicon.svg             # Favicon SVG
+│   ├── favicon.ico             # Favicon ICO
+│   ├── robots.txt              # Konfigurasi perayapan mesin pencari
+│   └── sitemap.xml             # Peta situs terindeks
+├── src/
+│   ├── components/             # Komponen antarmuka Astro modular
+│   │   ├── Navbar.astro        # Header navigasi & pengalih tema
+│   │   ├── Hero.astro          # Hero section, bio, metrik almamater
+│   │   ├── GraphicDesignSection.astro # Galeri 38 karya Google Drive
+│   │   ├── SoftwareDevSection.astro   # Showcase teknis RUBOOTH
+│   │   ├── ContactFooter.astro # Aksi kontak langsung & footer
+│   │   └── LightboxModal.astro # Modal pratinjau media & studi kasus
+│   ├── data/
+│   │   └── portfolio-data.cjs  # Sumber data tunggal profil & karya
+│   ├── pages/
+│   │   └── index.astro         # Halaman utama statis
+│   ├── scripts/
+│   │   └── app.js              # Interaktivitas klien, spotlight, modal
+│   └── styles/
+│       ├── global.css          # Integrasi Tailwind CSS v4
+│       └── main.css            # Desain editorial studio
+├── tests/
+│   └── verify-portfolio.mjs    # Test suite otomatis (node --test)
+├── astro.config.mjs            # Konfigurasi Astro
+└── package.json
 ```
 
-## Cara Membuka Website
+---
 
-1. **Langsung di Browser:** Klik dua kali file `F:\portfolio-khairan\index.html` untuk membukanya langsung di browser.
-2. **Menggunakan Server Lokal (Opsional):**
-   ```powershell
-   npx serve "f:\portfolio-khairan"
-   ```
+## Panduan Pengelolaan Karya & Profil
 
-## Cara Mengubah atau Menambah Karya di Masa Depan
+Seluruh data portofolio tersentralisasi di `src/data/portfolio-data.cjs`:
 
-Seluruh data karya dan profil dipisahkan di dalam file **`data/portfolio-data.js`** sehingga Anda tidak perlu mengutak-atik kode HTML atau CSS:
+1. **Biodata & Kontak:** Edit objek `profile` untuk memperbarui email, LinkedIn, WhatsApp, maupun CV.
+2. **Karya Graphic Design:** Tambahkan atau sunting item di dalam array `driveItems`.
+3. **Proyek Software Development:** Sunting proyek kios cerdas di dalam array `devItems`.
 
-1. **Menambah Karya Graphic Designer Baru dari Google Drive:**
-   - Buka file `data/portfolio-data.js`.
-   - Tambahkan baris objek baru ke dalam `driveItems`:
-     ```javascript
-     {
-       id: 'ID_FILE_GOOGLE_DRIVE',
-       cat: 'ps', // 'ps' | 'ai' | 'ae' | 'pr' | 'blender'
-       subcat: 'ps-kpu-info',
-       isNew: true,
-       tool: 'Adobe Photoshop',
-       type: 'image', // 'image' atau 'video'
-       title: 'Judul Karya Baru',
-       file: 'nama-file.png',
-       desc: 'Deskripsi singkat karya.'
-     }
-     ```
-2. **Menambah Proyek Software Development Baru:**
-   - Buka file `data/portfolio-data.js`.
-   - Tambahkan objek proyek baru ke dalam array `devItems` lengkap dengan `repoUrl` GitHub atau link website Anda.
-3. **Mengganti Foto Profil atau Biodata:**
-   - Ganti file di `assets/profile_khairan.jpg` atau ubah teks pada bagian `profile` dan `personas` di `data/portfolio-data.js`.
+---
+
+## Perintah Pengembangan
+
+- **Menjalankan Dev Server:**
+  ```bash
+  npm run dev
+  ```
+- **Menjalankan Pengujian Otomatis:**
+  ```bash
+  npm test
+  ```
+- **Membangun Versi Produksi:**
+  ```bash
+  npm run build
+  ```
+- **Pratinjau Hasil Build:**
+  ```bash
+  npm run preview
+  ```

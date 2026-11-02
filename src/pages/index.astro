@@ -6,10 +6,7 @@ import Hero from '../components/Hero.astro';
 import GraphicDesignSection from '../components/GraphicDesignSection.astro';
 import SoftwareDevSection from '../components/SoftwareDevSection.astro';
 import ContactFooter from '../components/ContactFooter.astro';
-import { createRequire } from 'node:module';
-
-const require = createRequire(import.meta.url);
-const PORTFOLIO_DATA = require('../../data/portfolio-data.js');
+import PORTFOLIO_DATA from '../data/portfolio-data.cjs';
 
 const { profile, personas, driveFilters, driveItems, devFilters, devItems } = PORTFOLIO_DATA;
 ---
@@ -95,7 +92,7 @@ const { profile, personas, driveFilters, driveItems, devFilters, devItems } = PO
     />
   </div>
 
-  <script is:inline src="data/portfolio-data.js"></script>
-  <script is:inline src="scripts/app.js"></script>
+  <script is:inline set:html={`window.PORTFOLIO_DATA = ${JSON.stringify(PORTFOLIO_DATA)};`} />
+  <script src="../scripts/app.js"></script>
 </body>
 </html>

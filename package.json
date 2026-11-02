@@ -4,9 +4,7 @@
   "private": true,
   "description": "Portofolio Muhammad Al Khairan Asaad - Graphic Designer & Software Development (Astro + Tailwind CSS v4)",
   "scripts": {
-    "predev": "node scripts/sync-public.mjs",
     "dev": "astro dev",
-    "prebuild": "node scripts/sync-public.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "test": "node --test tests/verify-portfolio.mjs"

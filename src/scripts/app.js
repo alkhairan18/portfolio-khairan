@@ -698,3 +698,25 @@ if (typeof document !== 'undefined') {
     initPortfolio();
   }
 }
+
+if (typeof window !== 'undefined') {
+  window.toggleTheme = toggleTheme;
+  window.setPersona = setPersona;
+  window.filterDriveWorks = filterDriveWorks;
+  window.filterDevWorks = filterDevWorks;
+  window.handleDriveSearch = handleDriveSearch;
+  window.resetDriveSearch = resetDriveSearch;
+  window.setDriveViewMode = setDriveViewMode;
+  window.openCurrentDesignStageModal = openCurrentDesignStageModal;
+  window.stepDesignStage = stepDesignStage;
+  window.previewDesignStageByIndex = previewDesignStageByIndex;
+  window.openDriveModalByIndex = openDriveModalByIndex;
+  window.stepModal = stepModal;
+  window.closeModal = closeModal;
+  window.openDevModalByIndex = openDevModalByIndex;
+  window.previewDevStageByIndex = previewDevStageByIndex;
+  window.selectRuboothModule = selectRuboothModule;
+  window.copyEmailToClipboard = copyEmailToClipboard;
+  window.renderCaseStudy = renderCaseStudy;
+}
+

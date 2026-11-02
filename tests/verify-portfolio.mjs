@@ -8,10 +8,10 @@ const require = createRequire(import.meta.url);
 const ROOT = 'f:/portfolio-khairan';
 
 test('Task 1: Local assets and PORTFOLIO_DATA structure', () => {
-  assert.ok(fs.existsSync(path.join(ROOT, 'assets/profile_khairan.jpg')), 'profile_khairan.jpg must exist');
-  assert.ok(fs.existsSync(path.join(ROOT, 'assets/rubooth_banner.jpg')), 'rubooth_banner.jpg must exist');
+  assert.ok(fs.existsSync(path.join(ROOT, 'public/assets/profile_khairan.jpg')), 'profile_khairan.jpg must exist in public/assets');
+  assert.ok(fs.existsSync(path.join(ROOT, 'public/assets/rubooth_banner.jpg')), 'rubooth_banner.jpg must exist in public/assets');
 
-  const data = require(path.join(ROOT, 'data/portfolio-data.js'));
+  const data = require(path.join(ROOT, 'src/data/portfolio-data.cjs'));
   assert.equal(data.profile.name, 'Muhammad Al Khairan Asaad');
   assert.equal(data.profile.institution, 'Politeknik Negeri Ujung Pandang');
   assert.equal(data.profile.gpa, 'IPK 3.74 / 4.00');
@@ -24,7 +24,7 @@ test('Task 1: Local assets and PORTFOLIO_DATA structure', () => {
 });
 
 test('Task 2: CSS typography, theme variables, and zero-black-bars rules', () => {
-  const css = fs.readFileSync(path.join(ROOT, 'styles/main.css'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'src/styles/main.css'), 'utf8');
   assert.match(css, /Plus Jakarta Sans/);
   assert.match(css, /JetBrains Mono/);
   assert.doesNotMatch(css, /Syne/i);
@@ -34,16 +34,15 @@ test('Task 2: CSS typography, theme variables, and zero-black-bars rules', () =>
 });
 
 test('Task 3: HTML structure, Software Development terminology, and interactive JS safeguards', () => {
-  const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-  const js = fs.readFileSync(path.join(ROOT, 'scripts/app.js'), 'utf8');
+  const html = fs.readFileSync(path.join(ROOT, 'dist/index.html'), 'utf8');
+  const js = fs.readFileSync(path.join(ROOT, 'src/scripts/app.js'), 'utf8');
   const readme = fs.readFileSync(path.join(ROOT, 'README.md'), 'utf8');
 
   assert.match(html, /Muhammad Al Khairan Asaad/);
   assert.match(html, /Graphic Designer/);
   assert.match(html, /Software Development/);
   assert.doesNotMatch(html, /Software Engineer/i);
-  assert.match(html, /data\/portfolio-data\.js/);
-  assert.match(html, /scripts\/app\.js/);
+  assert.match(html, /window\.PORTFOLIO_DATA/);
 
   // Review Focus checks:
   // 1. Safe index-based handlers instead of inline string interpolation of titles/descriptions
@@ -58,24 +57,24 @@ test('Task 3: HTML structure, Software Development terminology, and interactive 
   // 5. Clear modal media container on close
   assert.match(js, /modalMediaContainer['"]\)\.innerHTML\s*=\s*['"]['"]/);
 
-  assert.match(readme, /portfolio-data\.js/);
+  assert.match(readme, /portfolio-data/);
 });
 
 test('Final Review Fixes: closeModal resets currentModalIdx and hydrateProfile syncs PORTFOLIO_DATA.profile on init', () => {
-  const js = fs.readFileSync(path.join(ROOT, 'scripts/app.js'), 'utf8');
+  const js = fs.readFileSync(path.join(ROOT, 'src/scripts/app.js'), 'utf8');
   assert.match(js, /function closeModal\(\)\s*\{[^}]*currentModalIdx\s*=\s*-1;/s);
   assert.match(js, /function hydrateProfile\(\)/);
   assert.match(js, /hydrateProfile\(\);/);
 });
 
 test('Audit Improvements: Favicon, Open Graph SEO, Contact/CV section, Accessibility, and Image Optimization', () => {
-  assert.ok(fs.existsSync(path.join(ROOT, 'favicon.svg')), 'favicon.svg must exist');
-  assert.ok(fs.existsSync(path.join(ROOT, 'favicon.ico')), 'favicon.ico must exist');
+  assert.ok(fs.existsSync(path.join(ROOT, 'public/favicon.svg')), 'favicon.svg must exist');
+  assert.ok(fs.existsSync(path.join(ROOT, 'public/favicon.ico')), 'favicon.ico must exist');
 
-  const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-  const css = fs.readFileSync(path.join(ROOT, 'styles/main.css'), 'utf8');
-  const js = fs.readFileSync(path.join(ROOT, 'scripts/app.js'), 'utf8');
-  const data = require(path.join(ROOT, 'data/portfolio-data.js'));
+  const html = fs.readFileSync(path.join(ROOT, 'dist/index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'src/styles/main.css'), 'utf8');
+  const js = fs.readFileSync(path.join(ROOT, 'src/scripts/app.js'), 'utf8');
+  const data = require(path.join(ROOT, 'src/data/portfolio-data.cjs'));
 
   // 1. Favicon & Open Graph / Twitter meta tags
   assert.match(html, /rel="icon"/);
@@ -107,14 +106,14 @@ test('Audit Improvements: Favicon, Open Graph SEO, Contact/CV section, Accessibi
 });
 
 test('Taste-Skill UI Upgrade: Zero em-dashes, prefers-reduced-motion, eyebrow restraint, and view-mode / bento enhancements', () => {
-  const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-  const css = fs.readFileSync(path.join(ROOT, 'styles/main.css'), 'utf8');
-  const js = fs.readFileSync(path.join(ROOT, 'scripts/app.js'), 'utf8');
-  const dataRaw = fs.readFileSync(path.join(ROOT, 'data/portfolio-data.js'), 'utf8');
+  const html = fs.readFileSync(path.join(ROOT, 'dist/index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'src/styles/main.css'), 'utf8');
+  const js = fs.readFileSync(path.join(ROOT, 'src/scripts/app.js'), 'utf8');
+  const dataRaw = fs.readFileSync(path.join(ROOT, 'src/data/portfolio-data.cjs'), 'utf8');
 
   // 1. Zero em-dashes (—) in HTML and data
   assert.doesNotMatch(html, /—/, 'HTML must contain zero em-dashes');
-  assert.doesNotMatch(dataRaw, /—/, 'portfolio-data.js must contain zero em-dashes');
+  assert.doesNotMatch(dataRaw, /—/, 'portfolio-data.cjs must contain zero em-dashes');
 
   // 2. Reduced motion & reduced transparency guardrails (Apple Liquid Glass web approx)
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
@@ -180,12 +179,12 @@ test('Task 1 (Improvements): SEO Essentials - Canonical, robots.txt, sitemap.xml
   assert.match(astroHtml, /application\/ld\+json/);
   assert.match(astroHtml, /"alumniOf":\s*profile\.institution/);
 
-  const fallbackHtml = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-  assert.match(fallbackHtml, /"alumniOf":\s*"Politeknik Negeri Ujung Pandang"/);
+  const distHtml = fs.readFileSync(path.join(ROOT, 'dist/index.html'), 'utf8');
+  assert.match(distHtml, /"alumniOf":\s*"Politeknik Negeri Ujung Pandang"/);
 });
 
 test('Task 2 (Improvements): Case study highlights in portfolio-data and LightboxModal support', () => {
-  const data = require(path.join(ROOT, 'data/portfolio-data.js'));
+  const data = require(path.join(ROOT, 'src/data/portfolio-data.cjs'));
   const kpuItem = data.driveItems.find(i => i.id === '1IpyHiFwfvmVWj_9VbptkDOkDRi1BT3NH');
   assert.ok(kpuItem.caseStudy, 'Featured item must have caseStudy object');
   assert.ok(kpuItem.caseStudy.impact, 'Featured item must have impact detail');
@@ -193,7 +192,7 @@ test('Task 2 (Improvements): Case study highlights in portfolio-data and Lightbo
   const modalHtml = fs.readFileSync(path.join(ROOT, 'src/components/LightboxModal.astro'), 'utf8');
   assert.match(modalHtml, /id="modalCaseStudyWrap"/);
 
-  const js = fs.readFileSync(path.join(ROOT, 'scripts/app.js'), 'utf8');
+  const js = fs.readFileSync(path.join(ROOT, 'src/scripts/app.js'), 'utf8');
   assert.match(js, /renderCaseStudy/);
 });
 
@@ -202,7 +201,7 @@ test('Task 3 (Improvements): RUBOOTH engineering metrics strip and enhanced arch
   assert.match(devSection, /rubooth-metrics-strip/);
   assert.match(devSection, /PTP_OC_InitiateCapture/);
 
-  const css = fs.readFileSync(path.join(ROOT, 'styles/main.css'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'src/styles/main.css'), 'utf8');
   assert.match(css, /\.rubooth-metrics-strip/);
 });
 
@@ -211,9 +210,34 @@ test('Task 4 (Improvements): Contact copy email helper and active WhatsApp prefi
   assert.match(contact, /copyEmailToClipboard/);
   assert.match(contact, /id="copyEmailBtn"/);
 
-  const js = fs.readFileSync(path.join(ROOT, 'scripts/app.js'), 'utf8');
+  const js = fs.readFileSync(path.join(ROOT, 'src/scripts/app.js'), 'utf8');
   assert.match(js, /function copyEmailToClipboard/);
 });
+
+test('Hardening 1: single source layout', () => {
+  assert.ok(!fs.existsSync(path.join(ROOT, 'index.html')), 'legacy index.html must be removed');
+  assert.ok(!fs.existsSync(path.join(ROOT, 'scripts/sync-public.mjs')), 'sync-public.mjs must be removed');
+  assert.ok(!fs.existsSync(path.join(ROOT, 'public/data')), 'public/data must be removed');
+  assert.ok(!fs.existsSync(path.join(ROOT, 'public/scripts')), 'public/scripts must be removed');
+  assert.ok(!fs.existsSync(path.join(ROOT, 'public/styles')), 'public/styles must be removed');
+
+  assert.ok(fs.existsSync(path.join(ROOT, 'src/data/portfolio-data.cjs')), 'src/data/portfolio-data.cjs must exist');
+  assert.ok(fs.existsSync(path.join(ROOT, 'src/scripts/app.js')), 'src/scripts/app.js must exist');
+  assert.ok(fs.existsSync(path.join(ROOT, 'src/styles/main.css')), 'src/styles/main.css must exist');
+  assert.ok(fs.existsSync(path.join(ROOT, 'public/assets/profile_khairan.jpg')), 'public/assets/profile_khairan.jpg must exist');
+  assert.ok(fs.existsSync(path.join(ROOT, 'public/favicon.svg')), 'public/favicon.svg must exist');
+
+  const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  assert.ok(!pkg.scripts.prebuild, 'prebuild sync-public script must be removed');
+
+  const distHtml = fs.readFileSync(path.join(ROOT, 'dist/index.html'), 'utf8');
+  assert.match(distHtml, /window\.PORTFOLIO_DATA\s*=/);
+
+  const readme = fs.readFileSync(path.join(ROOT, 'README.md'), 'utf8');
+  assert.doesNotMatch(readme, /\uFFFD/, 'README.md must not contain broken encoding characters');
+  assert.match(readme, /src\/data\/portfolio-data\.cjs/);
+});
+
 
 
 
