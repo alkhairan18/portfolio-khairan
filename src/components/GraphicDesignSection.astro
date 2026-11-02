@@ -88,7 +88,8 @@ const firstItem = items[0];
         <div class="stage-frame stage-clickable" onclick="openCurrentDesignStageModal()" title="Klik untuk memperbesar">
           <img
             id="designStageImg"
-            src={firstItem ? `https://drive.google.com/thumbnail?id=${firstItem.id}&sz=w1000` : ''}
+            src={firstItem ? `/assets/works/${firstItem.id}-1200.webp` : ''}
+            onerror={firstItem ? `this.onerror=null;this.src='https://drive.google.com/thumbnail?id=${firstItem.id}&sz=w1200';` : undefined}
             alt={firstItem ? firstItem.title : 'Pratinjau Karya Desain'}
             decoding="async"
           />
@@ -123,8 +124,8 @@ const firstItem = items[0];
       </div>
       <div id="driveWorkList" class="work-scroll-area grid-mode">
         {items.map((item, idx) => {
-          const thumbUrl = `https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w600`;
-          const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${encodeURIComponent(item.id)}=w600`;
+          const thumbUrl = `/assets/works/${item.id}-600.webp`;
+          const fallbackThumbUrl = `https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w600`;
           const actionLabel = item.type === 'video' ? 'Putar Video' : 'Perbesar Karya';
           const numStr = String(idx + 1).padStart(2, '0');
           return (

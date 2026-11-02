@@ -7,11 +7,15 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "node --test tests/verify-portfolio.mjs"
+    "test": "node --test tests/verify-portfolio.mjs",
+    "thumbs": "node scripts/build-thumbs.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^5.18.2",
     "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
   }
 }

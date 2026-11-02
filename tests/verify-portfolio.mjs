@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
@@ -263,6 +264,59 @@ test('Hardening 2: unconfirmed claims never ship', () => {
   assert.doesNotMatch(contactAstro, /linkedin\.com\/search/);
   assert.doesNotMatch(contactAstro, /wa\.me\/\?text/);
   assert.doesNotMatch(contactAstro, /mailto:\$\{profile\.email\}\?subject=Permintaan/);
+});
+
+test('Hardening 3: local thumbnails', async () => {
+  const { buildThumbs, localThumb } = await import('../scripts/build-thumbs.mjs');
+  
+  assert.equal(localThumb('abc', 600), 'assets/works/abc-600.webp');
+  assert.equal(localThumb('abc', 1200), 'assets/works/abc-1200.webp');
+
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'build-thumbs-test-'));
+  const fakePng = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==', 'base64');
+
+  const fakeFetch = async (url) => {
+    if (url.includes('id=ok')) {
+      return {
+        ok: true,
+        status: 200,
+        arrayBuffer: async () => fakePng.buffer.slice(fakePng.byteOffset, fakePng.byteOffset + fakePng.byteLength)
+      };
+    }
+    return { ok: false, status: 404, arrayBuffer: async () => new ArrayBuffer(0) };
+  };
+
+  const res = await buildThumbs(['ok', 'bad'], tmpDir, fakeFetch);
+  assert.deepEqual(res.ok, ['ok']);
+  assert.deepEqual(res.failed, ['bad']);
+  assert.ok(fs.existsSync(path.join(tmpDir, 'ok-600.webp')));
+  assert.ok(fs.existsSync(path.join(tmpDir, 'ok-1200.webp')));
+  assert.ok(!fs.existsSync(path.join(tmpDir, 'bad-600.webp')));
+  assert.ok(!fs.existsSync(path.join(tmpDir, 'bad-1200.webp')));
+  fs.rmSync(tmpDir, { recursive: true, force: true });
+
+  const data = require(path.join(ROOT, 'src/data/portfolio-data.cjs'));
+  for (const item of data.driveItems) {
+    const f600 = path.join(ROOT, 'public/assets/works', `${item.id}-600.webp`);
+    const f1200 = path.join(ROOT, 'public/assets/works', `${item.id}-1200.webp`);
+    assert.ok(fs.existsSync(f600), `Missing thumbnail: ${item.id}-600.webp`);
+    assert.ok(fs.existsSync(f1200), `Missing thumbnail: ${item.id}-1200.webp`);
+  }
+
+  const distHtml = fs.readFileSync(path.join(ROOT, 'dist/index.html'), 'utf8');
+  const imgTags = distHtml.match(/<img[^>]+>/g) || [];
+  assert.ok(imgTags.length > 0, 'index.html must contain img tags');
+  for (const tag of imgTags) {
+    const srcMatch = tag.match(/\ssrc=["']([^"']+)["']/);
+    assert.ok(srcMatch, `Img tag must have src: ${tag}`);
+    assert.ok(
+      !srcMatch[1].startsWith('https://drive.google.com/thumbnail'),
+      `Initial image src must not point directly to drive.google.com/thumbnail: ${tag}`
+    );
+  }
+
+  const graphicAstro = fs.readFileSync(path.join(ROOT, 'src/components/GraphicDesignSection.astro'), 'utf8');
+  assert.match(graphicAstro, /onerror=/);
 });
 
 

@@ -118,8 +118,9 @@ function renderDriveList(filterKey) {
   container.innerHTML = currentFilteredDrive
     .map((item, idx) => {
       const safeId = encodeURIComponent(item.id);
-      const thumbUrl = `https://drive.google.com/thumbnail?id=${safeId}&sz=w600`;
-      const fallbackThumbUrl = `https://lh3.googleusercontent.com/d/${safeId}=w600`;
+      const thumbUrl = `/assets/works/${safeId}-600.webp`;
+      const fallbackThumbUrl = `https://drive.google.com/thumbnail?id=${safeId}&sz=w600`;
+      const lh3FallbackUrl = `https://lh3.googleusercontent.com/d/${safeId}=w600`;
       const actionLabel = item.type === 'video' ? 'Putar Video' : 'Perbesar Karya';
       const subText = `${escapeHtml(item.tool)}${item.type === 'video' ? ' &middot; Video' : ''}`;
       const numStr = String(idx + 1).padStart(2, '0');
@@ -139,7 +140,7 @@ function renderDriveList(filterKey) {
             <span class="work-card-type">${typeLabel}</span>
           </div>
           <div class="work-thumb-wrap">
-            <img class="work-thumb" src="${thumbUrl}" onerror="this.onerror=null;this.src='${fallbackThumbUrl}';" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async" />
+            <img class="work-thumb" src="${thumbUrl}" onerror="this.onerror=function(){this.onerror=null;this.src='${lh3FallbackUrl}';};this.src='${fallbackThumbUrl}';" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async" />
             <div class="thumb-hover-drawer">
               <span>${actionLabel} &nearr;</span>
             </div>
@@ -242,10 +243,13 @@ function previewDesignStageByIndex(idx) {
   if (imgEl) {
     const safeId = encodeURIComponent(item.id);
     imgEl.onerror = function () {
-      imgEl.onerror = null;
-      imgEl.src = `https://lh3.googleusercontent.com/d/${safeId}=w1000`;
+      imgEl.onerror = function () {
+        imgEl.onerror = null;
+        imgEl.src = `https://lh3.googleusercontent.com/d/${safeId}=w1000`;
+      };
+      imgEl.src = `https://drive.google.com/thumbnail?id=${safeId}&sz=w1200`;
     };
-    imgEl.src = `https://drive.google.com/thumbnail?id=${safeId}&sz=w1000`;
+    imgEl.src = `/assets/works/${safeId}-1200.webp`;
     imgEl.alt = item.title;
   }
 }
@@ -266,7 +270,7 @@ function openDriveModalByIndex(idx) {
     repoWrap.innerHTML = `<a href="${driveViewUrl}" target="_blank" rel="noopener noreferrer" class="repo-link-btn">Buka File Asli di Google Drive (${escapeHtml(item.file)}) &nearr;</a>`;
   }
 
-  const highResUrl = `https://drive.google.com/thumbnail?id=${encodeURIComponent(item.id)}&sz=w1600`;
+  const highResUrl = `/assets/works/${encodeURIComponent(item.id)}-1200.webp`;
   openModal(
     item.id,
     item.type,
@@ -454,7 +458,7 @@ function openModal(driveId, type, title, category, desc, fallbackImg, tags, case
       mediaWrap.innerHTML = `<iframe src="https://drive.google.com/file/d/${safeId}/preview" allow="autoplay; fullscreen" title="${escapeHtml(title)}"></iframe>`;
     } else if (driveId) {
       mediaWrap.className = 'modal-media-wrap';
-      mediaWrap.innerHTML = `<img src="https://drive.google.com/thumbnail?id=${safeId}&sz=w1600" onerror="this.onerror=null;this.src='https://lh3.googleusercontent.com/d/${safeId}=w1600';" alt="${escapeHtml(title)}" decoding="async" />`;
+      mediaWrap.innerHTML = `<img src="/assets/works/${safeId}-1200.webp" onerror="this.onerror=function(){this.onerror=null;this.src='https://lh3.googleusercontent.com/d/${safeId}=w1600';};this.src='https://drive.google.com/thumbnail?id=${safeId}&sz=w1600';" alt="${escapeHtml(title)}" decoding="async" />`;
     } else {
       mediaWrap.className = 'modal-media-wrap';
       mediaWrap.innerHTML = `<img src="${escapeHtml(fallbackImg)}" alt="${escapeHtml(title)}" decoding="async" />`;
