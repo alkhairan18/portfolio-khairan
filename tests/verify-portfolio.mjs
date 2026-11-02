@@ -206,6 +206,16 @@ test('Task 3 (Improvements): RUBOOTH engineering metrics strip and enhanced arch
   assert.match(css, /\.rubooth-metrics-strip/);
 });
 
+test('Task 4 (Improvements): Contact copy email helper and active WhatsApp prefill generator', () => {
+  const contact = fs.readFileSync(path.join(ROOT, 'src/components/ContactFooter.astro'), 'utf8');
+  assert.match(contact, /copyEmailToClipboard/);
+  assert.match(contact, /id="copyEmailBtn"/);
+
+  const js = fs.readFileSync(path.join(ROOT, 'scripts/app.js'), 'utf8');
+  assert.match(js, /function copyEmailToClipboard/);
+});
+
+
 
 
 

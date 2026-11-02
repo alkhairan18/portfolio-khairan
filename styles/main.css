@@ -1678,6 +1678,34 @@ body {
   align-items: center;
 }
 
+.copy-email-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: var(--fs-btn);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s var(--ease-out-expo);
+}
+
+.copy-email-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.copy-email-btn.copied {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #FFFFFF;
+}
+
 .site-footer {
   margin-top: 48px;
   padding-top: 28px;
