@@ -260,12 +260,18 @@ function previewCuratedStageByIndex(idx) {
   if (titleEl) titleEl.textContent = item.title;
   if (descEl) descEl.textContent = item.desc;
 
+  const videoToggleBtn = document.getElementById('stageVideoToggleBtn');
   if (item.type === 'video') {
     if (videoEl) videoEl.style.display = 'block';
     if (imgEl) imgEl.style.display = 'none';
+    if (videoToggleBtn) {
+      videoToggleBtn.style.display = 'inline-flex';
+      syncStageVideoButtonState(videoEl ? videoEl.paused : false);
+    }
   } else {
     if (videoEl) videoEl.style.display = 'none';
     if (imgEl) imgEl.style.display = 'block';
+    if (videoToggleBtn) videoToggleBtn.style.display = 'none';
   }
 
   if (imgEl) {
@@ -309,12 +315,18 @@ function previewDesignStageByIndex(idx) {
   if (titleEl) titleEl.textContent = item.title;
   if (descEl) descEl.textContent = item.desc;
 
+  const videoToggleBtn = document.getElementById('stageVideoToggleBtn');
   if (item.type === 'video') {
     if (videoEl) videoEl.style.display = 'block';
     if (imgEl) imgEl.style.display = 'none';
+    if (videoToggleBtn) {
+      videoToggleBtn.style.display = 'inline-flex';
+      syncStageVideoButtonState(videoEl ? videoEl.paused : false);
+    }
   } else {
     if (videoEl) videoEl.style.display = 'none';
     if (imgEl) imgEl.style.display = 'block';
+    if (videoToggleBtn) videoToggleBtn.style.display = 'none';
   }
 
   if (imgEl) {
@@ -328,6 +340,42 @@ function previewDesignStageByIndex(idx) {
     };
     imgEl.src = `/assets/works/${safeId}-1200.webp`;
     imgEl.alt = item.title;
+  }
+}
+
+function toggleStageVideo() {
+  const video = document.getElementById('designStageVideo');
+  if (!video) return;
+
+  if (video.paused) {
+    video.play().catch(() => {});
+    syncStageVideoButtonState(false);
+  } else {
+    video.pause();
+    syncStageVideoButtonState(true);
+  }
+}
+
+function syncStageVideoButtonState(isPaused) {
+  const btn = document.getElementById('stageVideoToggleBtn');
+  if (!btn) return;
+  const labelEl = btn.querySelector('.video-toggle-label');
+  const iconSvg = btn.querySelector('.video-toggle-icon');
+
+  if (isPaused) {
+    btn.setAttribute('aria-label', 'Putar animasi 3D');
+    btn.setAttribute('title', 'Putar animasi 3D');
+    if (labelEl) labelEl.textContent = 'Putar';
+    if (iconSvg) {
+      iconSvg.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"></polygon>';
+    }
+  } else {
+    btn.setAttribute('aria-label', 'Jeda video animasi 3D');
+    btn.setAttribute('title', 'Jeda animasi 3D');
+    if (labelEl) labelEl.textContent = 'Jeda';
+    if (iconSvg) {
+      iconSvg.innerHTML = '<rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect>';
+    }
   }
 }
 
@@ -834,6 +882,10 @@ function handleGlobalClick(e) {
       stepDesignStage(delta);
       break;
     }
+    case 'toggle-stage-video': {
+      toggleStageVideo();
+      break;
+    }
     case 'open-stage': {
       openCurrentDesignStageModal();
       break;
@@ -921,6 +973,14 @@ function initPortfolio() {
   initTiltCard();
   initSpotlightAndMagnetic();
 
+  if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const video = document.getElementById('designStageVideo');
+    if (video) {
+      video.pause();
+      syncStageVideoButtonState(true);
+    }
+  }
+
   document.addEventListener('click', handleGlobalClick);
 
   const searchInput = document.getElementById('driveSearchInput');
@@ -1005,5 +1065,6 @@ if (typeof window !== 'undefined') {
   window.selectRuboothModule = selectRuboothModule;
   window.copyEmailToClipboard = copyEmailToClipboard;
   window.renderCaseStudy = renderCaseStudy;
+  window.toggleStageVideo = toggleStageVideo;
 }
 

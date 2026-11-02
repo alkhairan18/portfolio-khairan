@@ -80,6 +80,20 @@ const totalCurated = curatedList.length || 5;
         </div>
         <div class="stage-topbar-controls">
           <span id="designStageCounter" class="stage-counter-pill">1 / {totalCurated}</span>
+          <button
+            id="stageVideoToggleBtn"
+            type="button"
+            class="stage-step-btn stage-video-toggle"
+            data-action="toggle-stage-video"
+            aria-label="Jeda video animasi 3D"
+            title="Jeda animasi 3D"
+          >
+            <svg class="video-toggle-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+              <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+            </svg>
+            <span class="video-toggle-label">Jeda</span>
+          </button>
           <button type="button" class="stage-step-btn" data-action="step-stage" data-delta="-1" aria-label="Karya pilihan sebelumnya">&larr; Prev</button>
           <button type="button" class="stage-step-btn" data-action="step-stage" data-delta="1" aria-label="Karya pilihan berikutnya">Next &rarr;</button>
         </div>
