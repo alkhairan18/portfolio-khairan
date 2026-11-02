@@ -133,7 +133,7 @@ function renderDriveList(filterKey) {
             <span class="work-card-type">${typeLabel}</span>
             ${item.type === 'video' ? '<span class="work-card-format">Motion Video</span>' : ''}
           </div>
-          <div class="work-thumb-wrap">
+          <div class="work-thumb-wrap" data-action="open-work" data-idx="${idx}">
             <img class="work-thumb" src="${thumbUrl}" onerror="this.onerror=function(){this.onerror=null;this.src='${lh3FallbackUrl}';};this.src='${fallbackThumbUrl}';" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async" />
             <div class="thumb-hover-drawer">
               <span>${actionLabel} &nearr;</span>
@@ -150,7 +150,7 @@ function renderDriveList(filterKey) {
             </div>
             <span class="work-arrow-icon" aria-hidden="true">&nearr;</span>
           </div>
-          <span class="work-row-cta">${actionLabel}</span>
+          <button type="button" class="work-row-cta" data-action="open-work" data-idx="${idx}">${actionLabel}</button>
         </div>
       `;
     })

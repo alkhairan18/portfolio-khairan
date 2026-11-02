@@ -168,7 +168,7 @@ const totalCurated = curatedList.length || 5;
                 <span class="work-card-type">{item.tool}</span>
                 {item.type === 'video' && <span class="work-card-format">Motion Video</span>}
               </div>
-              <div class="work-thumb-wrap">
+              <div class="work-thumb-wrap" data-action="open-work" data-idx={idx}>
                 <img
                   class="work-thumb"
                   src={thumbUrl}
@@ -194,7 +194,7 @@ const totalCurated = curatedList.length || 5;
                 </div>
                 <span class="work-arrow-icon" aria-hidden="true">&nearr;</span>
               </div>
-              <span class="work-row-cta">{actionLabel}</span>
+              <button type="button" class="work-row-cta" data-action="open-work" data-idx={idx}>{actionLabel}</button>
             </div>
           );
         })}
