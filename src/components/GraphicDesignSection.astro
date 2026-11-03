@@ -160,7 +160,7 @@ const totalCurated = curatedList.length || 5;
           const actionLabel = item.type === 'video' ? 'Putar Video' : 'Perbesar Karya';
           return (
             <div
-              class={`work-row spotlight-card${idx === 0 ? ' is-selected' : ''}`}
+              class={`work-row spotlight-card is-initial-reveal${idx === 0 ? ' is-selected' : ''}`}
               data-drive-idx={idx}
               style={`--stagger-idx: ${idx % 9};`}
             >

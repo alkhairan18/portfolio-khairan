@@ -806,16 +806,25 @@ function setPersona(key, btnEl) {
 }
 
 function initTiltCard() {
+  if (typeof window === 'undefined') return;
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isFinePointer = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (reduced || !isFinePointer) return;
+
   const tiltCard = document.getElementById('tiltCard');
   if (!tiltCard) return;
+
   tiltCard.addEventListener('mousemove', (e) => {
+    tiltCard.style.transition = 'transform 80ms ease-out';
     const rect = tiltCard.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    tiltCard.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+    tiltCard.style.transform = `perspective(1000px) rotateY(${(x * 10).toFixed(2)}deg) rotateX(${(-y * 10).toFixed(2)}deg)`;
   });
+
   tiltCard.addEventListener('mouseleave', () => {
-    tiltCard.style.transform = 'rotateY(0deg) rotateX(0deg)';
+    tiltCard.style.transition = 'transform 0.4s var(--ease-out-expo)';
+    tiltCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
   });
 }
 
