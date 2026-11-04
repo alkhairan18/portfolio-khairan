@@ -28,7 +28,9 @@ interface Props {
 }
 const { filters, items } = Astro.props;
 const firstDev = items[0];
+const secondDev = items[1];
 const confirmedMetrics = (firstDev?.metrics || []).filter((m) => m.confirmed === true);
+const secondConfirmedMetrics = (secondDev?.metrics || []).filter((m) => m.confirmed === true);
 ---
 <section id="bagian-development" class="discipline-section">
   <div class="discipline-header">
@@ -36,7 +38,7 @@ const confirmedMetrics = (firstDev?.metrics || []).filter((m) => m.confirmed ===
       <div class="discipline-title-stack">
         <h2 class="discipline-title">Software Development System</h2>
         <p class="discipline-lead">
-          Rekayasa sistem kios pintar mandiri berbasis Android Kotlin, integrasi perangkat keras kamera profesional USB PTP/UVC, pemrosesan Generative AI, serta automasi IoT.
+          Rekayasa sistem kios pintar mandiri Android (Kotlin), integrasi perangkat keras USB PTP/UVC, Google Gemini AI, serta arsitektur aplikasi mobile offline-first (Flutter &amp; Laravel) dengan enkripsi SQLCipher dan sinkronisasi cloud.
         </p>
       </div>
 
@@ -56,164 +58,304 @@ const confirmedMetrics = (firstDev?.metrics || []).filter((m) => m.confirmed ===
     </div>
   </div>
 
-  <!-- EDITORIAL CASE STUDY + INTERACTIVE SYSTEM PIPELINE -->
-  <div class="rubooth-bento-grid">
-    <div class="bento-cell bento-hero-stage spotlight-card">
-      <div class="stage-topbar">
-        <div class="stage-topbar-left">
-          <span class="stage-live-dot"></span>
-          <span>Studi Kasus Kios Pintar Android</span>
+  <div class="dev-showcase-stack">
+    <!-- PROJECT 1: RUBOOTH KIOS PINTAR -->
+    <div class="rubooth-bento-grid dev-bento-card" data-dev-card="rubooth" data-dev-cat="photobooth">
+      <div class="bento-cell bento-hero-stage spotlight-card">
+        <div class="stage-topbar">
+          <div class="stage-topbar-left">
+            <span class="stage-live-dot"></span>
+            <span>Studi Kasus Kios Pintar Android</span>
+          </div>
+          <span class="stage-counter-pill">Open Source Repo</span>
         </div>
-        <span class="stage-counter-pill">Open Source Repo</span>
+        <div class="stage-frame stage-clickable" data-action="open-dev" data-idx="0">
+          <img
+            id="devStageImg"
+            src={firstDev ? firstDev.img : 'assets/rubooth_banner.jpg'}
+            alt={firstDev ? firstDev.title : 'RUBOOTH Smart Photobooth'}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="stage-meta-box">
+          <h3 id="devStageTitle" class="stage-info-title">{firstDev ? firstDev.title : ''}</h3>
+          <div class="stage-badge-row">
+            <span id="devStageBadge" class="stage-badge">{firstDev ? firstDev.badge : 'Android Kotlin'}</span>
+            <span class="stage-format-tag">Hardware + Cloud IoT</span>
+          </div>
+          <p id="devStageDesc" class="stage-info-desc">{firstDev ? firstDev.desc : ''}</p>
+          <div class="tech-stack-row">
+            {(firstDev ? firstDev.tags : []).map((t) => (
+              <span class="tech-tag">{t}</span>
+            ))}
+          </div>
+          {confirmedMetrics.length > 0 && (
+            <div class="rubooth-metrics-strip">
+              {confirmedMetrics.map((m) => (
+                <div class="rubooth-metric-item">
+                  <span class="rubooth-metric-val">{m.value}</span>
+                  <span class="rubooth-metric-lbl">{m.label}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <div class="stage-repo-actions">
+            <a
+              id="devStageRepoLink"
+              href={firstDev ? firstDev.repoUrl : 'https://github.com/alkhairan18/rubooth'}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="repo-link-btn magnetic-btn"
+            >
+              Lihat Kode Sumber di GitHub &nearr;
+            </a>
+            <button type="button" class="stage-next-outline-btn" data-action="open-dev" data-idx="0">
+              Perbesar Banner &nearr;
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="stage-frame stage-clickable" data-action="open-dev" data-idx="0">
-        <img
-          id="devStageImg"
-          src={firstDev ? firstDev.img : 'assets/rubooth_banner.jpg'}
-          alt={firstDev ? firstDev.title : 'RUBOOTH Smart Photobooth'}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-      <div class="stage-meta-box">
-        <h3 id="devStageTitle" class="stage-info-title">{firstDev ? firstDev.title : ''}</h3>
-        <div class="stage-badge-row">
-          <span id="devStageBadge" class="stage-badge">{firstDev ? firstDev.badge : 'Android Kotlin'}</span>
-          <span class="stage-format-tag">Hardware + Cloud IoT</span>
+
+      <!-- INTERACTIVE KIOSK ARCHITECTURE EXPLORER -->
+      <div class="bento-cell bento-spec-column">
+        <div class="pipeline-header">
+          <span class="pipeline-label">Arsitektur Sistem Interaktif:</span>
+          <span id="pipelineActiveStatus" class="pipeline-status">Modul Aktif: Dual-Camera USB PTP &amp; UVC</span>
         </div>
-        <p id="devStageDesc" class="stage-info-desc">{firstDev ? firstDev.desc : ''}</p>
-        <div class="tech-stack-row">
-          {(firstDev ? firstDev.tags : []).map((t) => (
-            <span class="tech-tag">{t}</span>
-          ))}
+
+        <div class="bento-subgrid" role="tablist" aria-label="Modul arsitektur RUBOOTH">
+          <button
+            type="button"
+            class="arch-tile spotlight-card active"
+            role="tab"
+            tabindex="0"
+            aria-selected="true"
+            data-action="select-module"
+            data-idx="0"
+          >
+            <div class="arch-tile-head">
+              <span class="arch-tile-tag">Hardware I/O</span>
+            </div>
+            <strong class="arch-tile-title">Dual-Camera USB PTP &amp; UVC</strong>
+            <span class="arch-tile-desc">Pratinjau langsung (<em>live view</em>) via webcam USB UVC yang dipadukan dengan pengambilan foto resolusi tinggi dari kamera DSLR Canon EOS melalui protokol USB PTP.</span>
+          </button>
+          <button
+            type="button"
+            class="arch-tile spotlight-card"
+            role="tab"
+            tabindex="0"
+            aria-selected="false"
+            data-action="select-module"
+            data-idx="1"
+          >
+            <div class="arch-tile-head">
+              <span class="arch-tile-tag">AI Engine</span>
+            </div>
+            <strong class="arch-tile-title">Google Gemini Generative AI</strong>
+            <span class="arch-tile-desc">Pemrosesan komposisi gambar yang memungkinkan pengguna berfoto bersama figur idola secara otomatis langsung di layar kios.</span>
+          </button>
+          <button
+            type="button"
+            class="arch-tile spotlight-card"
+            role="tab"
+            tabindex="0"
+            aria-selected="false"
+            data-action="select-module"
+            data-idx="2"
+          >
+            <div class="arch-tile-head">
+              <span class="arch-tile-tag">Payment Gateway</span>
+            </div>
+            <strong class="arch-tile-title">Midtrans Snap QRIS</strong>
+            <span class="arch-tile-desc">Alur pembayaran nirsentuh (<em>cashless</em>) dengan pembuatan kode QR dinamis dan pembukaan sesi foto otomatis setelah transaksi terverifikasi.</span>
+          </button>
+          <button
+            type="button"
+            class="arch-tile spotlight-card"
+            role="tab"
+            tabindex="0"
+            aria-selected="false"
+            data-action="select-module"
+            data-idx="3"
+          >
+            <div class="arch-tile-head">
+              <span class="arch-tile-tag">Realtime IoT &amp; Print</span>
+            </div>
+            <strong class="arch-tile-title">Firebase IoT &amp; Epson L8050</strong>
+            <span class="arch-tile-desc">Sinkronisasi lampu studio melalui Firebase Realtime Database serta pencetakan foto ukuran 3R otomatis ke printer Epson L8050.</span>
+          </button>
         </div>
-        {confirmedMetrics.length > 0 && (
-          <div class="rubooth-metrics-strip">
-            {confirmedMetrics.map((m) => (
-              <div class="rubooth-metric-item">
-                <span class="rubooth-metric-val">{m.value}</span>
-                <span class="rubooth-metric-lbl">{m.label}</span>
+
+        <div id="pipelineDetailBox" class="pipeline-detail-box">
+          <div class="pipeline-detail-spec">
+            <strong>Alur Teknis:</strong> Android USB Host API mendeteksi antarmuka UVC untuk <em>stream</em> 30fps bebas jeda di layar sentuh, lalu mengirimkan perintah <code>PTP_OC_InitiateCapture</code> ke Canon EOS saat hitung mundur selesai.
+          </div>
+        </div>
+
+        <div class="dev-index-box" style="display:none;">
+          <div id="devWorkList">
+            {items.map((item, idx) => (
+              <div
+                class="work-row"
+                data-dev-idx={idx}
+              >
+                <img class="work-thumb" src={item.img} alt={item.title} loading="lazy" decoding="async" />
+                <div>
+                  <button type="button" class="work-open" data-action="open-dev" data-idx={idx}>
+                    <span class="work-row-name">{item.title}</span>
+                  </button>
+                  <div class="work-row-sub">{item.sub}</div>
+                </div>
+                <div class="work-row-actions">
+                  <a href={item.repoUrl} target="_blank" rel="noopener noreferrer" class="work-row-github">
+                    GitHub &nearr;
+                  </a>
+                  <span class="work-row-cta">Detail</span>
+                </div>
               </div>
             ))}
           </div>
-        )}
-        <div class="stage-repo-actions">
-          <a
-            id="devStageRepoLink"
-            href={firstDev ? firstDev.repoUrl : 'https://github.com/alkhairan18/rubooth'}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="repo-link-btn magnetic-btn"
-          >
-            Lihat Kode Sumber di GitHub &nearr;
-          </a>
-          <button type="button" class="stage-next-outline-btn" data-action="open-dev" data-idx="0">
-            Perbesar Banner &nearr;
-          </button>
         </div>
       </div>
     </div>
 
-    <!-- INTERACTIVE KIOSK ARCHITECTURE EXPLORER -->
-    <div class="bento-cell bento-spec-column">
-      <div class="pipeline-header">
-        <span class="pipeline-label">Arsitektur Sistem Interaktif:</span>
-        <span id="pipelineActiveStatus" class="pipeline-status">Modul Aktif: Dual-Camera USB PTP &amp; UVC</span>
-      </div>
-
-      <div class="bento-subgrid" role="tablist" aria-label="Modul arsitektur RUBOOTH">
-        <button
-          type="button"
-          class="arch-tile spotlight-card active"
-          role="tab"
-          tabindex="0"
-          aria-selected="true"
-          data-action="select-module"
-          data-idx="0"
-        >
-          <div class="arch-tile-head">
-            <span class="arch-tile-tag">Hardware I/O</span>
-          </div>
-          <strong class="arch-tile-title">Dual-Camera USB PTP &amp; UVC</strong>
-          <span class="arch-tile-desc">Pratinjau langsung (<em>live view</em>) via webcam USB UVC yang dipadukan dengan pengambilan foto resolusi tinggi dari kamera DSLR Canon EOS melalui protokol USB PTP.</span>
-        </button>
-        <button
-          type="button"
-          class="arch-tile spotlight-card"
-          role="tab"
-          tabindex="0"
-          aria-selected="false"
-          data-action="select-module"
-          data-idx="1"
-        >
-          <div class="arch-tile-head">
-            <span class="arch-tile-tag">AI Engine</span>
-          </div>
-          <strong class="arch-tile-title">Google Gemini Generative AI</strong>
-          <span class="arch-tile-desc">Pemrosesan komposisi gambar yang memungkinkan pengguna berfoto bersama figur idola secara otomatis langsung di layar kios.</span>
-        </button>
-        <button
-          type="button"
-          class="arch-tile spotlight-card"
-          role="tab"
-          tabindex="0"
-          aria-selected="false"
-          data-action="select-module"
-          data-idx="2"
-        >
-          <div class="arch-tile-head">
-            <span class="arch-tile-tag">Payment Gateway</span>
-          </div>
-          <strong class="arch-tile-title">Midtrans Snap QRIS</strong>
-          <span class="arch-tile-desc">Alur pembayaran nirsentuh (<em>cashless</em>) dengan pembuatan kode QR dinamis dan pembukaan sesi foto otomatis setelah transaksi terverifikasi.</span>
-        </button>
-        <button
-          type="button"
-          class="arch-tile spotlight-card"
-          role="tab"
-          tabindex="0"
-          aria-selected="false"
-          data-action="select-module"
-          data-idx="3"
-        >
-          <div class="arch-tile-head">
-            <span class="arch-tile-tag">Realtime IoT &amp; Print</span>
-          </div>
-          <strong class="arch-tile-title">Firebase IoT &amp; Epson L8050</strong>
-          <span class="arch-tile-desc">Sinkronisasi lampu studio melalui Firebase Realtime Database serta pencetakan foto ukuran 3R otomatis ke printer Epson L8050.</span>
-        </button>
-      </div>
-
-      <div id="pipelineDetailBox" class="pipeline-detail-box">
-        <div class="pipeline-detail-spec">
-          <strong>Alur Teknis:</strong> Android USB Host API mendeteksi antarmuka UVC untuk <em>stream</em> 30fps bebas jeda di layar sentuh, lalu mengirimkan perintah <code>PTP_OC_InitiateCapture</code> ke Canon EOS saat hitung mundur selesai.
-        </div>
-      </div>
-
-      <div class="dev-index-box" style="display:none;">
-        <div id="devWorkList">
-          {items.map((item, idx) => (
-            <div
-              class="work-row"
-              data-dev-idx={idx}
-            >
-              <img class="work-thumb" src={item.img} alt={item.title} loading="lazy" decoding="async" />
-              <div>
-                <button type="button" class="work-open" data-action="open-dev" data-idx={idx}>
-                  <span class="work-row-name">{item.title}</span>
-                </button>
-                <div class="work-row-sub">{item.sub}</div>
-              </div>
-              <div class="work-row-actions">
-                <a href={item.repoUrl} target="_blank" rel="noopener noreferrer" class="work-row-github">
-                  GitHub &nearr;
-                </a>
-                <span class="work-row-cta">Detail</span>
-              </div>
+    <!-- PROJECT 2: APLIKASI KEUANGAN PRIBADI (FLUTTER & LARAVEL) -->
+    {secondDev && (
+      <div class="rubooth-bento-grid dev-bento-card" data-dev-card="personal-finance" data-dev-cat="finance">
+        <div class="bento-cell bento-hero-stage spotlight-card">
+          <div class="stage-topbar">
+            <div class="stage-topbar-left">
+              <span class="stage-live-dot"></span>
+              <span>Studi Kasus Mobile Offline-First</span>
             </div>
-          ))}
+            <span class="stage-counter-pill">Open Source Repo</span>
+          </div>
+          <div class="stage-frame stage-clickable" data-action="open-dev" data-idx="1">
+            <img
+              id="financeStageImg"
+              src={secondDev.img}
+              alt={secondDev.title}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="stage-meta-box">
+            <h3 id="financeStageTitle" class="stage-info-title">{secondDev.title}</h3>
+            <div class="stage-badge-row">
+              <span id="financeStageBadge" class="stage-badge">{secondDev.badge}</span>
+              <span class="stage-format-tag">Local-First + Cloud Sync</span>
+            </div>
+            <p id="financeStageDesc" class="stage-info-desc">{secondDev.desc}</p>
+            <div class="tech-stack-row">
+              {secondDev.tags.map((t) => (
+                <span class="tech-tag">{t}</span>
+              ))}
+            </div>
+            {secondConfirmedMetrics.length > 0 && (
+              <div class="rubooth-metrics-strip">
+                {secondConfirmedMetrics.map((m) => (
+                  <div class="rubooth-metric-item">
+                    <span class="rubooth-metric-val">{m.value}</span>
+                    <span class="rubooth-metric-lbl">{m.label}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            <div class="stage-repo-actions">
+              <a
+                id="financeStageRepoLink"
+                href={secondDev.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="repo-link-btn magnetic-btn"
+              >
+                Lihat Kode Sumber di GitHub &nearr;
+              </a>
+              <button type="button" class="stage-next-outline-btn" data-action="open-dev" data-idx="1">
+                Perbesar Banner &nearr;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- INTERACTIVE FINANCE ARCHITECTURE EXPLORER -->
+        <div class="bento-cell bento-spec-column">
+          <div class="pipeline-header">
+            <span class="pipeline-label">Arsitektur Sistem Interaktif:</span>
+            <span id="financePipelineActiveStatus" class="pipeline-status">Modul Aktif: SQLite / Drift &amp; SQLCipher</span>
+          </div>
+
+          <div class="bento-subgrid finance-arch-subgrid" role="tablist" aria-label="Modul arsitektur Aplikasi Keuangan Pribadi">
+            <button
+              type="button"
+              class="arch-tile spotlight-card active"
+              role="tab"
+              tabindex="0"
+              aria-selected="true"
+              data-action="select-finance-module"
+              data-idx="0"
+            >
+              <div class="arch-tile-head">
+                <span class="arch-tile-tag">Local DB &amp; Security</span>
+              </div>
+              <strong class="arch-tile-title">SQLite / Drift &amp; SQLCipher</strong>
+              <span class="arch-tile-desc">Penyimpanan basis data relasional lokal terenkripsi AES-256 (SQLCipher) dengan schema versioning otomatis via Drift ORM, menjamin akses instan tanpa dependensi internet.</span>
+            </button>
+            <button
+              type="button"
+              class="arch-tile spotlight-card"
+              role="tab"
+              tabindex="0"
+              aria-selected="false"
+              data-action="select-finance-module"
+              data-idx="1"
+            >
+              <div class="arch-tile-head">
+                <span class="arch-tile-tag">Reactive State</span>
+              </div>
+              <strong class="arch-tile-title">Riverpod State Management</strong>
+              <span class="arch-tile-desc">Pemisahan Clean Architecture antara lapisan domain, data, dan presentasi menggunakan StateNotifier &amp; AsyncNotifier untuk aliran state UI yang reaktif.</span>
+            </button>
+            <button
+              type="button"
+              class="arch-tile spotlight-card"
+              role="tab"
+              tabindex="0"
+              aria-selected="false"
+              data-action="select-finance-module"
+              data-idx="2"
+            >
+              <div class="arch-tile-head">
+                <span class="arch-tile-tag">Device Security</span>
+              </div>
+              <strong class="arch-tile-title">Biometric &amp; Android Keystore</strong>
+              <span class="arch-tile-desc">Proteksi akses autentikasi biometrik sensor perangkat serta enkripsi token sesi Laravel Sanctum di dalam Android Keystore melalui flutter_secure_storage.</span>
+            </button>
+            <button
+              type="button"
+              class="arch-tile spotlight-card"
+              role="tab"
+              tabindex="0"
+              aria-selected="false"
+              data-action="select-finance-module"
+              data-idx="3"
+            >
+              <div class="arch-tile-head">
+                <span class="arch-tile-tag">Cloud Sync Engine</span>
+              </div>
+              <strong class="arch-tile-title">Sync Queue &amp; Laravel REST API</strong>
+              <span class="arch-tile-desc">Antrean mutasi lokal (outbox pattern) dengan push/pull inkremental berbasis cursor, idempotency key, penyelesaian konflik, serta background trigger via Android WorkManager.</span>
+            </button>
+          </div>
+
+          <div id="financePipelineDetailBox" class="pipeline-detail-box">
+            <div class="pipeline-detail-spec">
+              <strong>Alur Teknis:</strong> Seluruh transaksi (pengeluaran, pemasukan, mutasi cicilan) ditulis langsung ke basis data lokal terenkripsi SQLCipher via Drift DAO, menghasilkan respon UI instan bebas jeda tanpa menunggu panggilan jaringan.
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    )}
   </div>
 </section>

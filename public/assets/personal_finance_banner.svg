@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141210" />
+      <stop offset="50%" stop-color="#0b0a09" />
+      <stop offset="100%" stop-color="#181512" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6A3D" />
+      <stop offset="100%" stop-color="#D94814" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#221e1a" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#171412" stop-opacity="0.95" />
+    </linearGradient>
+    <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF6A3D" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#FF6A3D" stop-opacity="0.0" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bgGrad)" />
+
+  <!-- Grid pattern overlay -->
+  <g opacity="0.06" stroke="#ffffff" stroke-width="1">
+    <line x1="0" y1="75" x2="800" y2="75" />
+    <line x1="0" y1="150" x2="800" y2="150" />
+    <line x1="0" y1="225" x2="800" y2="225" />
+    <line x1="0" y1="300" x2="800" y2="300" />
+    <line x1="0" y1="375" x2="800" y2="375" />
+    <line x1="160" y1="0" x2="160" y2="450" />
+    <line x1="320" y1="0" x2="320" y2="450" />
+    <line x1="480" y1="0" x2="480" y2="450" />
+    <line x1="640" y1="0" x2="640" y2="450" />
+  </g>
+
+  <!-- Ambient light orb -->
+  <circle cx="620" cy="140" r="140" fill="#FF6A3D" opacity="0.08" filter="url(#glow)" />
+  <circle cx="200" cy="360" r="120" fill="#D94814" opacity="0.06" filter="url(#glow)" />
+
+  <!-- Left Column: Branding and Feature Overview -->
+  <g transform="translate(48, 48)">
+    <!-- Badge -->
+    <rect x="0" y="0" width="220" height="26" rx="13" fill="#241e1a" stroke="#3d352e" stroke-width="1" />
+    <circle cx="14" cy="13" r="4" fill="#FF6A3D" />
+    <text x="26" y="17" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" fill="#FF6A3D" letter-spacing="0.05em">OFFLINE-FIRST MOBILE SYSTEM</text>
+
+    <!-- Main Title -->
+    <text x="0" y="65" font-family="'Plus Jakarta Sans', sans-serif" font-size="28" font-weight="800" fill="#ffffff" letter-spacing="-0.02em">Aplikasi Keuangan</text>
+    <text x="0" y="98" font-family="'Plus Jakarta Sans', sans-serif" font-size="28" font-weight="800" fill="#FF6A3D" letter-spacing="-0.02em">Pribadi Multi-Akun</text>
+
+    <!-- Subtitle description -->
+    <text x="0" y="132" font-family="'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="500" fill="#b3a89e">
+      <tspan x="0" dy="0">Arsitektur lokal SQLite + Drift dengan SQLCipher,</tspan>
+      <tspan x="0" dy="20">antrean outbox, dan sinkronisasi REST API Laravel.</tspan>
+    </text>
+
+    <!-- Tech Stack Pills -->
+    <g transform="translate(0, 180)">
+      <rect x="0" y="0" width="76" height="26" rx="6" fill="#1e1b18" stroke="#3d352e" stroke-width="1" />
+      <text x="14" y="17" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#e6ded6">Flutter</text>
+
+      <rect x="84" y="0" width="58" height="26" rx="6" fill="#1e1b18" stroke="#3d352e" stroke-width="1" />
+      <text x="96" y="17" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#e6ded6">Dart</text>
+
+      <rect x="150" y="0" width="112" height="26" rx="6" fill="#1e1b18" stroke="#3d352e" stroke-width="1" />
+      <text x="162" y="17" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#e6ded6">SQLite / Drift</text>
+
+      <rect x="0" y="34" width="86" height="26" rx="6" fill="#1e1b18" stroke="#3d352e" stroke-width="1" />
+      <text x="12" y="51" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#e6ded6">Riverpod</text>
+
+      <rect x="94" y="34" width="94" height="26" rx="6" fill="#1e1b18" stroke="#3d352e" stroke-width="1" />
+      <text x="106" y="51" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#e6ded6">Laravel API</text>
+
+      <rect x="196" y="34" width="102" height="26" rx="6" fill="#1e1b18" stroke="#3d352e" stroke-width="1" />
+      <text x="208" y="51" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600" fill="#e6ded6">PDF Export</text>
+    </g>
+
+    <!-- Key Metrics Ribbon -->
+    <g transform="translate(0, 270)">
+      <rect x="0" y="0" width="310" height="54" rx="10" fill="#191614" stroke="#2c2621" stroke-width="1" />
+      <text x="16" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="800" fill="#FF6A3D">Offline-First</text>
+      <text x="16" y="42" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="500" fill="#8c8278">Zero-Latency Local DB</text>
+
+      <line x1="160" y1="12" x2="160" y2="42" stroke="#2c2621" stroke-width="1" />
+
+      <text x="176" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="800" fill="#ffffff">Two-Way Sync</text>
+      <text x="176" y="42" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="500" fill="#8c8278">WorkManager + PostgreSQL</text>
+    </g>
+  </g>
+
+  <!-- Right Column: Stylized App UI Preview Mockup -->
+  <g transform="translate(420, 36)">
+    <!-- Main Device Card Frame -->
+    <rect x="0" y="0" width="332" height="378" rx="20" fill="url(#cardGrad)" stroke="#38302a" stroke-width="1.5" />
+
+    <!-- Card Header / Status -->
+    <g transform="translate(20, 20)">
+      <rect x="0" y="0" width="40" height="4" rx="2" fill="#3d352e" />
+      <text x="0" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" fill="#8c8278" letter-spacing="0.05em">RINGKASAN SALDO KAS</text>
+      <text x="0" y="52" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="700" fill="#ffffff">Rp 14.850.000</text>
+      <rect x="236" y="10" width="56" height="22" rx="6" fill="#26382b" stroke="#35563d" stroke-width="1" />
+      <text x="246" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="700" fill="#4ade80">+12.4%</text>
+    </g>
+
+    <!-- Mini Chart Area -->
+    <g transform="translate(20, 100)">
+      <path d="M 0 55 Q 60 20, 120 40 T 240 15 T 292 25 L 292 70 L 0 70 Z" fill="url(#chartGrad)" />
+      <path d="M 0 55 Q 60 20, 120 40 T 240 15 T 292 25" fill="none" stroke="#FF6A3D" stroke-width="2.5" />
+      <circle cx="292" cy="25" r="4" fill="#FF6A3D" stroke="#ffffff" stroke-width="1.5" />
+    </g>
+
+    <!-- Two Stat Tiles -->
+    <g transform="translate(20, 185)">
+      <!-- Left Stat: Hutang / Piutang -->
+      <rect x="0" y="0" width="140" height="74" rx="12" fill="#1a1714" stroke="#2d2722" stroke-width="1" />
+      <text x="14" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600" fill="#a89d93">Kewajiban &amp; Cicilan</text>
+      <text x="14" y="46" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="700" fill="#f87171">Rp 2.450.000</text>
+      <text x="14" y="62" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="500" fill="#716860">7 Termin Aktif</text>
+
+      <!-- Right Stat: Wishlist Target -->
+      <rect x="152" y="0" width="140" height="74" rx="12" fill="#1a1714" stroke="#2d2722" stroke-width="1" />
+      <text x="166" y="24" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600" fill="#a89d93">Target Wishlist</text>
+      <text x="166" y="46" font-family="'JetBrains Mono', monospace" font-size="15" font-weight="700" fill="#38bdf8">Rp 8.200.000</text>
+      <text x="166" y="62" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="500" fill="#716860">65% Tercapai</text>
+    </g>
+
+    <!-- Bottom Action Pill in Card -->
+    <g transform="translate(20, 275)">
+      <rect x="0" y="0" width="292" height="42" rx="10" fill="#241f1a" stroke="#3d352e" stroke-width="1" />
+      <circle cx="22" cy="21" r="5" fill="#4ade80" />
+      <text x="36" y="25" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600" fill="#d4cac2">Sync Status: Tersinkron ke PostgreSQL</text>
+      <text x="250" y="25" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill="#FF6A3D">0 ms</text>
+    </g>
+
+    <!-- Mini Progress Line -->
+    <rect x="20" y="332" width="292" height="4" rx="2" fill="#221e1a" />
+    <rect x="20" y="332" width="180" height="4" rx="2" fill="url(#accentGrad)" />
+  </g>
+</svg>

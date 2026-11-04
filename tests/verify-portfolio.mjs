@@ -19,9 +19,11 @@ test('Task 1: Local assets and PORTFOLIO_DATA structure', () => {
   assert.equal(data.driveItems.length, 38, 'Must have exactly 38 Google Drive works');
   assert.equal(data.driveItems.some(i => i.id === '1bdApHoMt2PzXcptWipbhhpioNl59ribX'), false, 'UI/UX item must not be present');
   assert.equal(data.driveItems.some(i => i.id === '1Q7xbfCeAFMPg2P67K6qXD-JOKF-rDr0J'), false, 'Infografis Daftar Partai Politik Peserta Pemilu must be removed');
-  assert.equal(data.devItems.length, 1, 'Must have 1 unified RUBOOTH project');
+  assert.ok(data.devItems.length >= 2, 'Must have at least 2 software projects (RUBOOTH and personal-finance)');
   assert.equal(data.devItems[0].repoUrl, 'https://github.com/alkhairan18/rubooth');
   assert.equal(data.devItems[0].img, 'assets/rubooth_banner.jpg');
+  assert.equal(data.devItems[1].repoUrl, 'https://github.com/alkhairan18/personal-finance');
+  assert.equal(data.devItems[1].img, 'assets/personal_finance_banner.svg');
 });
 
 test('Task 2: CSS typography, theme variables, and zero-black-bars rules', () => {
@@ -242,11 +244,13 @@ test('Hardening 1: single source layout', () => {
 test('Hardening 2: unconfirmed claims never ship', () => {
   const data = require(path.join(ROOT, 'src/data/portfolio-data.cjs'));
 
-  assert.ok(Array.isArray(data.devItems[0].metrics), 'devItems[0].metrics must be an array');
-  assert.ok(data.devItems[0].metrics.length > 0, 'metrics array must not be empty');
-  for (const m of data.devItems[0].metrics) {
-    assert.equal(typeof m.confirmed, 'boolean', 'each metric must have a boolean confirmed property');
-    assert.equal(m.confirmed, false, 'unconfirmed metrics must be flagged confirmed: false');
+  for (const devItem of data.devItems) {
+    assert.ok(Array.isArray(devItem.metrics), 'devItem.metrics must be an array');
+    assert.ok(devItem.metrics.length > 0, 'metrics array must not be empty');
+    for (const m of devItem.metrics) {
+      assert.equal(typeof m.confirmed, 'boolean', 'each metric must have a boolean confirmed property');
+      assert.equal(m.confirmed, false, 'unconfirmed metrics must be flagged confirmed: false');
+    }
   }
 
   const caseStudies = data.driveItems.filter(i => i.caseStudy).map(i => i.caseStudy);

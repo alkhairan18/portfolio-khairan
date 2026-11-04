@@ -30,11 +30,11 @@ const PORTFOLIO_DATA = {
 
   personas: {
     hybrid:
-      'Lulusan <strong>Politeknik Negeri Ujung Pandang</strong> dengan <strong>IPK 3.74</strong>. Menekuni dua bidang secara seimbang: merancang infografis publikasi instansi (KPU Kota Makassar), identitas visual, kemasan, 3D, dan motion graphics sebagai <strong>Graphic Designer</strong>, serta membangun aplikasi dan sistem web fungsional pada bidang <strong>Software Development</strong>.',
+      'Lulusan <strong>Politeknik Negeri Ujung Pandang</strong> dengan <strong>IPK 3.74</strong>. Menekuni dua bidang secara seimbang: merancang infografis publikasi instansi (KPU Kota Makassar), identitas visual, kemasan, 3D, dan motion graphics sebagai <strong>Graphic Designer</strong>, serta membangun aplikasi dan sistem fungsional pada bidang <strong>Software Development</strong>.',
     designer:
       'Sebagai <strong>Graphic Designer</strong> lulusan Politeknik Negeri Ujung Pandang (IPK 3.74), saya menguasai <strong>Photoshop, Illustrator, Premiere Pro, After Effects, Blender 3D, dan Canva</strong> dengan pengalaman merancang 20+ infografis &amp; publikasi resmi KPU Kota Makassar, kemasan produk, video sinematik, dan motion graphics.',
     developer:
-      'Pada bidang <strong>Software Development</strong>, sebagai lulusan Politeknik Negeri Ujung Pandang (IPK 3.74) saya membangun aplikasi dan sistem web seperti <strong>RUBOOTH Smart Photobooth Kiosk</strong> (Android Kotlin, Canon DSLR USB PTP, Gemini AI, Midtrans QRIS, Firebase IoT).'
+      'Pada bidang <strong>Software Development</strong>, sebagai lulusan Politeknik Negeri Ujung Pandang (IPK 3.74) saya membangun aplikasi dan sistem fungsional seperti <strong>RUBOOTH Smart Photobooth Kiosk</strong> (Android Kotlin, Canon DSLR USB PTP, Gemini AI, Midtrans QRIS, Firebase IoT) serta <strong>Aplikasi Keuangan Pribadi</strong> (Offline-First Android Flutter, Drift/SQLite, Riverpod, Laravel REST API, PostgreSQL).'
   },
 
   driveFilters: [
@@ -537,14 +537,15 @@ const PORTFOLIO_DATA = {
   ],
 
   devFilters: [
-    { key: 'all', label: 'Semua' },
-    { key: 'app', label: 'Pembuatan Aplikasi' }
+    { key: 'all', label: 'Semua (2)' },
+    { key: 'photobooth', label: 'Kios Pintar (Kotlin)' },
+    { key: 'finance', label: 'Keuangan (Flutter)' }
   ],
 
   devItems: [
     {
       id: 'rubooth',
-      cat: 'app',
+      cat: 'photobooth',
       badge: 'PEMBUATAN APLIKASI · ANDROID KOTLIN',
       title: 'RUBOOTH - Smart Android Photobooth Kiosk System',
       sub: 'Kotlin · Canon DSLR USB PTP · Gemini AI · Midtrans QRIS',
@@ -566,6 +567,36 @@ const PORTFOLIO_DATA = {
         { value: '300 DPI', label: 'Thermal Print Output', confirmed: false },
         { value: '30 FPS', label: 'Zero-Drop UVC Stream', confirmed: false },
         { value: '99.9%', label: 'Lock-Task Kiosk Uptime', confirmed: false }
+      ],
+      type: 'image'
+    },
+    {
+      id: 'personal-finance',
+      cat: 'finance',
+      badge: 'PEMBUATAN APLIKASI · FLUTTER & LARAVEL',
+      title: 'Aplikasi Keuangan Pribadi (Offline-First Personal Finance)',
+      sub: 'Flutter · Dart · SQLite/Drift · Riverpod · Laravel REST API · WorkManager',
+      img: 'assets/personal_finance_banner.svg',
+      repoUrl: 'https://github.com/alkhairan18/personal-finance',
+      repoLabel: 'github.com/alkhairan18/personal-finance',
+      desc: 'Aplikasi Android pengelolaan keuangan pribadi dengan arsitektur offline-first (Local-First). Mengintegrasikan basis data lokal SQLite terenkripsi SQLCipher via Drift ORM, sinkronisasi dua arah inkremental (cursor-based sync queue) ke backend REST API Laravel dan PostgreSQL, alokasi anggaran kategori, manajemen cicilan pinjaman multi-termin, pengingat periodik via Android WorkManager, serta ekspor laporan analitik ke dokumen PDF berstandar Unicode.',
+      tags: [
+        'Flutter',
+        'Dart',
+        'SQLite (Drift)',
+        'SQLCipher',
+        'Riverpod',
+        'Laravel REST API',
+        'PostgreSQL',
+        'Android WorkManager',
+        'Android Keystore',
+        'PDF Export'
+      ],
+      metrics: [
+        { value: '100%', label: 'Offline-First Availability', confirmed: false },
+        { value: 'AES-256', label: 'SQLCipher Encryption', confirmed: false },
+        { value: '< 50ms', label: 'Local Query Latency', confirmed: false },
+        { value: 'Cursor-Based', label: 'Sync Queue Engine', confirmed: false }
       ],
       type: 'image'
     }

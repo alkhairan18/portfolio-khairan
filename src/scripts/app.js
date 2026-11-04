@@ -31,6 +31,25 @@ const RUBOOTH_MODULES = [
   }
 ];
 
+const FINANCE_MODULES = [
+  {
+    name: 'SQLite / Drift & SQLCipher',
+    spec: '<strong>Alur Teknis:</strong> Seluruh transaksi (pengeluaran, pemasukan, mutasi cicilan) ditulis langsung ke basis data lokal terenkripsi SQLCipher via Drift DAO, menghasilkan respon UI instan bebas jeda tanpa menunggu panggilan jaringan.'
+  },
+  {
+    name: 'Riverpod State Management',
+    spec: '<strong>Alur Teknis:</strong> Riverpod mengelola aliran data reaktif secara terisolasi; mutasi pada tabel Drift memicu stream provider otomatis sehingga widget ringkasan saldo, grafik analitik, dan daftar hutang terbarui seketika.'
+  },
+  {
+    name: 'Biometric & Android Keystore',
+    spec: '<strong>Alur Teknis:</strong> Token autentikasi Laravel Sanctum dienkripsi menggunakan master key dalam Android Keystore melalui <code>flutter_secure_storage</code>, diperkuat otorisasi sensor biometrik sebelum membuka sesi keuangan.'
+  },
+  {
+    name: 'Sync Queue & Laravel REST API',
+    spec: '<strong>Alur Teknis:</strong> Setiap mutasi lokal dicatat ke <code>sync_queue</code>; saat jaringan online terdeteksi, Android WorkManager mengirim <em>batch payload</em> ke REST API Laravel dengan <em>idempotency key</em> untuk sinkronisasi aman ke PostgreSQL.'
+  }
+];
+
 function escapeHtml(str) {
   return String(str || '')
     .replace(/&/g, '&amp;')
@@ -176,12 +195,27 @@ function resetDriveSearch() {
 function selectRuboothModule(idx, tileEl) {
   const mod = RUBOOTH_MODULES[idx];
   if (!mod) return;
-  document.querySelectorAll('.bento-subgrid .arch-tile').forEach((el, i) => {
+  document.querySelectorAll('[data-dev-card="rubooth"] .arch-tile').forEach((el, i) => {
     el.classList.toggle('active', i === idx);
     el.setAttribute('aria-selected', i === idx ? 'true' : 'false');
   });
   const statusEl = document.getElementById('pipelineActiveStatus');
   const detailEl = document.getElementById('pipelineDetailBox');
+  if (statusEl) statusEl.textContent = `Modul Aktif: ${mod.name}`;
+  if (detailEl) {
+    detailEl.innerHTML = `<div class="pipeline-detail-spec">${mod.spec}</div>`;
+  }
+}
+
+function selectFinanceModule(idx, tileEl) {
+  const mod = FINANCE_MODULES[idx];
+  if (!mod) return;
+  document.querySelectorAll('.finance-arch-subgrid .arch-tile').forEach((el, i) => {
+    el.classList.toggle('active', i === idx);
+    el.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+  });
+  const statusEl = document.getElementById('financePipelineActiveStatus');
+  const detailEl = document.getElementById('financePipelineDetailBox');
   if (statusEl) statusEl.textContent = `Modul Aktif: ${mod.name}`;
   if (detailEl) {
     detailEl.innerHTML = `<div class="pipeline-detail-spec">${mod.spec}</div>`;
@@ -422,31 +456,43 @@ function renderDevList(filterKey) {
   currentFilteredDev = filterKey === 'all' ? [...items] : items.filter((i) => i.cat === filterKey);
 
   const container = document.getElementById('devWorkList');
-  if (!container) return;
-
-  container.innerHTML = currentFilteredDev
-    .map((item, idx) => {
-      return `
-        <div class="work-row" data-dev-idx="${idx}">
-          <img class="work-thumb" src="${escapeHtml(item.img)}" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async" />
-          <div>
-            <div class="work-row-name">
-              <button type="button" class="work-open" data-action="open-dev" data-idx="${idx}">
-                ${escapeHtml(item.title)}
-              </button>
+  if (container) {
+    container.innerHTML = currentFilteredDev
+      .map((item, idx) => {
+        return `
+          <div class="work-row" data-dev-idx="${idx}">
+            <img class="work-thumb" src="${escapeHtml(item.img)}" alt="${escapeHtml(item.title)}" loading="lazy" decoding="async" />
+            <div>
+              <div class="work-row-name">
+                <button type="button" class="work-open" data-action="open-dev" data-idx="${idx}">
+                  ${escapeHtml(item.title)}
+                </button>
+              </div>
+              <div class="work-row-sub">${escapeHtml(item.sub)}</div>
             </div>
-            <div class="work-row-sub">${escapeHtml(item.sub)}</div>
+            <div class="work-row-actions">
+              <a href="${escapeHtml(item.repoUrl)}" target="_blank" rel="noopener noreferrer" class="work-row-github">
+                GitHub &nearr;
+              </a>
+              <span class="work-row-cta">Detail</span>
+            </div>
           </div>
-          <div class="work-row-actions">
-            <a href="${escapeHtml(item.repoUrl)}" target="_blank" rel="noopener noreferrer" class="work-row-github">
-              GitHub &nearr;
-            </a>
-            <span class="work-row-cta">Detail</span>
-          </div>
-        </div>
-      `;
-    })
-    .join('');
+        `;
+      })
+      .join('');
+  }
+
+  const ruboothCard = document.querySelector('[data-dev-card="rubooth"]');
+  const financeCard = document.querySelector('[data-dev-card="personal-finance"]');
+
+  if (ruboothCard) {
+    const showRubooth = filterKey === 'all' || filterKey === 'photobooth' || filterKey === 'app';
+    ruboothCard.style.display = showRubooth ? '' : 'none';
+  }
+  if (financeCard) {
+    const showFinance = filterKey === 'all' || filterKey === 'finance';
+    financeCard.style.display = showFinance ? '' : 'none';
+  }
 
   if (currentFilteredDev.length > 0) {
     previewDevStageByIndex(0);
@@ -478,7 +524,9 @@ function previewDevStageByIndex(idx) {
 
 function openDevModalByIndex(idx) {
   currentModalIdx = -1;
-  const item = currentFilteredDev[idx];
+  const data = typeof window !== 'undefined' ? window.PORTFOLIO_DATA : null;
+  const items = data?.devItems || currentFilteredDev;
+  const item = items[idx] || currentFilteredDev[idx];
   if (!item) return;
 
   const prevBtn = document.getElementById('prevModalBtn');
@@ -918,6 +966,11 @@ function handleGlobalClick(e) {
       selectRuboothModule(idx, actionEl);
       break;
     }
+    case 'select-finance-module': {
+      const idx = parseInt(actionEl.getAttribute('data-idx') || '0', 10);
+      selectFinanceModule(idx, actionEl);
+      break;
+    }
     case 'close-modal': {
       if (actionEl.id === 'projectModal' && e.target !== actionEl) {
         return;
@@ -1072,6 +1125,7 @@ if (typeof window !== 'undefined') {
   window.openDevModalByIndex = openDevModalByIndex;
   window.previewDevStageByIndex = previewDevStageByIndex;
   window.selectRuboothModule = selectRuboothModule;
+  window.selectFinanceModule = selectFinanceModule;
   window.copyEmailToClipboard = copyEmailToClipboard;
   window.renderCaseStudy = renderCaseStudy;
   window.toggleStageVideo = toggleStageVideo;
